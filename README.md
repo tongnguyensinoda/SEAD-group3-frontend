@@ -1,1 +1,1 @@
-# group3-frontend
+# SEAD-Group3-Frontend
