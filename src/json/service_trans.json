@@ -1,0 +1,162 @@
+[
+  {
+    "stId": "STR1",
+    "stMechanicId": "mechanic1",
+    "stCustomerId": "customer5",
+    "stTotal": 4330000,
+    "stStartDate": "2021-06-06 00:00:00",
+    "stEndDate": "2021-06-06 05:00:00"
+  },
+  {
+    "stId": "STR2",
+    "stMechanicId": "mechanic1",
+    "stCustomerId": "customer4",
+    "stTotal": 210000,
+    "stStartDate": "2020-12-29 00:00:00",
+    "stEndDate": "2020-12-29 11:00:00"
+  },
+  {
+    "stId": "STR3",
+    "stMechanicId": "mechanic2",
+    "stCustomerId": "customer1",
+    "stTotal": 4120000,
+    "stStartDate": "2021-06-03 00:00:00",
+    "stEndDate": "2021-06-04 17:00:00"
+  },
+  {
+    "stId": "STR4",
+    "stMechanicId": "mechanic5",
+    "stCustomerId": "customer3",
+    "stTotal": 2140000,
+    "stStartDate": "2020-10-09 00:00:00",
+    "stEndDate": "2020-10-10 10:00:00"
+  },
+  {
+    "stId": "STR5",
+    "stMechanicId": "mechanic2",
+    "stCustomerId": "customer3",
+    "stTotal": 2760000,
+    "stStartDate": "2020-07-31 00:00:00",
+    "stEndDate": "2020-07-31 05:00:00"
+  },
+  {
+    "stId": "STR6",
+    "stMechanicId": "mechanic5",
+    "stCustomerId": "customer3",
+    "stTotal": 4800000,
+    "stStartDate": "2020-03-17 00:00:00",
+    "stEndDate": "2020-03-18 09:00:00"
+  },
+  {
+    "stId": "STR7",
+    "stMechanicId": "mechanic1",
+    "stCustomerId": "customer2",
+    "stTotal": 3050000,
+    "stStartDate": "2021-07-25 00:00:00",
+    "stEndDate": "2021-07-26 18:00:00"
+  },
+  {
+    "stId": "STR8",
+    "stMechanicId": "mechanic3",
+    "stCustomerId": "customer3",
+    "stTotal": 6250000,
+    "stStartDate": "2021-07-23 00:00:00",
+    "stEndDate": "2021-07-25 00:00:00"
+  },
+  {
+    "stId": "STR9",
+    "stMechanicId": "mechanic4",
+    "stCustomerId": "customer5",
+    "stTotal": 4100000,
+    "stStartDate": "2020-08-25 00:00:00",
+    "stEndDate": "2020-08-25 12:00:00"
+  },
+  {
+    "stId": "STR10",
+    "stMechanicId": "mechanic3",
+    "stCustomerId": "customer5",
+    "stTotal": 3380000,
+    "stStartDate": "2021-05-10 00:00:00",
+    "stEndDate": "2021-05-11 22:00:00"
+  },
+  {
+    "stId": "STR11",
+    "stMechanicId": "mechanic3",
+    "stCustomerId": "customer5",
+    "stTotal": 7240000,
+    "stStartDate": "2020-08-15 00:00:00",
+    "stEndDate": "2020-08-15 16:00:00"
+  },
+  {
+    "stId": "STR12",
+    "stMechanicId": "mechanic1",
+    "stCustomerId": "customer5",
+    "stTotal": 4130000,
+    "stStartDate": "2021-11-07 00:00:00",
+    "stEndDate": "2021-11-07 21:00:00"
+  },
+  {
+    "stId": "STR13",
+    "stMechanicId": "mechanic2",
+    "stCustomerId": "customer3",
+    "stTotal": 1950000,
+    "stStartDate": "2021-03-18 00:00:00",
+    "stEndDate": "2021-03-18 05:00:00"
+  },
+  {
+    "stId": "STR14",
+    "stMechanicId": "mechanic2",
+    "stCustomerId": "customer5",
+    "stTotal": 4550000,
+    "stStartDate": "2021-10-02 00:00:00",
+    "stEndDate": "2021-10-03 14:00:00"
+  },
+  {
+    "stId": "STR15",
+    "stMechanicId": "mechanic5",
+    "stCustomerId": "customer3",
+    "stTotal": 4710000,
+    "stStartDate": "2020-05-31 00:00:00",
+    "stEndDate": "2020-06-01 10:00:00"
+  },
+  {
+    "stId": "STR16",
+    "stMechanicId": "mechanic2",
+    "stCustomerId": "customer2",
+    "stTotal": 9160000,
+    "stStartDate": "2020-06-15 00:00:00",
+    "stEndDate": "2020-06-16 22:00:00"
+  },
+  {
+    "stId": "STR17",
+    "stMechanicId": "mechanic3",
+    "stCustomerId": "customer3",
+    "stTotal": 7700000,
+    "stStartDate": "2021-03-27 00:00:00",
+    "stEndDate": "2021-03-28 02:00:00"
+  },
+  {
+    "stId": "STR18",
+    "stMechanicId": "mechanic1",
+    "stCustomerId": "customer2",
+    "stTotal": 7360000,
+    "stStartDate": "2020-09-03 00:00:00",
+    "stEndDate": "2020-09-04 20:00:00"
+  },
+  {
+    "stId": "STR19",
+    "stMechanicId": "mechanic1",
+    "stCustomerId": "customer1",
+    "stTotal": 2340000,
+    "stStartDate": "2020-11-08 00:00:00",
+    "stEndDate": "2020-11-09 02:00:00"
+  },
+  {
+    "stId": "STR20",
+    "stMechanicId": "mechanic4",
+    "stCustomerId": "customer1",
+    "stTotal": 9790000,
+    "stStartDate": "2020-11-25 00:00:00",
+    "stEndDate": "2020-11-25 12:00:00"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "uUsername": "mechanic1",
+    "uPassword": "pass1",
+    "uName": "Adeline Meagan",
+    "uAddress": "Adeline's home",
+    "uEmail": "adeline1@m.com",
+    "uPhone": "081731191",
+    "uRole": "mechanic"
+  },
+  {
+    "uUsername": "mechanic2",
+    "uPassword": "pass2",
+    "uName": "Brenda Joey",
+    "uAddress": "Brenda's home",
+    "uEmail": "brenda2@m.com",
+    "uPhone": "051497951",
+    "uRole": "mechanic"
+  },
+  {
+    "uUsername": "mechanic3",
+    "uPassword": "pass3",
+    "uName": "Bethany Luz",
+    "uAddress": "Bethany's home",
+    "uEmail": "bethany3@m.com",
+    "uPhone": "017347565",
+    "uRole": "mechanic"
+  },
+  {
+    "uUsername": "mechanic4",
+    "uPassword": "pass4",
+    "uName": "Flora Sue",
+    "uAddress": "Flora's home",
+    "uEmail": "flora4@m.com",
+    "uPhone": "075344178",
+    "uRole": "mechanic"
+  },
+  {
+    "uUsername": "mechanic5",
+    "uPassword": "pass5",
+    "uName": "Mauro Marcy",
+    "uAddress": "Mauro's home",
+    "uEmail": "mauro5@m.com",
+    "uPhone": "007532742",
+    "uRole": "mechanic"
+  }
+]

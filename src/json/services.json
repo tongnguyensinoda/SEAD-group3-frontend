@@ -1,0 +1,116 @@
+[
+  {
+    "sId": "SER1",
+    "sName": "Pasquale's fan fixing service",
+    "sCost": 2620000,
+    "sRating": 1.47
+  },
+  {
+    "sId": "SER2",
+    "sName": "June's phone covering service",
+    "sCost": 6680000,
+    "sRating": 2.52
+  },
+  {
+    "sId": "SER3",
+    "sName": "Mauro's light covering service",
+    "sCost": 300000,
+    "sRating": 4.57
+  },
+  {
+    "sId": "SER4",
+    "sName": "Al's window fixing service",
+    "sCost": 7130000,
+    "sRating": 2.78
+  },
+  {
+    "sId": "SER5",
+    "sName": "Gwendolyn's car fixing service",
+    "sCost": 9240000,
+    "sRating": 2.27
+  },
+  {
+    "sId": "SER6",
+    "sName": "Evan's wall fixing service",
+    "sCost": 9620000,
+    "sRating": 4.52
+  },
+  {
+    "sId": "SER7",
+    "sName": "Aurora's car covering service",
+    "sCost": 7440000,
+    "sRating": 1.12
+  },
+  {
+    "sId": "SER8",
+    "sName": "Myron's phone covering service",
+    "sCost": 5670000,
+    "sRating": 1.93
+  },
+  {
+    "sId": "SER9",
+    "sName": "Omar's car covering service",
+    "sCost": 9760000,
+    "sRating": 2.16
+  },
+  {
+    "sId": "SER10",
+    "sName": "Evan's window fixing service",
+    "sCost": 1910000,
+    "sRating": 3.52
+  },
+  {
+    "sId": "SER11",
+    "sName": "Gwendolyn's bike fixing service",
+    "sCost": 7610000,
+    "sRating": 2.33
+  },
+  {
+    "sId": "SER12",
+    "sName": "Gwendolyn's laptop covering service",
+    "sCost": 5200000,
+    "sRating": 4.32
+  },
+  {
+    "sId": "SER13",
+    "sName": "Taylor's car repairing service",
+    "sCost": 2910000,
+    "sRating": 3.35
+  },
+  {
+    "sId": "SER14",
+    "sName": "Rosanne's laptop covering service",
+    "sCost": 6040000,
+    "sRating": 4.41
+  },
+  {
+    "sId": "SER15",
+    "sName": "Staci's car covering service",
+    "sCost": 4250000,
+    "sRating": 3.66
+  },
+  {
+    "sId": "SER16",
+    "sName": "Dewey's laptop repairing service",
+    "sCost": 890000,
+    "sRating": 2.76
+  },
+  {
+    "sId": "SER17",
+    "sName": "Luz's light removing service",
+    "sCost": 5340000,
+    "sRating": 4.36
+  },
+  {
+    "sId": "SER18",
+    "sName": "Scot's phone fixing service",
+    "sCost": 4810000,
+    "sRating": 1.17
+  },
+  {
+    "sId": "SER19",
+    "sName": "Maria's fan covering service",
+    "sCost": 6630000,
+    "sRating": 1.68
+  }
+]
