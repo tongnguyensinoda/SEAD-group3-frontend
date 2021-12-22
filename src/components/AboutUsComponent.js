@@ -1,6 +1,8 @@
 import React from 'react'
 import "./About.css";
 
+
+// để tạm--- đang fix
 function AboutUsComponent() {
     return (
         <div>
