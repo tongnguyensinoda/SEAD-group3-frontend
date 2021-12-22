@@ -8,7 +8,7 @@ function FooterComponent() {
 
             <div class="content about">
                 <h2>About us</h2>
-                <p> paragraphe</p>
+                <p> paragraphe wfdwsfsdfsdfdsf  dsfs dsf sdf sdf sdf sd sf sdfsdfsdfsdfsfsd  sf s</p>
                 <ul class="social-icon">
                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
