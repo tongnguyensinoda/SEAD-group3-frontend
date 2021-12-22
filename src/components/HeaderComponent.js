@@ -9,7 +9,7 @@ function HeaderComponent() {
     <a class="logo">
     <img style={{height:'70px',width:'100px'}} src="https://api.hatchwise.com/api/public/storage/assets/contests/entries/L989778-20180310072325.jpg" rounded/>
     </a>
-    <a href="#home">HOME</a>
+    <a href="/">HOME</a>
     <div class="dropdown">
         <button class="dropbtn">SERVICE 
             <i class="fa fa-caret-down"></i>
