@@ -19,7 +19,7 @@ export const SignIn = () => {
 
     // Open the Sign Up page
     const [leftText, setleftText] = useState("sign-in");
-    const [overlay, setoverlay] = useState("overlay");
+    const [overlay, setoverlay] = useState("overlay1");
     const [rightText, setrightText] = useState("sign-up");
     const [signinForm, setsigninForm] = useState("sign-up");
     const [accountForm, setaccountForm] = useState("sign-in");
@@ -37,7 +37,7 @@ export const SignIn = () => {
         setrightText("sign-up overlay-text-right-animation-out");
         // rightText.className += " overlay-text-right-animation-out";
         // overlay.className += " open-sign-up";
-        setoverlay("overlay open-sign-up");
+        setoverlay("overlay1 open-sign-up");
         // leftText.className += " overlay-text-left-animation";
         setleftText("sign-in overlay-text-left-animation");
         // hide the sign up form once it is out of view
@@ -71,7 +71,7 @@ export const SignIn = () => {
 
         setsigninForm("sign-up form-right-slide-out");
         setleftText("sign-in overlay-text-left-animation-out");
-        setoverlay("overlay open-sign-in");
+        setoverlay("overlay1 open-sign-in");
         setrightText("sign-up overlay-text-right-animation");
 
         // hide the sign in form once it is out of view
@@ -93,26 +93,30 @@ export const SignIn = () => {
 
     return (
         <div>
-            <div class="container">
-                <div className={overlay} id="overlay">
+            <div class="container1">
+                <div className={overlay} id="overlay1">
                     <div class={leftText} id="sign-in">
-                        <h1>Welcome Back!</h1>
-                        <p>To keep connected with us please login with your personal info</p>
+                        <h1 className="h1-signin">Welcome Back!</h1>
+                        <p className="p-signin">
+                            To keep connected with us please login with your personal info
+                        </p>
                         <button class="switch-button" id="slide-right-button" onClick={openSignIn}>
                             Sign In
                         </button>
                     </div>
                     <div className={rightText} id="sign-up">
-                        <h1>Hello, Friend!</h1>
-                        <p>Enter your personal details and start a journey with us</p>
+                        <h1 className="h1-signin">Hello, Friend!</h1>
+                        <p className="p-signin">
+                            Enter your personal details and start a journey with us
+                        </p>
                         <button class="switch-button" id="slide-left-button" onClick={openSignUp}>
                             Sign Up
                         </button>
                     </div>
                 </div>
-                <div class="form">
+                <div class="form1">
                     <div class={accountForm} style={{ display: styleAccount }} id="sign-in-info">
-                        <h1>Sign In</h1>
+                        <h1 className="h1-signin">Sign In</h1>
                         <div class="social-media-buttons">
                             <div class="icon">
                                 <svg viewBox="0 0 24 24">
@@ -141,14 +145,18 @@ export const SignIn = () => {
                         </div>
                         <p class="small">or use your email account:</p>
                         <form id="sign-in-form">
-                            <input type="text" placeholder="Email" />
-                            <input type="password" placeholder="Password" />
+                            <input className="input-signin" type="text" placeholder="Email" />
+                            <input
+                                className="input-signin"
+                                type="password"
+                                placeholder="Password"
+                            />
                             <p class="forgot-password">Forgot your password?</p>
                             <button class="control-button in">Sign In</button>
                         </form>
                     </div>
                     <div class={signinForm} style={{ display: styleSignIn }} id="sign-up-info">
-                        <h1>Create Account</h1>
+                        <h1 className="h1-signin">Create Account</h1>
                         <div class="social-media-buttons">
                             <div class="icon">
                                 <svg viewBox="0 0 24 24">
@@ -177,19 +185,26 @@ export const SignIn = () => {
                         </div>
                         <p class="small">or use your email for registration:</p>
                         <form id="sign-up-form">
-                            <input type="text" placeholder="Name" />
-                            <input type="email" placeholder="Email" autoComplete="username" />
+                            <input className="input-signin" type="text" placeholder="Name" />
                             <input
+                                className="input-signin"
+                                type="email"
+                                placeholder="Email"
+                                autoComplete="username"
+                            />
+                            <input
+                                className="input-signin"
                                 type="password"
                                 placeholder="Password"
                                 autoComplete="new-password"
                             />
                             <input
+                                className="input-signin"
                                 type="password"
                                 placeholder="Re-type password"
                                 autoComplete="new-password"
                             />
-                            <select name="userType" id="userType">
+                            <select className="select-singin" name="userType" id="userType">
                                 <option value="" disabled selected>
                                     Account Type
                                 </option>
