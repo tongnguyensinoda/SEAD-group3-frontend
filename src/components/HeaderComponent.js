@@ -10,7 +10,7 @@ function HeaderComponent() {
     <img style={{height:'70px',width:'100px'}} src="https://api.hatchwise.com/api/public/storage/assets/contests/entries/L989778-20180310072325.jpg" rounded/>
     </a>
     <a href="/">HOME</a>
-    <div class="dropdown">
+    {/* <div class="dropdown">
         <button class="dropbtn">SERVICE 
             <i class="fa fa-caret-down"></i>
         </button>
@@ -19,7 +19,8 @@ function HeaderComponent() {
             <a href="#">Link 2</a>
             <a href="#">Link 3</a>
         </div>
-    </div> 
+    </div>  */}
+    <a href="/service"><i class="fa fa-cogs"></i>SERVICE</a>
     <a href="about"><i class="fa fa-user"></i>ABOUT</a>
     <a href="/signin"><i class="fa fa-phone"></i>CONTACT US</a>
 
