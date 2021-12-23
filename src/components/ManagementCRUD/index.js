@@ -41,6 +41,7 @@ const ManagementCRUD = (props) => {
                     <th>Price ($)</th>
                     <th>brand</th>
                     <th>Amount</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -100,7 +101,7 @@ const ManagementCRUD = (props) => {
                         >
                             <>{item.amount}</>
                         </td>
-                        <td style={{ width: "8%" }}>
+                        <td style={{ width: "15%" }}>
                             <div className="btn-container btn">
                                 <div
                                     className="btn-edit center"
@@ -114,8 +115,6 @@ const ManagementCRUD = (props) => {
                                     Edit
                                 </div>
                             </div>
-                        </td>
-                        <td style={{ width: "7%" }}>
                             <div className="btn-container btn">
                                 <div
                                     className="btn-delete center"

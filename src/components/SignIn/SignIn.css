@@ -35,10 +35,10 @@ html {
     clip: rect(0, 385px, var(--form-height), 0);
 }
 .open-sign-up {
-    animation: slideleft 1s linear forwards;
+    animation: slideleft 0.8s linear forwards;
 }
 .open-sign-in {
-    animation: slideright 1s linear forwards;
+    animation: slideright 0.8s linear forwards;
 }
 .overlay .sign-in,
 .overlay .sign-up {
