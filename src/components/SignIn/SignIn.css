@@ -6,25 +6,18 @@
     /* Light Blue */
     --right-color: #96dbe2;
 }
-body,
-html {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    font-family: "Helvetica Neue", sans-serif;
-    letter-spacing: 0.5px;
-}
-.container {
+
+.container1 {
     width: var(--form-width);
     height: var(--form-height);
     position: relative;
     margin: auto;
     box-shadow: 2px 10px 40px rgba(22, 20, 19, 0.4);
     border-radius: 10px;
-    margin-top: 50px;
+    margin: 50px auto;
 }
 /* ---------------------- Overlay ---------------------- */
-.overlay {
+.overlay1 {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -35,13 +28,13 @@ html {
     clip: rect(0, 385px, var(--form-height), 0);
 }
 .open-sign-up {
-    animation: slideleft 1s linear forwards;
+    animation: slideleft 0.7s linear forwards;
 }
 .open-sign-in {
-    animation: slideright 1s linear forwards;
+    animation: slideright 0.7s linear forwards;
 }
-.overlay .sign-in,
-.overlay .sign-up {
+.overlay1 .sign-in,
+.overlay1 .sign-up {
     /* Width is 385px - padding */
     --padding: 50px;
     width: calc(385px - var(--padding) * 2);
@@ -53,7 +46,7 @@ html {
     padding: 0px var(--padding);
     text-align: center;
 }
-.overlay .sign-in {
+.overlay1 .sign-in {
     float: left;
 }
 .overlay-text-left-animation {
@@ -62,7 +55,7 @@ html {
 .overlay-text-left-animation-out {
     animation: text-slide-out-left 1s linear;
 }
-.overlay .sign-up {
+.overlay1 .sign-up {
     float: right;
 }
 .overlay-text-right-animation {
@@ -71,11 +64,11 @@ html {
 .overlay-text-right-animation-out {
     animation: text-slide-out-right 1s linear;
 }
-.overlay h1 {
+.overlay1 .h1-signin {
     margin: 0px 5px;
     font-size: 2.1rem;
 }
-.overlay p {
+.overlay1 .p-signin {
     margin: 20px 0px 30px;
     font-weight: 200;
 }
@@ -112,14 +105,14 @@ html {
     background-color: var(--right-color);
 }
 /* -------------------------- Forms -------------------------- */
-.form {
+.form1 {
     width: 100%;
     height: 100%;
     position: absolute;
     border-radius: 10px;
 }
-.form .sign-in,
-.form .sign-up {
+.form1 .sign-in,
+.form1 .sign-up {
     --padding: 50px;
     position: absolute;
     width: calc(var(--form-width) - 385px - var(--padding) * 2);
@@ -133,32 +126,32 @@ html {
     text-align: center;
 }
 /* Sign in is initially not displayed */
-.form .sign-in {
+.form1 .sign-in {
     display: none;
 }
-.form .sign-in {
+.form1 .sign-in {
     left: 0;
 }
-.form .sign-up {
+.form1 .sign-up {
     right: 0;
 }
-.form-right-slide-in {
+.form1-right-slide-in {
     animation: form-slide-in-right 1s;
 }
-.form-right-slide-out {
+.form1-right-slide-out {
     animation: form-slide-out-right 1s;
 }
-.form-left-slide-in {
+.form1-left-slide-in {
     animation: form-slide-in-left 1s;
 }
-.form-left-slide-out {
+.form1-left-slide-out {
     animation: form-slide-out-left 1s;
 }
-.form .sign-in h1 {
+.form1 .sign-in h1 {
     color: var(--right-color);
     margin: 0;
 }
-.form .sign-up h1 {
+.form1 .sign-up h1 {
     color: var(--left-color);
     margin: 0;
 }
@@ -188,9 +181,9 @@ html {
     width: 25px;
     height: 25px;
 }
-#sign-in-form input,
-#sign-up-form input,
-#sign-up-form select {
+#sign-in-form .input-signin,
+#sign-up-form .input-signin,
+#sign-up-form .select {
     margin: 12px;
     font-size: 14px;
     padding: 15px;
@@ -204,7 +197,7 @@ html {
     letter-spacing: 1.5px;
     padding-left: 20px;
 }
-#sign-in-form input::placeholder {
+#sign-in-form .input-signin::placeholder {
     letter-spacing: 1px;
 }
 .forgot-password {
