@@ -4,7 +4,7 @@ import "./index.css";
 import { SignIn } from "./components/SignIn";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import HeaderComponent from "./components/HeaderComponent";
-import AboutUsComponent from "./components/AboutUsComponent";
+import AboutUsComponent from "./components/About";
 import HomeComponent from "./components/HomeComponent";
 import FooterComponent from "./components/FooterComponent";
 import Management from "./components/Management";
