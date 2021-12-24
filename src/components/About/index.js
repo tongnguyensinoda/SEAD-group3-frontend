@@ -1,10 +1,52 @@
 import React from "react";
 import "./About.css";
+import AboutUs from "../../about-us.jpg";
 
-// để tạm--- đang fix
 function AboutUsComponent() {
     return (
         <>
+            <section className="section2">
+                <img class="image" src={AboutUs}></img>
+                <div class="content3">
+                    <h2>About Us</h2>
+                    <span></span>
+
+                    <p>
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis aspernatur
+                        voluptas inventore ab voluptates nostrum minus illo laborum harum laudantium
+                        earum ut, temporibus fugiat sequi explicabo facilis unde quos corporis!
+                    </p>
+
+                    <ul class="links-about">
+                        <li>
+                            <a href="#">work</a>
+                        </li>
+                        <br></br>
+                        <li>
+                            <a href="#">service</a>
+                        </li>
+                        <br></br>
+                        {/* <li>
+                            <a href="#">contact</a>
+                        </li> */}
+                    </ul>
+
+                    <ul class="icons">
+                        <li>
+                            <i class="fa fa-twitter"></i>
+                        </li>
+                        <li>
+                            <i class="fa fa-facebook"></i>
+                        </li>
+                        <li>
+                            <i class="fa fa-github"></i>
+                        </li>
+                        <li>
+                            <i class="fa fa-pinterest"></i>
+                        </li>
+                    </ul>
+                </div>
+            </section>
             <div class="container2">
                 <div class="content">
                     <div class="left-side">
@@ -50,7 +92,7 @@ function AboutUsComponent() {
                     </div>
                 </div>
             </div>
-            <div>
+            {/* <div>
                 <div class="wrapper">
                     <div class="hr">
                         <br />
@@ -146,7 +188,7 @@ function AboutUsComponent() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 }
