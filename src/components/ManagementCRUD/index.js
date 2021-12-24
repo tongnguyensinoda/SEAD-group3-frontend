@@ -4,21 +4,53 @@ import { useState, useEffect } from "react";
 import "./ManagementCRUD.css";
 import { Item, LeftContent, RightContent, Wrapper, Text, ReportForm } from "./ManagementCRUD.style";
 import Avatar from "../../avatar.png";
+import styled from "styled-components";
+import Pending from "../../pending.png";
+import BlackPending from "../../black-pending.png";
+import Checked from "../../checked.png";
+const ProgressStatus = ({ theme, progress }) => {
+    return (
+        <img
+            alt=""
+            src={
+                theme === "light" && progress === false
+                    ? Pending
+                    : theme === "black" && progress === false
+                    ? BlackPending
+                    : progress === true
+                    ? Checked
+                    : Checked
+            }
+            style={{ width: "35px" }}
+        />
+    );
+};
 
-const ManagementCRUD = (props) => {
-    const { items, deleteItem, editRow, currentItem, updateItem, theme, currentPage, pageSize } =
-        props;
+const ManagementCRUD = ({
+    items,
+    deleteItem,
+    editRow,
+    currentItem,
+    updateItem,
+    theme,
+    currentPage,
+    pageSize,
+    container,
+}) => {
+    // const { items, deleteItem, editRow, currentItem, updateItem, theme, currentPage, pageSize } =
+    //     props;
     // const [item, setItem] = React.useState();
     const [deleteId, setDeleteId] = useState();
     const [editItem, setEditItem] = useState();
-    const [deleteModalShow, setdeleteModalShow] = React.useState(false);
-    const [editModalShow, setEditModalShow] = React.useState(false);
-    const [ItemModalShow, setItemModalShow] = React.useState(false);
-    const [itemShow, setItemShow] = React.useState({});
+    const [deleteModalShow, setdeleteModalShow] = useState(false);
+    const [editModalShow, setEditModalShow] = useState(false);
+    const [ItemModalShow, setItemModalShow] = useState(false);
+    const [itemShow, setItemShow] = useState({});
     const handleDeleteItem = () => {
         setdeleteModalShow(false);
         deleteItem(deleteId);
     };
+
     let itemsArray = [];
     for (let i = (currentPage - 1) * pageSize; i < (currentPage - 1) * pageSize + pageSize; i++) {
         if (items[i] == null) {
@@ -26,6 +58,7 @@ const ManagementCRUD = (props) => {
         }
         itemsArray.push(items[i]);
     }
+
     return (
         <Table
             hover
@@ -40,7 +73,7 @@ const ManagementCRUD = (props) => {
                     <th>Price ($)</th>
                     <th>brand</th>
                     <th>Amount</th>
-                    <th>Action</th>
+                    <th>Progress</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +84,7 @@ const ManagementCRUD = (props) => {
                             onClick={() => {
                                 setItemModalShow(true);
                                 setItemShow(item);
+                                editRow(item);
                             }}
                         >
                             <>{item.id}</>
@@ -60,6 +94,7 @@ const ManagementCRUD = (props) => {
                             onClick={() => {
                                 setItemModalShow(true);
                                 setItemShow(item);
+                                editRow(item);
                             }}
                         >
                             <>{item.name}</>
@@ -69,6 +104,7 @@ const ManagementCRUD = (props) => {
                             onClick={() => {
                                 setItemModalShow(true);
                                 setItemShow(item);
+                                editRow(item);
                             }}
                         >
                             <>{item.description}</>
@@ -78,6 +114,7 @@ const ManagementCRUD = (props) => {
                             onClick={() => {
                                 setItemModalShow(true);
                                 setItemShow(item);
+                                editRow(item);
                             }}
                         >
                             <>{item.price}</>
@@ -87,6 +124,7 @@ const ManagementCRUD = (props) => {
                             onClick={() => {
                                 setItemModalShow(true);
                                 setItemShow(item);
+                                editRow(item);
                             }}
                         >
                             <>{item.brand}</>
@@ -96,12 +134,27 @@ const ManagementCRUD = (props) => {
                             onClick={() => {
                                 setItemModalShow(true);
                                 setItemShow(item);
+                                editRow(item);
                             }}
                         >
                             <>{item.amount}</>
                         </td>
                         <td style={{ width: "15%" }}>
-                            <div className="btn-container btn">
+                            <img
+                                alt=""
+                                src={
+                                    theme === "light" && item.progress === false
+                                        ? Pending
+                                        : theme === "dark" && item.progress === false
+                                        ? BlackPending
+                                        : item.progress === true
+                                        ? Checked
+                                        : Checked
+                                }
+                                style={{ width: "35px" }}
+                            />
+                            {/* <ProgressStatus theme={theme} progress={progress}></ProgressStatus> */}
+                            {/* <div className="btn-container btn">
                                 <div
                                     className="btn-edit center"
                                     onClick={() => {
@@ -125,7 +178,7 @@ const ManagementCRUD = (props) => {
                                 >
                                     Delete
                                 </div>
-                            </div>
+                            </div> */}
                         </td>
                     </tr>
                 ))}
@@ -144,11 +197,13 @@ const ManagementCRUD = (props) => {
                     onHide={() => setdeleteModalShow(false)}
                     handleDeleteItem={handleDeleteItem}
                 />
-                <ItemDetailModal
+                <ItemDetailModalStyled
                     show={ItemModalShow}
                     onHide={() => setItemModalShow(false)}
-                    item={itemShow}
+                    currentItem={currentItem}
+                    updateItem={updateItem}
                     theme={theme}
+                    // setProgress={setProgress}
                 />
             </tbody>
         </Table>
@@ -291,6 +346,10 @@ function EditModal(props) {
     );
 }
 function ItemDetailModal(props) {
+    const handleUpdate = () => {
+        props.onHide();
+        props.updateItem(props.currentItem.id, { ...props.currentItem, progress: true });
+    };
     return (
         <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
             <ReportForm
@@ -299,9 +358,10 @@ function ItemDetailModal(props) {
                 textColor={props.theme == "light" ? " #4014ba" : "#a387f1"}
                 titleColor={props.theme == "light" ? " blackk" : "#f33d3d"}
                 selectBackground={props.theme == "light" ? " white" : "#001529"}
+                style={{ borderRadius: "20px" }}
             >
                 <div className="header">
-                    <img src={Avatar} />
+                    <img src={Avatar} className="user-img" />
                     <h4>Mr. Tran Vu Hoang Viet</h4>
                     <h6>Software engineering</h6>
                 </div>
@@ -345,11 +405,20 @@ function ItemDetailModal(props) {
                         </select>
                     </div>
                     <div className="confirm-button">
-                        <button class="btn2 draw-border"> Confirm</button>
+                        <button class="btn2 draw-border" onClick={handleUpdate}>
+                            {" "}
+                            Confirm
+                        </button>
                     </div>
                 </div>
             </ReportForm>
         </Modal>
     );
 }
+
+const ItemDetailModalStyled = styled(ItemDetailModal)`
+    .modal-content {
+        border-radius: 24px;
+    }
+`;
 export default ManagementCRUD;

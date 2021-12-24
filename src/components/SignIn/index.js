@@ -151,6 +151,7 @@ export const SignIn = () => {
                                 type="password"
                                 placeholder="Password"
                             />
+                            <br></br>
                             <p class="forgot-password">Forgot your password?</p>
                             <button class="control-button in">Sign In</button>
                         </form>
@@ -204,6 +205,7 @@ export const SignIn = () => {
                                 placeholder="Re-type password"
                                 autoComplete="new-password"
                             />
+                            <br></br>
                             <select className="select-singin" name="userType" id="userType">
                                 <option value="" disabled selected>
                                     Account Type

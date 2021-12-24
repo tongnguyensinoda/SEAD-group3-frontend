@@ -11,41 +11,45 @@ import { Container, Spinner } from "react-bootstrap";
 import { Navbar } from "../Navbar";
 import ManagementCRUD from "../ManagementCRUD";
 import { Wrapper } from "./Management.style";
+const initialState = [
+    {
+        id: 1,
+        name: "Chocopie",
+        description: "Bánh chocopie",
+        price: 20000,
+        brand: "orion",
+        amount: 10,
+        progress: false,
+    },
+    {
+        id: 2,
+        name: "Chocopie",
+        description: "Bánh chocopie",
+        price: 20000,
+        brand: "orion",
+        amount: 10,
+        progress: false,
+    },
+    {
+        id: 3,
+        name: "Chocopie",
+        description: "Bánh chocopie",
+        price: 20000,
+        brand: "orion",
+        amount: 10,
+        progress: false,
+    },
+    {
+        id: 4,
+        name: "Chocopie",
+        description: "Bánh chocopie",
+        price: 20000,
+        brand: "orion",
+        amount: 10,
+        progress: false,
+    },
+];
 function Management() {
-    const initialState = [
-        {
-            id: 1,
-            name: "Chocopie",
-            description: "Bánh chocopie",
-            price: 20000,
-            brand: "orion",
-            amount: 10,
-        },
-        {
-            id: 2,
-            name: "Chocopie",
-            description: "Bánh chocopie",
-            price: 20000,
-            brand: "orion",
-            amount: 10,
-        },
-        {
-            id: 3,
-            name: "Chocopie",
-            description: "Bánh chocopie",
-            price: 20000,
-            brand: "orion",
-            amount: 10,
-        },
-        {
-            id: 4,
-            name: "Chocopie",
-            description: "Bánh chocopie",
-            price: 20000,
-            brand: "orion",
-            amount: 10,
-        },
-    ];
     const [currentItem, setCurrentItem] = useState({});
     const [items, setItems] = useState(initialState);
     const [isLoading, setIsLoading] = useState(false);
@@ -234,7 +238,7 @@ function Management() {
         //     ...filters,
         //     currentPage: page,
         // };
-        console.log(page);
+        // console.log(page);
         setFilters({ ...filters, currentPage: page });
         // obj = queryString.stringify(obj);
         // window.location.href = link4 + obj;
