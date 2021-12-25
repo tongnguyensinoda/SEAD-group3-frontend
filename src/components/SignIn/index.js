@@ -208,7 +208,7 @@ export const SignIn = () => {
                             <br></br>
                             <select className="select-singin" name="userType" id="userType">
                                 <option value="" disabled selected>
-                                    Account Type
+                                    Account Types
                                 </option>
                                 <option value="Shop/Mechanic">Shop/Mechanic</option>
                                 <option value="User">User</option>
