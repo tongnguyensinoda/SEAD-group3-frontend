@@ -10,12 +10,12 @@ export const Wrapper = styled.div`
     }
     justify-content: center;
     /* min-width: 992px; */
-    width: 100vw;
+    /* width: 100vw; */
 `;
 
 export const Content = styled.div`
     display: flex;
-    max-width: 1366px;
+    max-width: 1390px;
     align-items: center;
     justify-content: center;
     margin: 0 auto;

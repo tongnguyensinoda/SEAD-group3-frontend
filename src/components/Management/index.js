@@ -11,6 +11,7 @@ import { Container, Spinner } from "react-bootstrap";
 import { Navbar } from "../Navbar";
 import ManagementCRUD from "../ManagementCRUD";
 import { Wrapper } from "./Management.style";
+import SubNav from "../SubNav";
 const initialState = [
     {
         id: 1,
@@ -304,6 +305,8 @@ function Management() {
 
     return (
         <>
+            <SubNav content="Management"></SubNav>
+
             {isLoading === true ? (
                 <>
                     style=

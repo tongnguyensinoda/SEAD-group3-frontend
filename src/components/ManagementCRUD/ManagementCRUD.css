@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Patua+One&display=swap");
 
-td,
-tr {
+.ManagementCrud td,
+.ManagementCrud tr {
     text-align: center;
     vertical-align: middle;
     /* max-height: 60px !important;
@@ -10,10 +10,10 @@ tr {
     /* height:  */
     height: 50px;
 }
-tr {
+.ManagementCrud tr {
     width: 1270px;
 }
-td:hover {
+.ManagementCrud td:hover {
     cursor: pointer;
 }
 @import url(https://fonts.googleapis.com/css?family=Montserrat);

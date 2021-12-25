@@ -1,10 +1,12 @@
 import React from "react";
 import "./About.css";
 import AboutUs from "../../about-us.jpg";
+import SubNav from "../SubNav";
 
 function AboutUsComponent() {
     return (
         <>
+            <SubNav content="About"></SubNav>
             <section className="section2" id="section2">
                 <img class="image" src={AboutUs}></img>
                 <div class="content3">

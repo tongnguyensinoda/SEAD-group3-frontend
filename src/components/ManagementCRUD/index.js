@@ -64,6 +64,7 @@ const ManagementCRUD = ({
             hover
             style={{ color: theme === "light" ? "black" : "white" }}
             variant={theme === "light" ? "black" : "dark"}
+            className="ManagementCrud"
         >
             <thead>
                 <tr>

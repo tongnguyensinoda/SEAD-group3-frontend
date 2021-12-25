@@ -1,6 +1,7 @@
 import React from "react";
 import "./SignIn.css";
 import { useState } from "react";
+import SubNav from "../SubNav";
 
 export const SignIn = () => {
     // var overlay = document.getElementById("overlay");
@@ -93,6 +94,7 @@ export const SignIn = () => {
 
     return (
         <div>
+            <SubNav content="Sign In"></SubNav>
             <div class="container1">
                 <div className={overlay} id="overlay1">
                     <div class={leftText} id="sign-in">
