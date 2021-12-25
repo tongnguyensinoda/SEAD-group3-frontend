@@ -10,16 +10,20 @@ import FooterComponent from "./components/FooterComponent";
 import Management from "./components/Management";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar2";
+import MechanicForm from "./components/Mechanic";
 function App() {
     return (
         <BrowserRouter>
             <Navbar />
-            <Routes>
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/about" element={<AboutUsComponent />} />
-                <Route path="/management" element={<Management></Management>} />
-                <Route path="/" element={<HomeComponent />} />
-            </Routes>
+            <div style={{ minHeight: "69vh" }}>
+                <Routes>
+                    <Route path="/signin" element={<SignIn />} />
+                    <Route path="/about" element={<AboutUsComponent />} />
+                    <Route path="/management" element={<Management></Management>} />
+                    <Route path="/mechanicForm" element={<MechanicForm></MechanicForm>} />
+                    <Route path="/" element={<HomeComponent />} />
+                </Routes>
+            </div>
 
             <Footer />
         </BrowserRouter>

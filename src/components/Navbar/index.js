@@ -27,7 +27,8 @@ export const Navbar = ({ changeTheme, theme }) => {
     // const changeTheme = (value) => {
     //     setTheme(value ? "dark" : "light");
     // };
-
+    const [menuName, setMenuName] = React.useState("User Report");
+    const [logo, setLogo] = React.useState(1);
     return (
         <>
             <Head
@@ -36,8 +37,26 @@ export const Navbar = ({ changeTheme, theme }) => {
                 switchColor={theme === "light" ? "white" : "#001529"}
             >
                 <Logo>
-                    <img src={RocketLogo}></img>
-                    <span>SEAD</span>
+                    {logo == 1 ? (
+                        <FileTextOutlined />
+                    ) : logo == 2 ? (
+                        <SolutionOutlined />
+                    ) : logo == 3 ? (
+                        <SolutionOutlined />
+                    ) : (
+                        <FileTextOutlined />
+                    )}
+
+                    <span>
+                        {" "}
+                        {menuName == "User Report"
+                            ? "User Report"
+                            : menuName == "Manage Users"
+                            ? "Manage Users"
+                            : menuName == "Manage Mechanics"
+                            ? "Manage Mechanics"
+                            : "User Report"}
+                    </span>
                 </Logo>
 
                 <Switch onChange={changeTheme} />
@@ -52,16 +71,34 @@ export const Navbar = ({ changeTheme, theme }) => {
                 mode={mode}
                 theme={theme}
             >
-                <Menu.Item key="1" icon={<FileTextOutlined />}>
+                <Menu.Item
+                    onClick={() => {
+                        setLogo(1);
+                        setMenuName("User Report");
+                    }}
+                    key="1"
+                    icon={<FileTextOutlined />}
+                >
                     User Report
                 </Menu.Item>
-                <Menu.Item key="2" icon={<SolutionOutlined />}>
+                <Menu.Item
+                    onClick={() => {
+                        setLogo(2);
+                        setMenuName("Manage Users");
+                    }}
+                    key="2"
+                    icon={<SolutionOutlined />}
+                >
                     Manage Users
                 </Menu.Item>
-                <Menu.Item key="3" icon={<SolutionOutlined />}>
-                    Manage Mechanics
-                </Menu.Item>
-                <Menu.Item key="4" icon={<ShopOutlined />}>
+                <Menu.Item
+                    onClick={() => {
+                        setLogo(3);
+                        setMenuName("Manage Mechanics");
+                    }}
+                    key="3"
+                    icon={<SolutionOutlined />}
+                >
                     Manage Mechanics
                 </Menu.Item>
             </Menu>

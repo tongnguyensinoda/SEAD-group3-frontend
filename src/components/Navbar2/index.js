@@ -3,6 +3,7 @@ import { Wrapper, LeftNavItem, RightNavItem, RightNav, Content } from "./Navbar.
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import RocketLogo from "../../rocket.png";
+import { MechanicForm } from "../Mechanic";
 const Navbar = () => {
     let item;
 
@@ -50,6 +51,9 @@ const Navbar = () => {
                 </Link>
                 <Link to="/signin">
                     <RightNavItem>Sign in</RightNavItem>
+                </Link>
+                <Link to="/mechanicForm">
+                    <RightNavItem>Mechanic Form</RightNavItem>
                 </Link>
             </>
         );

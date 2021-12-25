@@ -17,7 +17,7 @@
     margin: 50px auto;
     box-sizing: none;
 }
-div div div {
+.container1 div div {
     box-sizing: unset;
 }
 
