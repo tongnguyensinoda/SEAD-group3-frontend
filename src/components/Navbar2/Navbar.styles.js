@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -8,6 +9,8 @@ export const Wrapper = styled.div`
         inset: 12px auto auto 0px !important;
     }
     justify-content: center;
+    /* min-width: 992px; */
+    width: 100vw;
 `;
 
 export const Content = styled.div`
@@ -18,15 +21,20 @@ export const Content = styled.div`
     margin: 0 auto;
     padding: 15px 10px;
 `;
-export const LeftNavItem = styled.div`
+export const LeftNavItem = styled(Link)`
     display: flex;
     align-items: center;
+    color: white;
     img {
         width: 70px;
         padding: 0 10px;
     }
     &::after {
         content: "${({ content }) => content}";
+        cursor: pointer;
+    }
+    &:hover {
+        color: white;
     }
     font-size: 18pt;
     font-weight: 700;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
     max-width: 1366px;
-    margin: 20px auto;
+    margin: 35px auto;
     padding: 5px;
     display: flex;
     border: 1px solid rgba(38, 56, 150, 0.1411764705882353);

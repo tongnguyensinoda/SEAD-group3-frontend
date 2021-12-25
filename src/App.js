@@ -20,6 +20,7 @@ function App() {
                 <Route path="/management" element={<Management></Management>} />
                 <Route path="/" element={<HomeComponent />} />
             </Routes>
+
             <Footer />
         </BrowserRouter>
     );

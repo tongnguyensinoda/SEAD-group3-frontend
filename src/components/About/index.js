@@ -5,7 +5,7 @@ import AboutUs from "../../about-us.jpg";
 function AboutUsComponent() {
     return (
         <>
-            <section className="section2">
+            <section className="section2" id="section2">
                 <img class="image" src={AboutUs}></img>
                 <div class="content3">
                     <h2>About Us</h2>
@@ -19,16 +19,16 @@ function AboutUsComponent() {
 
                     <ul class="links-about">
                         <li>
-                            <a href="#">work</a>
+                            <a href="#section2">work</a>
                         </li>
                         <br></br>
                         <li>
                             <a href="#">service</a>
                         </li>
                         <br></br>
-                        {/* <li>
-                            <a href="#">contact</a>
-                        </li> */}
+                        <li>
+                            <a href="#contact-us-section">contact</a>
+                        </li>
                     </ul>
 
                     <ul class="icons">
@@ -47,7 +47,7 @@ function AboutUsComponent() {
                     </ul>
                 </div>
             </section>
-            <div class="container2">
+            <div class="container2" id="contact-us-section">
                 <div class="content">
                     <div class="left-side">
                         <div class="address details">
@@ -84,7 +84,9 @@ function AboutUsComponent() {
                             <div class="input-box">
                                 <input type="text" placeholder="Enter your email" />
                             </div>
-                            <div class="input-box message-box"></div>
+                            <div class="input-box message-box">
+                                <input type="text" placeholder="Enter your messsage" />
+                            </div>
                             <div class="button">
                                 <input type="button" value="Send Now" />
                             </div>

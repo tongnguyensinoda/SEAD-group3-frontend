@@ -73,7 +73,7 @@ const ManagementCRUD = ({
                     <th>Price ($)</th>
                     <th>brand</th>
                     <th>Amount</th>
-                    <th>Progress</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>

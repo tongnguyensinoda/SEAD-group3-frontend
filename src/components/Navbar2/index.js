@@ -58,9 +58,12 @@ const Navbar = () => {
     return (
         <Wrapper>
             <Content>
-                <LeftNavItem content="SEAD">
-                    <img src={RocketLogo}></img>
+                <LeftNavItem content="SEAD" to="/home">
+                    <Link to="/home">
+                        <img src={RocketLogo}></img>
+                    </Link>
                 </LeftNavItem>
+
                 <RightNav>{item}</RightNav>
             </Content>
         </Wrapper>
