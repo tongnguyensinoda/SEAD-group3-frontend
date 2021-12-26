@@ -12,3 +12,14 @@ export const Wrapper = styled.div`
     }
     height: auto;
 `;
+
+export const Header = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    .right {
+        display: flex;
+        gap: 10px;
+    }
+`;
