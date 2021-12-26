@@ -6,10 +6,11 @@ import { Table, Input, Button, Space, Modal } from "antd";
 import { useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
 import { SearchOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import { Wrapper } from "./Mechanic.style";
+import { Header, Wrapper } from "./Mechanic.style";
 import "./mechanic.css";
 import styled from "styled-components";
 import SubNav from "../SubNav";
+import ButtonGroup from "antd/lib/button/button-group";
 const { confirm } = Modal;
 function showConfirm() {
     confirm({
@@ -28,73 +29,73 @@ const data = [
     {
         key: "1",
         name: "Viet Brown",
-        age: 32,
+        ServiceType: "a",
         address: "New York No. 1 Lake Park",
     },
     {
         key: "2",
         name: "Nam Black",
-        age: 42,
+        ServiceType: "a",
         address: "London No. 1 Lake Park",
     },
     {
         key: "3",
         name: "Bao Green",
-        age: 32,
+        ServiceType: "c",
         address: "Sidney No. 1 Lake Park",
     },
     {
         key: "4",
         name: "Uyen Red",
-        age: 32,
+        ServiceType: "d",
         address: "London No. 2 Lake Park",
     },
     {
         key: "5",
         name: "Viet Brown",
-        age: 32,
+        ServiceType: "e",
         address: "New York No. 1 Lake Park",
     },
     {
         key: "6",
         name: "Nam Black",
-        age: 42,
+        ServiceType: "q",
         address: "London No. 1 Lake Park",
     },
     {
         key: "7",
         name: "Bao Green",
-        age: 32,
+        ServiceType: "r",
         address: "Sidney No. 1 Lake Park",
     },
     {
         key: "8",
         name: "Uyen Red",
-        age: 32,
+        ServiceType: "j",
         address: "London No. 2 Lake Park",
     },
     {
         key: "9",
         name: "Viet Brown",
-        age: 32,
+        ServiceType: "s",
         address: "New York No. 1 Lake Park",
     },
     {
         key: "10",
         name: "Nam Black",
-        age: 42,
+        ServiceType: "d",
         address: "London No. 1 Lake Park",
     },
     {
         key: "11",
         name: "Bao Green",
-        age: 32,
+        ServiceType: "y",
         address: "Sidney No. 1 Lake Park",
     },
     {
         key: "12",
         name: "Uyen Red",
-        age: 32,
+        ServiceType: "q",
         address: "London No. 2 Lake Park",
     },
 ];
@@ -103,6 +104,7 @@ const MechanicForm = () => {
         searchText: "",
         searchedColumn: "",
     });
+    const [mode, setMode] = useState("request");
     // const [searchInput, setSerchInput] = useState();
     let searchInput;
     const getColumnSearchProps = (dataIndex) => ({
@@ -195,31 +197,53 @@ const MechanicForm = () => {
             dataIndex: "name",
             key: "name",
             width: "30%",
-            sorter: (a, b) => a.name.length - b.name.length,
+            sorter: (a, b) => a.name.localeCompare(b.name),
             ...getColumnSearchProps("name"),
         },
-        {
-            title: "Age",
-            dataIndex: "age",
-            key: "age",
-            width: "20%",
-            ...getColumnSearchProps("age"),
-            sorter: (a, b) => a.age - b.age,
-        },
+
         {
             title: "Address",
             dataIndex: "address",
             key: "address",
             ...getColumnSearchProps("address"),
-            sorter: (a, b) => a.address.length - b.address.length,
-            sortDirections: ["descend", "ascend"],
+            sorter: (a, b) => a.address.localeCompare(b.address),
+        },
+        {
+            title: "Service Type",
+            dataIndex: "ServiceType",
+            key: "ServiceType",
+            width: "20%",
+            sorter: (a, b) => a.ServiceType.localeCompare(b.ServiceType),
+            ...getColumnSearchProps("ServiceType"),
         },
     ];
     return (
         <>
             <SubNav content="Mechanic Form"></SubNav>
-
             <Wrapper className="mechanic-form-wrapper">
+                <Header>
+                    <div className="left">
+                        <div className="name">Mechanic</div>
+                    </div>
+                    <div className="right">
+                        <Button
+                            type={mode == "request" ? "primary" : "default"}
+                            onClick={() => {
+                                setMode("request");
+                            }}
+                        >
+                            Request
+                        </Button>
+                        <Button
+                            type={mode == "todo" ? "primary" : "default"}
+                            onClick={() => {
+                                setMode("todo");
+                            }}
+                        >
+                            Todo
+                        </Button>
+                    </div>
+                </Header>
                 <Table
                     columns={columns}
                     dataSource={data}

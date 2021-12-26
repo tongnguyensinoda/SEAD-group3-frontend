@@ -15,11 +15,11 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
     display: flex;
-    max-width: 1390px;
+    max-width: 1370px;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    padding: 15px 10px;
+    padding: 15px 0px;
 `;
 export const LeftNavItem = styled(Link)`
     display: flex;
