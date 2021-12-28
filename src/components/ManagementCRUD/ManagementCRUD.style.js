@@ -48,9 +48,10 @@ export const ReportForm = styled.div`
         h6 {
             color: rgb(170, 170, 170);
         }
-        img {
+        .user-img {
             width: 80px;
             height: 80px;
+            margin-bottom: 20px;
         }
         align-items: center;
     }
@@ -85,5 +86,9 @@ export const ReportForm = styled.div`
         .confirm-button {
             text-align: center;
         }
+    }
+
+    .pending {
+        width: 30px;
     }
 `;

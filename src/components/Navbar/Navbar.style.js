@@ -23,10 +23,13 @@ export const Logo = styled.div`
     flex-direction: row;
     align-items: center;
 
-    img {
-        width: 80px;
+    svg {
+        width: 50px;
+        height: 50px;
+        margin: 15px 10px 8px 20px;
     }
     span {
         font-weight: bolder;
+        font-size: 20px;
     }
 `;

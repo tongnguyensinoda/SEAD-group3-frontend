@@ -1,7 +1,9 @@
 import React from "react";
 import "./SignIn.css";
 import { useState } from "react";
-
+import SubNav from "../SubNav";
+import GoogleLogin from "react-google-login";
+import { useGoogleLogin } from "react-google-login";
 export const SignIn = () => {
     // var overlay = document.getElementById("overlay");
 
@@ -90,9 +92,43 @@ export const SignIn = () => {
             setStyleAccount("flex");
         }, 200);
     };
+    const clientId = "144247385664-cd4c28fdmttmg6ab1t01pj0vnhovsuqs.apps.googleusercontent.com";
+
+    const refreshTokenSetup = (res) => {
+        // Timing to renew access token
+        let refreshTiming = (res.tokenObj.expires_in || 3600 - 5 * 60) * 1000;
+
+        const refreshToken = async () => {
+            const newAuthRes = await res.reloadAuthResponse();
+            refreshTiming = (newAuthRes.expires_in || 3600 - 5 * 60) * 1000;
+            console.log("newAuthRes:", newAuthRes);
+            // saveUserToken(newAuthRes.access_token);  <-- save new token
+            localStorage.setItem("authToken", newAuthRes.id_token);
+
+            // Setup the other timer after the first one
+            setTimeout(refreshToken, refreshTiming);
+        };
+
+        // Setup first refresh timer
+        setTimeout(refreshToken, refreshTiming);
+    };
+    const onSuccess = (res) => {
+        console.log("Login Success: currentUser:", res);
+        refreshTokenSetup(res);
+    };
+    const onFailure = (res) => {
+        console.log("Login failed: res:", res);
+    };
+
+    const { signIn } = useGoogleLogin({
+        onSuccess,
+        onFailure,
+        clientId,
+    });
 
     return (
         <div>
+            <SubNav content="Sign In"></SubNav>
             <div class="container1">
                 <div className={overlay} id="overlay1">
                     <div class={leftText} id="sign-in">
@@ -126,7 +162,7 @@ export const SignIn = () => {
                                     />
                                 </svg>
                             </div>
-                            <div class="icon">
+                            <div class="icon" onClick={signIn} style={{ cursor: "pointer" }}>
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         fill="#000000"
@@ -151,6 +187,7 @@ export const SignIn = () => {
                                 type="password"
                                 placeholder="Password"
                             />
+                            <br></br>
                             <p class="forgot-password">Forgot your password?</p>
                             <button class="control-button in">Sign In</button>
                         </form>
@@ -167,7 +204,11 @@ export const SignIn = () => {
                                 </svg>
                             </div>
                             <div class="icon">
-                                <svg viewBox="0 0 24 24">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    onClick={signIn}
+                                    style={{ cursor: "pointer" }}
+                                >
                                     <path
                                         fill="#000000"
                                         d="M23,11H21V9H19V11H17V13H19V15H21V13H23M8,11V13.4H12C11.8,14.4 10.8,16.4 8,16.4C5.6,16.4 3.7,14.4 3.7,12C3.7,9.6 5.6,7.6 8,7.6C9.4,7.6 10.3,8.2 10.8,8.7L12.7,6.9C11.5,5.7 9.9,5 8,5C4.1,5 1,8.1 1,12C1,15.9 4.1,19 8,19C12,19 14.7,16.2 14.7,12.2C14.7,11.7 14.7,11.4 14.6,11H8Z"
@@ -204,9 +245,10 @@ export const SignIn = () => {
                                 placeholder="Re-type password"
                                 autoComplete="new-password"
                             />
+                            <br></br>
                             <select className="select-singin" name="userType" id="userType">
                                 <option value="" disabled selected>
-                                    Account Type
+                                    Account Type2
                                 </option>
                                 <option value="Shop/Mechanic">Shop/Mechanic</option>
                                 <option value="User">User</option>
