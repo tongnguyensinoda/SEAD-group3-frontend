@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Pagination } from '../Pagination/Pagination';
 import { useParams, useNavigate } from 'react-router-dom';
+import "./Service.css";
 
 export default function Service(){
     const [data, setData] = useState([])
 
     const [currentPage, setCurrentPage] = useState(1);
     const [datasPerPage] = useState(5);
+
+    // Define the product link
+    const endPoint = "http://localhost:8080/service"
 
     const indexOfLastData = currentPage * datasPerPage;
     const indexOfFirstData = indexOfLastData - datasPerPage;
@@ -15,16 +19,39 @@ export default function Service(){
     // Set the current page of pagination
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
+    // Transfer the value by using the navigate function
+    let navigate = useNavigate();
+
     // Read the product table
     useEffect(() => {
-      fetch("./temp.json")
+      fetch(endPoint)
         .then(response => response.json())
         .then(data => setData(data));
     });
 
+    const booking = (serviceId) =>{
+      navigate(`/bookingService/${serviceId}`);
+      console.log(serviceId)
+    }
+
     return (
-        <div>
-          <h1>All Products</h1>
+        <div className = "App">
+          <h1>All Services</h1>
+          <br/>
+          <div className="row">
+            {/* Print out all products */}
+            {currentDatas.map(el => (
+              <div className="column">
+                <div className="card" key={el.serviceId}>
+                  <p className="productName">{el.name}</p>
+                  <p className="price">{el.cost} VND</p>
+                  <p className="rating">{el.rating}*</p>
+                  <button className = "normalBtn" onClick={()=> booking(el.serviceId)}>Booking</button>
+                </div>
+              </div>
+              ))}
+          </div>
+          <br />
           {/* Create the pagination */}
           <Pagination datasPerPage = {datasPerPage} totalDatas = {data.length} paginate = {paginate}/>
           <br />

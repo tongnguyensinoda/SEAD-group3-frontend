@@ -9,3 +9,17 @@
     border-radius: 7px;
     transition: background-color .3s;
   }
+
+  .activeBtn {
+    background-color: black;
+    color: white;
+  }
+  .inactiveBtn {
+    background-color: white;
+    color: black;
+  }
+  
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;
+    color: black;
+  }

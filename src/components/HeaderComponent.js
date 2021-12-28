@@ -52,6 +52,11 @@ function HeaderComponent() {
                             </a>
                         </li>
                         <li className="nav-li">
+                            <a className="nav-a" href="/service">
+                                Service
+                            </a>
+                        </li>
+                        <li className="nav-li">
                             <a className="nav-a" href="/about">
                                 About
                             </a>

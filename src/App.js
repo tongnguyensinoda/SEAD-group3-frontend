@@ -8,6 +8,8 @@ import AboutUsComponent from "./components/AboutUsComponent";
 import HomeComponent from "./components/HomeComponent";
 import FooterComponent from "./components/FooterComponent";
 import Management from "./components/Management";
+import Service from './components/Service/Service';
+import BookingService from "./components/BookingService/BookingService";
 function App() {
     return (
         <BrowserRouter>
@@ -15,6 +17,8 @@ function App() {
             <Routes>
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/about" element={<AboutUsComponent />} />
+                <Route path="/service" element={<Service />} />
+                <Route path="/bookingService/:id" element={<BookingService />} />
                 <Route path="/management" element={<Management></Management>} />
                 <Route path="/" element={<HomeComponent />} />
             </Routes>
