@@ -11,6 +11,10 @@ import Management from "./components/Management";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar2";
 import MechanicForm from "./components/Mechanic";
+import Service from "./components/Service/Service";
+import BookingService from './components/BookingService/BookingService';
+
+
 function App() {
     return (
         <BrowserRouter>
@@ -20,6 +24,8 @@ function App() {
                     <Route path="/signin" element={<SignIn />} />
                     <Route path="/about" element={<AboutUsComponent />} />
                     <Route path="/management" element={<Management></Management>} />
+                    <Route path="/service" element={<Service />} />
+                    <Route path="/bookingService/:id" element={<BookingService />} />
                     <Route path="/mechanicForm" element={<MechanicForm></MechanicForm>} />
                     <Route path="/" element={<HomeComponent />} />
                 </Routes>

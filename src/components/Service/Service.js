@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Pagination } from '../Pagination/Pagination';
 import { useParams, useNavigate } from 'react-router-dom';
+import SubNav from "../SubNav";
 import "./Service.css";
 
 export default function Service(){
     const [data, setData] = useState([])
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [datasPerPage] = useState(5);
+    const [datasPerPage] = useState(6);
 
     // Define the product link
     const endPoint = "http://localhost:8080/service"
@@ -35,9 +36,9 @@ export default function Service(){
     }
 
     return (
+      <>
+      <SubNav content="Service"></SubNav>
         <div className = "App">
-          <h1>All Services</h1>
-          <br/>
           <div className="row">
             {/* Print out all products */}
             {currentDatas.map(el => (
@@ -48,6 +49,7 @@ export default function Service(){
                   <p className="rating">{el.rating}*</p>
                   <button className = "normalBtn" onClick={()=> booking(el.serviceId)}>Booking</button>
                 </div>
+                <br/>
               </div>
               ))}
           </div>
@@ -56,6 +58,7 @@ export default function Service(){
           <Pagination datasPerPage = {datasPerPage} totalDatas = {data.length} paginate = {paginate}/>
           <br />
         </div> 
+        </>
       );
 }
 
