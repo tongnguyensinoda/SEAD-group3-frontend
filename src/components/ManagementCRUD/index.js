@@ -68,13 +68,13 @@ const ManagementCRUD = ({
         >
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Password</th>
                     <th>Name</th>
-                    <th>Description</th>
-                    <th>Price ($)</th>
-                    <th>brand</th>
-                    <th>Amount</th>
-                    <th>Status</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Role</th>
                 </tr>
             </thead>
             <tbody>
