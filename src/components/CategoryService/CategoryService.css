@@ -8,9 +8,9 @@
   }
 
 /* Float four columns side by side */
-.serviceColumn {
+.categoryColumn {
     float: left;
-    width: 33.3%;
+    width: 25%;
     padding: 0 0.5%;
   }
   
@@ -42,21 +42,6 @@
     background-color: #f1f1f1;
   }
   
-  .name {
-    color: black;
-    font-size: 22px;
-  }
-  
-  .price {
-    color: grey;
-    font-size: 16px;
-  }
-
-  .rating {
-    color: grey;
-    font-size: 16px;
-  }
-  
   .normalBtn {
     padding: 5px 20px;
     background: black;
@@ -64,4 +49,8 @@
     text-transform: uppercase;
     border-radius: 7px;
     border: none;
+  }
+.name {
+    color: black;
+    font-size: 18px;
   }

@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import queryString from "query-string";
 import "antd/dist/antd.css";
 // import "./index.css";
 import { Menu, Switch, Divider } from "antd";
