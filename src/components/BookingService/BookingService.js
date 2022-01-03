@@ -46,8 +46,20 @@ export default function BookingService() {
 
     // Submit the input product
     const onSubmit = (data) => {
-        console.log(data);
-        console.log(selectedOption.label);
+        fetch("http://localhost:8080/servicetran", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                customer: data.name,
+                mechanic: selectedOption.label,
+                address: data.address,
+                phone: data.phoneNumber,
+                serviceName: pastedData.name,
+                totalCost: pastedData.cost
+             })
+        }).then(res => {alert("POST SUCCESSFULLY!!!");})
         reset();
     }
 
@@ -91,7 +103,7 @@ export default function BookingService() {
                             <h3>Address</h3>
                             {/* Create the input Address */}
                             <p>
-                                <input type = "text" className = {`form-control ${errors.name && "address"}`} {...register("address", {
+                                <input type = "text" className = {`form-control ${errors.address && "address"}`} {...register("address", {
                                     required: "Address is Required"
                                     })}
                                     onKeyUp={() => {
@@ -106,7 +118,7 @@ export default function BookingService() {
                             <h3>Phone</h3>
                             {/* Create the input Phone */}
                             <p>
-                                <input type = "text" className = {`form-control ${errors.name && "phoneNumber"}`} {...register("phoneNumber", {
+                                <input type = "text" className = {`form-control ${errors.phoneNumber && "phoneNumber"}`} {...register("phoneNumber", {
                                     required: "Phone Number is Required",
                                     pattern: {
                                         value: /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
