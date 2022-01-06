@@ -120,6 +120,11 @@
     --bs-table-active-color: #fff;
     --bs-table-hover-bg: #0a2a53;
     --bs-table-hover-color: #fff;
+    overflow: hidden;
+}
+.container-fluid {
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .report-form {
     font-family: "Patua One", cursive;

@@ -51,13 +51,14 @@ const initialState = [
     },
 ];
 function Management() {
-    const [currentItem, setCurrentItem] = useState({});
-    const [items, setItems] = useState(initialState);
+    const [currentUser, setCurrentUser] = useState({});
+    const [users, setUsers] = useState(initialState);
     const [isLoading, setIsLoading] = useState(false);
     const [theme, setTheme] = useState("light");
     const changeTheme = (value) => {
         setTheme(value ? "dark" : "light");
     };
+    const [menuName, setMenuName] = useState("User Report");
     // const link = "https://my-app123sad.herokuapp.com/items/search?";
     // const link2 = "https://my-app123sad.herokuapp.com/items/";
     // const link4 = "https://my-app123sad.herokuapp.com/?";
@@ -87,7 +88,7 @@ function Management() {
     });
     const [pagination, setPagination] = useState({
         total: 4,
-        pageSize: 2,
+        pageSize: 10,
     });
     // let sort;
     // const handleSortID = (key) => {
@@ -200,7 +201,7 @@ function Management() {
     // }
     // const handleAddItem = (newItem) => {
     //     newItem.id = items.length + 1;
-    //     setItems([...items, newItem]);
+    //     setUsers([...items, newItem]);
     //     axios
     //         .post(link2, newItem)
     //         .then((res) => {
@@ -209,8 +210,8 @@ function Management() {
     //         })
     //         .catch((error) => window.alert("All value should not be null"));
     // };
-    const deleteItem = async (id) => {
-        setItems(items.filter((item) => item.id !== id));
+    const deleteUser = async (id) => {
+        setUsers(users.filter((user) => user.id !== id));
         // console.log(id);
         // await axios
         //     .delete(link2 + id)
@@ -220,12 +221,12 @@ function Management() {
         //     })
         //     .catch((error) => window.alert(error));
     };
-    const editRow = (item) => {
-        setCurrentItem(item);
+    const editRow = (user) => {
+        setCurrentUser(user);
     };
 
-    const updateItem = async (id, updatedItem) => {
-        setItems(items.map((item) => (item.id === id ? updatedItem : item)));
+    const updatedUser = async (user, updatedUser) => {
+        setUsers(users.map((user) => (user.id === user ? updatedUser : user)));
         // await axios
         //     .put(link2, updatedItem)
         //     .then((res) => {
@@ -254,7 +255,7 @@ function Management() {
     //     await axios
     //         .get(link + obj)
     //         .then((res) => {
-    //             setItems(res.data);
+    //             setUsers(res.data);
     // setPagination({ ...pagination, total: 2 });
     //             setFilters({ ...filters, keyword: name });
     //             window.location.href = link4 + obj;
@@ -275,21 +276,23 @@ function Management() {
         // obj = queryString.stringify(obj);
         // window.location.href = link4 + obj;
     };
-    // async function fetchData(param) {
-    //     let paramString = queryString.stringify(filters);
-    //     let fetchURL = link + paramString;
-    //     await axios
-    //         .get(fetchURL)
-    //         .then((res) => {
-    //             setItems(res.data);
-    //             setIsLoading(false);
-    //             setPagination({ ...pagination, total: res.data.length });
-    //         })
-    //         .catch((error) => window.alert(error));
-    // }
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
+    async function fetchData(param) {
+        let fetchURL =
+            menuName === "customer"
+                ? "http://localhost:8080/auth/customer/getall"
+                : "http://localhost:8080/auth/mechanic/getall";
+        await axios
+            .get(fetchURL)
+            .then((res) => {
+                setUsers(res.data);
+                setIsLoading(false);
+                setPagination({ ...pagination, total: res.data.length });
+            })
+            .catch((error) => window.alert(error));
+    }
+    useEffect(() => {
+        fetchData();
+    }, [menuName]);
 
     // useEffect(() => {
     //     let paramString2 = queryString.stringify(filters);
@@ -332,7 +335,12 @@ function Management() {
                     borderPage={theme === "light" ? "1px solid blue" : "none"}
                 >
                     <div>
-                        <Navbar changeTheme={changeTheme} theme={theme}></Navbar>
+                        <Navbar
+                            changeTheme={changeTheme}
+                            theme={theme}
+                            menuName={menuName}
+                            setMenuName={setMenuName}
+                        ></Navbar>
                     </div>
                     <Container fluid>
                         <Filter
@@ -347,15 +355,17 @@ function Management() {
                             filters={filters}
                         />
                         <ManagementCRUD
-                            items={items}
-                            deleteItem={deleteItem}
+                            users={users}
+                            deleteUser={deleteUser}
                             editRow={editRow}
-                            currentItem={currentItem}
-                            updateItem={updateItem}
+                            currentUser={currentUser}
+                            updatedUser={updatedUser}
                             changeTheme={changeTheme}
                             theme={theme}
                             currentPage={filters.currentPage}
                             pageSize={pagination.pageSize}
+                            menuName={menuName}
+                            setMenuName={setMenuName}
                         ></ManagementCRUD>
                         <Pagination
                             current={filters.currentPage}

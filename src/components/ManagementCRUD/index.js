@@ -27,15 +27,17 @@ const ProgressStatus = ({ theme, progress }) => {
 };
 
 const ManagementCRUD = ({
-    items,
-    deleteItem,
+    users,
+    deleteUser,
     editRow,
-    currentItem,
-    updateItem,
+    currentUser,
+    updatedUser,
     theme,
     currentPage,
     pageSize,
     container,
+    menuName,
+    setMenuName,
 }) => {
     // const { items, deleteItem, editRow, currentItem, updateItem, theme, currentPage, pageSize } =
     //     props;
@@ -46,17 +48,18 @@ const ManagementCRUD = ({
     const [editModalShow, setEditModalShow] = useState(false);
     const [ItemModalShow, setItemModalShow] = useState(false);
     const [itemShow, setItemShow] = useState({});
-    const handleDeleteItem = () => {
+    const handleDeleteUser = () => {
         setdeleteModalShow(false);
-        deleteItem(deleteId);
+        deleteUser(deleteId);
     };
+    console.log(menuName);
 
-    let itemsArray = [];
+    let usersArray = [];
     for (let i = (currentPage - 1) * pageSize; i < (currentPage - 1) * pageSize + pageSize; i++) {
-        if (items[i] == null) {
+        if (users[i] == null) {
             break;
         }
-        itemsArray.push(items[i]);
+        usersArray.push(users[i]);
     }
 
     return (
@@ -78,77 +81,77 @@ const ManagementCRUD = ({
                 </tr>
             </thead>
             <tbody>
-                {itemsArray.map((item, index) => (
+                {usersArray.map((user, index) => (
                     <tr key={index}>
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
                                 setItemModalShow(true);
-                                setItemShow(item);
-                                editRow(item);
+                                setItemShow(user);
+                                editRow(user);
                             }}
                         >
-                            <>{item.id}</>
+                            <>{user.name}</>
                         </td>
                         <td
                             style={{ width: "15%" }}
                             onClick={() => {
                                 setItemModalShow(true);
-                                setItemShow(item);
-                                editRow(item);
+                                setItemShow(user);
+                                editRow(user);
                             }}
                         >
-                            <>{item.name}</>
+                            <>{user.jobCount}</>
                         </td>
                         <td
                             style={{ width: "30%" }}
                             onClick={() => {
                                 setItemModalShow(true);
-                                setItemShow(item);
-                                editRow(item);
+                                setItemShow(user);
+                                editRow(user);
                             }}
                         >
-                            <>{item.description}</>
+                            <>{user.address}</>
                         </td>
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
                                 setItemModalShow(true);
-                                setItemShow(item);
-                                editRow(item);
+                                setItemShow(user);
+                                editRow(user);
                             }}
                         >
-                            <>{item.price}</>
+                            <>{user.email}</>
                         </td>
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
                                 setItemModalShow(true);
-                                setItemShow(item);
-                                editRow(item);
+                                setItemShow(user);
+                                editRow(user);
                             }}
                         >
-                            <>{item.brand}</>
+                            <>{user.phone}</>
                         </td>
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
                                 setItemModalShow(true);
-                                setItemShow(item);
-                                editRow(item);
+                                setItemShow(user);
+                                editRow(user);
                             }}
                         >
-                            <>{item.amount}</>
+                            <>{user.type}</>
                         </td>
                         <td style={{ width: "15%" }}>
                             <img
                                 alt=""
                                 src={
-                                    theme === "light" && item.progress === false
+                                    theme === "light" && user.progress === false
                                         ? Pending
-                                        : theme === "dark" && item.progress === false
+                                        : theme === "dark" && user.progress === false
                                         ? BlackPending
-                                        : item.progress === true
+                                        : user.progress === true
                                         ? Checked
                                         : Checked
                                 }
@@ -160,7 +163,7 @@ const ManagementCRUD = ({
                                     className="btn-edit center"
                                     onClick={() => {
                                         setEditModalShow(true);
-                                        editRow(item);
+                                        editRow(user);
                                         setEditItem(item);
                                     }}
                                     style={{ color: theme === "light" ? "black" : "white" }}
@@ -173,7 +176,7 @@ const ManagementCRUD = ({
                                     className="btn-delete center"
                                     onClick={() => {
                                         setdeleteModalShow(true);
-                                        setDeleteId(item.id);
+                                        setDeleteId(user.id);
                                     }}
                                     style={{ color: theme === "light" ? "black" : "white" }}
                                 >
@@ -184,25 +187,25 @@ const ManagementCRUD = ({
                     </tr>
                 ))}
 
-                <EditModal
+                {/* <EditModal
                     show={editModalShow}
                     onHide={() => setEditModalShow(false)}
                     item={editItem}
                     // handleInputChange={handleInputChange}
                     // setItem={setItem}
-                    currentItem={currentItem}
-                    updateItem={updateItem}
-                />
+                    currentUser={currentUser}
+                    updateUser={updateUser}
+                /> */}
                 <DeleteConfirmModal
                     show={deleteModalShow}
                     onHide={() => setdeleteModalShow(false)}
-                    handleDeleteItem={handleDeleteItem}
+                    handleDeleteUser={handleDeleteUser}
                 />
                 <ItemDetailModalStyled
                     show={ItemModalShow}
                     onHide={() => setItemModalShow(false)}
-                    currentItem={currentItem}
-                    updateItem={updateItem}
+                    currentUser={currentUser}
+                    updatedUser={updatedUser}
                     theme={theme}
                     // setProgress={setProgress}
                 />
@@ -220,136 +223,136 @@ function DeleteConfirmModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Footer>
-                <Button onClick={props.handleDeleteItem}>Yes</Button>
+                <Button onClick={props.handleDeleteUser}>Yes</Button>
                 <Button onClick={props.onHide}>No</Button>
             </Modal.Footer>
         </Modal>
     );
 }
 
-function EditModal(props) {
-    const [item, setItem] = useState(props.currentItem);
+// function EditModal(props) {
+//     const [item, setItem] = useState(props.currentItem);
 
-    useEffect(() => {
-        setItem(props.currentItem);
-    }, [props]);
-    // You can tell React to skip applying an effect if certain values haven’t changed between re-renders. [ props ]
-    const handleUpdate = () => {
-        props.onHide();
-        props.updateItem(item.id, item);
-    };
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setItem({ ...item, [name]: value });
-    };
+//     useEffect(() => {
+//         setItem(props.currentItem);
+//     }, [props]);
+//     // You can tell React to skip applying an effect if certain values haven’t changed between re-renders. [ props ]
+//     const handleUpdate = () => {
+//         props.onHide();
+//         props.updateItem(item.id, item);
+//     };
+//     const handleInputChange = (event) => {
+//         const { name, value } = event.target;
+//         setItem({ ...item, [name]: value });
+//     };
 
-    return (
-        <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
-            </Modal.Header>
-            <Form>
-                <Modal.Body>
-                    <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                        <Form.Label column sm={2}>
-                            Name
-                        </Form.Label>
-                        <Col sm={10}>
-                            <Form.Control
-                                type=""
-                                placeholder=""
-                                name="name"
-                                value={item.name}
-                                onChange={handleInputChange}
-                            />
-                        </Col>
-                    </Form.Group>
+//     return (
+//         <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+//             <Modal.Header closeButton>
+//                 <Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
+//             </Modal.Header>
+//             <Form>
+//                 <Modal.Body>
+//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
+//                         <Form.Label column sm={2}>
+//                             Name
+//                         </Form.Label>
+//                         <Col sm={10}>
+//                             <Form.Control
+//                                 type=""
+//                                 placeholder=""
+//                                 name="name"
+//                                 value={item.name}
+//                                 onChange={handleInputChange}
+//                             />
+//                         </Col>
+//                     </Form.Group>
 
-                    <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-                        <Form.Label column sm={2}>
-                            Description
-                        </Form.Label>
-                        <Col sm={10}>
-                            <Form.Control
-                                type=""
-                                placeholder=""
-                                name="description"
-                                value={item.description}
-                                onChange={handleInputChange}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-                        <Form.Label column sm={2}>
-                            Price
-                        </Form.Label>
-                        <Col sm={10}>
-                            <Form.Control
-                                type=""
-                                placeholder=""
-                                value={item.price}
-                                name="price"
-                                onChange={handleInputChange}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-                        <Form.Label column sm={2}>
-                            Brand
-                        </Form.Label>
-                        <Col sm={10}>
-                            <Form.Control
-                                type=""
-                                placeholder=""
-                                name="brand"
-                                value={item.brand}
-                                onChange={handleInputChange}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-                        <Form.Label column sm={2}>
-                            Amount
-                        </Form.Label>
-                        <Col sm={10}>
-                            <Form.Control
-                                type=""
-                                placeholder=""
-                                name="amount"
-                                value={item.amount}
-                                onChange={handleInputChange}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-                        <Form.Label column sm={2}>
-                            Image Url
-                        </Form.Label>
-                        <Col sm={10}>
-                            <Form.Control
-                                type=""
-                                placeholder=""
-                                name="imgUrl"
-                                value={item.imgUrl}
-                                onChange={handleInputChange}
-                            />
-                        </Col>
-                    </Form.Group>
-                </Modal.Body>
+//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
+//                         <Form.Label column sm={2}>
+//                             Description
+//                         </Form.Label>
+//                         <Col sm={10}>
+//                             <Form.Control
+//                                 type=""
+//                                 placeholder=""
+//                                 name="description"
+//                                 value={item.description}
+//                                 onChange={handleInputChange}
+//                             />
+//                         </Col>
+//                     </Form.Group>
+//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
+//                         <Form.Label column sm={2}>
+//                             Price
+//                         </Form.Label>
+//                         <Col sm={10}>
+//                             <Form.Control
+//                                 type=""
+//                                 placeholder=""
+//                                 value={item.price}
+//                                 name="price"
+//                                 onChange={handleInputChange}
+//                             />
+//                         </Col>
+//                     </Form.Group>
+//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
+//                         <Form.Label column sm={2}>
+//                             Brand
+//                         </Form.Label>
+//                         <Col sm={10}>
+//                             <Form.Control
+//                                 type=""
+//                                 placeholder=""
+//                                 name="brand"
+//                                 value={item.brand}
+//                                 onChange={handleInputChange}
+//                             />
+//                         </Col>
+//                     </Form.Group>
+//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
+//                         <Form.Label column sm={2}>
+//                             Amount
+//                         </Form.Label>
+//                         <Col sm={10}>
+//                             <Form.Control
+//                                 type=""
+//                                 placeholder=""
+//                                 name="amount"
+//                                 value={item.amount}
+//                                 onChange={handleInputChange}
+//                             />
+//                         </Col>
+//                     </Form.Group>
+//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
+//                         <Form.Label column sm={2}>
+//                             Image Url
+//                         </Form.Label>
+//                         <Col sm={10}>
+//                             <Form.Control
+//                                 type=""
+//                                 placeholder=""
+//                                 name="imgUrl"
+//                                 value={item.imgUrl}
+//                                 onChange={handleInputChange}
+//                             />
+//                         </Col>
+//                     </Form.Group>
+//                 </Modal.Body>
 
-                <Modal.Footer>
-                    <Button onClick={handleUpdate}>Update</Button>
+//                 <Modal.Footer>
+//                     <Button onClick={handleUpdate}>Update</Button>
 
-                    <Button onClick={props.onHide}>Close</Button>
-                </Modal.Footer>
-            </Form>
-        </Modal>
-    );
-}
+//                     <Button onClick={props.onHide}>Close</Button>
+//                 </Modal.Footer>
+//             </Form>
+//         </Modal>
+//     );
+// }
 function ItemDetailModal(props) {
     const handleUpdate = () => {
         props.onHide();
-        props.updateItem(props.currentItem.id, { ...props.currentItem, progress: true });
+        props.updatedUser(props.currentUser.id, { ...props.currentUser, progress: true });
     };
     return (
         <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>

@@ -17,7 +17,7 @@ import "./custom.css";
 
 const { SubMenu } = Menu;
 
-export const Navbar = ({ changeTheme, theme }) => {
+export const Navbar = ({ changeTheme, theme, menuName, setMenuName }) => {
     const [mode, setMode] = React.useState("inline");
     // const [theme, setTheme] = React.useState("light");
     // const changeMode = (value) => {
@@ -27,7 +27,7 @@ export const Navbar = ({ changeTheme, theme }) => {
     // const changeTheme = (value) => {
     //     setTheme(value ? "dark" : "light");
     // };
-    const [menuName, setMenuName] = React.useState("User Report");
+
     const [logo, setLogo] = React.useState(1);
     return (
         <>
@@ -84,17 +84,17 @@ export const Navbar = ({ changeTheme, theme }) => {
                 <Menu.Item
                     onClick={() => {
                         setLogo(2);
-                        setMenuName("Manage Users");
+                        setMenuName("customer");
                     }}
                     key="2"
                     icon={<SolutionOutlined />}
                 >
-                    Manage Users
+                    Manage Customers
                 </Menu.Item>
                 <Menu.Item
                     onClick={() => {
                         setLogo(3);
-                        setMenuName("Manage Mechanics");
+                        setMenuName("mechanic");
                     }}
                     key="3"
                     icon={<SolutionOutlined />}
