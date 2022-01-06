@@ -52,16 +52,6 @@ const ManagementCRUD = ({
         setdeleteModalShow(false);
         deleteUser(deleteId);
     };
-    console.log(menuName);
-
-    let usersArray = [];
-    for (let i = (currentPage - 1) * pageSize; i < (currentPage - 1) * pageSize + pageSize; i++) {
-        if (users[i] == null) {
-            break;
-        }
-        usersArray.push(users[i]);
-    }
-
     return (
         <Table
             hover
@@ -81,7 +71,7 @@ const ManagementCRUD = ({
                 </tr>
             </thead>
             <tbody>
-                {usersArray.map((user, index) => (
+                {users.map((user, index) => (
                     <tr key={index}>
                         <td
                             style={{ width: "10%" }}

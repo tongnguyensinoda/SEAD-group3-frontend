@@ -11,6 +11,7 @@ import "./mechanic.css";
 import styled from "styled-components";
 import SubNav from "../SubNav";
 import ButtonGroup from "antd/lib/button/button-group";
+import axios from "axios";
 const { confirm } = Modal;
 function showConfirm() {
     confirm({
@@ -25,7 +26,7 @@ function showConfirm() {
         },
     });
 }
-const data = [
+const initialData = [
     {
         key: "1",
         name: "Viet Brown",
@@ -106,6 +107,7 @@ const MechanicForm = () => {
     });
     const [mode, setMode] = useState("request");
     // const [searchInput, setSerchInput] = useState();
+    const [data, setData] = useState(initialData);
     let searchInput;
     const getColumnSearchProps = (dataIndex) => ({
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -190,7 +192,23 @@ const MechanicForm = () => {
         clearFilters();
         setState({ searchText: "" });
     };
-
+    async function fetchData(param) {
+        let fetchURL =
+            mode === "request"
+                ? `http://localhost:8080/servicetran/getrequestjob`
+                : `http://localhost:8080/servicetran/gettodojob`;
+        await axios
+            .get(fetchURL)
+            .then((res) => {
+                // setUsers(res.data.users);
+                // setIsLoading(false);
+                // setPagination({ ...pagination, total: res.data.totalUser });
+            })
+            .catch((error) => window.alert(error));
+    }
+    useEffect(() => {
+        fetchData();
+    }, []);
     const columns = [
         {
             title: "Name",
@@ -246,7 +264,7 @@ const MechanicForm = () => {
                 </Header>
                 <Table
                     columns={columns}
-                    dataSource={data}
+                    dataSource={initialData}
                     onRow={(record, rowIndex) => {
                         return {
                             onClick: (event) => {

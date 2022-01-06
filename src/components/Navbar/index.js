@@ -14,11 +14,13 @@ import {
 } from "@ant-design/icons";
 import { Logo, Head } from "./Navbar.style";
 import "./custom.css";
+import { useNavigate } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
-export const Navbar = ({ changeTheme, theme, menuName, setMenuName }) => {
+export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, filters }) => {
     const [mode, setMode] = React.useState("inline");
+    let navigate = useNavigate();
     // const [theme, setTheme] = React.useState("light");
     // const changeMode = (value) => {
     //     setMode(value ? "vertical" : "inline");
@@ -51,9 +53,9 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName }) => {
                         {" "}
                         {menuName == "User Report"
                             ? "User Report"
-                            : menuName == "Manage Users"
-                            ? "Manage Users"
-                            : menuName == "Manage Mechanics"
+                            : menuName == "customer"
+                            ? "Manage Customers"
+                            : menuName == "mechanic"
                             ? "Manage Mechanics"
                             : "User Report"}
                     </span>
@@ -75,6 +77,7 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName }) => {
                     onClick={() => {
                         setLogo(1);
                         setMenuName("User Report");
+                        // navigate(`/management?role=`)
                     }}
                     key="1"
                     icon={<FileTextOutlined />}
@@ -85,6 +88,8 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName }) => {
                     onClick={() => {
                         setLogo(2);
                         setMenuName("customer");
+                        navigate(`/management?role=customer`);
+                        setFilters({ ...filters, currentPage: 1 });
                     }}
                     key="2"
                     icon={<SolutionOutlined />}
@@ -95,6 +100,8 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName }) => {
                     onClick={() => {
                         setLogo(3);
                         setMenuName("mechanic");
+                        navigate(`/management?role=mechanic`);
+                        setFilters({ ...filters, currentPage: 1 });
                     }}
                     key="3"
                     icon={<SolutionOutlined />}

@@ -11,44 +11,8 @@ import { Navbar } from "../Navbar";
 import ManagementCRUD from "../ManagementCRUD";
 import { Wrapper } from "./Management.style";
 import SubNav from "../SubNav";
-const initialState = [
-    {
-        id: 1,
-        name: "Chocopie",
-        description: "Bánh chocopie",
-        price: 20000,
-        brand: "orion",
-        amount: 10,
-        progress: false,
-    },
-    {
-        id: 2,
-        name: "Chocopie",
-        description: "Bánh chocopie",
-        price: 20000,
-        brand: "orion",
-        amount: 10,
-        progress: false,
-    },
-    {
-        id: 3,
-        name: "Chocopie",
-        description: "Bánh chocopie",
-        price: 20000,
-        brand: "orion",
-        amount: 10,
-        progress: false,
-    },
-    {
-        id: 4,
-        name: "Chocopie",
-        description: "Bánh chocopie",
-        price: 20000,
-        brand: "orion",
-        amount: 10,
-        progress: false,
-    },
-];
+import { useNavigate } from "react-router-dom";
+const initialState = [];
 function Management() {
     const [currentUser, setCurrentUser] = useState({});
     const [users, setUsers] = useState(initialState);
@@ -89,6 +53,7 @@ function Management() {
         total: 4,
         pageSize: 10,
     });
+    let navigate = useNavigate();
     // let sort;
     // const handleSortID = (key) => {
     //     if (isEven(key)) {
@@ -243,6 +208,8 @@ function Management() {
         setFilters({ ...filters, currentPage: page });
         // obj = queryString.stringify(obj);
         // window.location.href = link4 + obj;
+        // console.log(filters.currentPage);
+        navigate(`/management?role=${menuName}?page=${page}`);
     };
     // const handleSearchButton = async (name) => {
     //     let obj = {
@@ -278,20 +245,21 @@ function Management() {
     async function fetchData(param) {
         let fetchURL =
             menuName === "customer"
-                ? "http://localhost:8080/auth/customer/getall"
-                : "http://localhost:8080/auth/mechanic/getall";
+                ? `http://localhost:8080/auth/getall?role=customer&page=${filters.currentPage - 1}`
+                : `http://localhost:8080/auth/getall?role=mechanic&page=${filters.currentPage - 1}`;
         await axios
             .get(fetchURL)
             .then((res) => {
-                setUsers(res.data);
+                console.log(res.data);
+                setUsers(res.data.users);
                 setIsLoading(false);
-                setPagination({ ...pagination, total: res.data.length });
+                setPagination({ ...pagination, total: res.data.totalUser });
             })
             .catch((error) => window.alert(error));
     }
     useEffect(() => {
         fetchData();
-    }, [menuName]);
+    }, [menuName, filters.currentPage]);
 
     // useEffect(() => {
     //     let paramString2 = queryString.stringify(filters);
@@ -339,6 +307,8 @@ function Management() {
                             theme={theme}
                             menuName={menuName}
                             setMenuName={setMenuName}
+                            setFilters={setFilters}
+                            filters={filters}
                         ></Navbar>
                     </div>
                     <Container fluid>

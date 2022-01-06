@@ -4,6 +4,7 @@ import { useState } from "react";
 import SubNav from "../SubNav";
 import GoogleLogin from "react-google-login";
 import { useGoogleLogin } from "react-google-login";
+import axios from "axios";
 export const SignIn = () => {
     // var overlay = document.getElementById("overlay");
 
@@ -27,7 +28,17 @@ export const SignIn = () => {
     const [accountForm, setaccountForm] = useState("sign-in");
     const [styleAccount, setStyleAccount] = useState("");
     const [styleSignIn, setStyleSignIn] = useState("");
-
+    const [user, setUser] = useState({
+        id: "",
+        name: "",
+        password: "",
+        address: "",
+        email: "",
+        phone: "",
+        type: "",
+        jobCount: "",
+        role: "",
+    });
     const openSignUp = () => {
         // Remove classes so that animations can restart on the next 'switch'
         // leftText.classList.remove("overlay-text-left-animation-out");
@@ -112,20 +123,46 @@ export const SignIn = () => {
         // Setup first refresh timer
         setTimeout(refreshToken, refreshTiming);
     };
-    const onSuccess = (res) => {
+    const onSuccess = async (res) => {
         console.log("Login Success: currentUser:", res);
+        await axios
+            .post("http://localhost:8080/auth/signup", {
+                ...user,
+                name: res.profileObj.name,
+                email: res.profileObj.email,
+            })
+            .then((res) => {
+                window.alert("Succesfully create user");
+            })
+            .catch((error) => window.alert(error));
         refreshTokenSetup(res);
     };
     const onFailure = (res) => {
         console.log("Login failed: res:", res);
     };
-
     const { signIn } = useGoogleLogin({
         onSuccess,
         onFailure,
         clientId,
     });
-
+    const onSignUp = async () => {
+        await axios
+            .post("http://localhost:8080/auth/signup", user)
+            .then((res) => {
+                window.alert("Succesfully create user");
+            })
+            .catch((error) => window.alert(error));
+    };
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setUser({ ...user, [name]: value });
+    };
+    // const onSignUp = async () => {
+    //     await axios
+    //         .post("http://localhost:8080/auth/login", user)
+    //         .then((res) => {})
+    //         .catch((error) => window.alert(error));
+    // };
     return (
         <div>
             <SubNav content="Sign In"></SubNav>
@@ -226,35 +263,53 @@ export const SignIn = () => {
                         </div>
                         <p class="small">or use your email for registration:</p>
                         <form id="sign-up-form">
-                            <input className="input-signin" type="text" placeholder="Name" />
+                            <input
+                                className="input-signin"
+                                type="text"
+                                placeholder="Name"
+                                name="name"
+                                onChange={handleInputChange}
+                            />
                             <input
                                 className="input-signin"
                                 type="email"
                                 placeholder="Email"
+                                name="email"
                                 autoComplete="username"
+                                onChange={handleInputChange}
                             />
                             <input
                                 className="input-signin"
                                 type="password"
                                 placeholder="Password"
+                                name="password"
                                 autoComplete="new-password"
+                                onChange={handleInputChange}
                             />
                             <input
                                 className="input-signin"
                                 type="password"
                                 placeholder="Re-type password"
+                                name="reTypePassword"
                                 autoComplete="new-password"
                             />
                             <br></br>
-                            <select className="select-singin" name="userType" id="userType">
+                            <select
+                                className="select-singin"
+                                name="role"
+                                id="userType"
+                                onChange={handleInputChange}
+                            >
                                 <option value="" disabled selected>
                                     Account Type2
                                 </option>
-                                <option value="Shop/Mechanic">Shop/Mechanic</option>
-                                <option value="User">User</option>
+                                <option value="mechanic">Shop/Mechanic</option>
+                                <option value="customer">User</option>
                             </select>
 
-                            <button class="control-button up">Sign Up</button>
+                            <button class="control-button up" onClick={onSignUp}>
+                                Sign Up
+                            </button>
                         </form>
                     </div>
                 </div>
