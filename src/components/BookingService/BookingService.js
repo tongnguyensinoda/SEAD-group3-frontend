@@ -3,20 +3,26 @@ import { useParams} from 'react-router-dom'
 import "./BookingService.css";
 import SubNav from "../SubNav";
 import {useForm} from "react-hook-form"
-
+import Select from 'react-select';
+import TextField from '@material-ui/core/TextField';
 
 export default function BookingService() {
-    const [data, setData] = useState([])
     const [pastedData, setPastedData] = useState([])
+    const [mechanic, setMechanic] = useState([])
+    const [selectedOption, setSelectedOption] = useState(null)
+    const [checkState, setCheckState] = useState(0);
+    const [defaultMechanic, setDefaultMechanic] = useState('');
+
+    const selectionMechanic = []
 
     // Read the value by using the useParam function
     let {id} = useParams()
 
     const {register, handleSubmit, formState: { errors }, reset, trigger} = useForm();
 
-    // Read the product information by productId
+    // Read the product information by serviceId
     useEffect(() => {
-        fetch(`http://localhost:8080/service/${id}`,{
+        fetch("http://localhost:8080/service/" + id,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,10 +32,44 @@ export default function BookingService() {
             .then(data => setPastedData(data));
     }, []);
 
+    if ((pastedData.type != null) && (checkState == 0)){
+        setCheckState(1);
+        fetch("http://localhost:8080/auth/mechanic/getall/type?request=" + pastedData.type,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            })
+            .then(response => response.json())
+            .then(data => setMechanic(data))
+    }
+
     // Submit the input product
     const onSubmit = (data) => {
-        console.log(data);
+        fetch("http://localhost:8080/servicetran", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                customer: data.name,
+                mechanic: selectedOption.label,
+                address: data.address,
+                phone: data.phoneNumber,
+                serviceName: pastedData.name,
+                totalCost: pastedData.cost
+             })
+        }).then(res => {alert("POST SUCCESSFULLY!!!");})
         reset();
+    }
+
+    // Create the selection options for mechanic
+    for (let i = 0; i < mechanic.length; i++){
+        selectionMechanic.push({value: i + 1, label: mechanic[i].name})
+    }
+
+    const handleChange = obj => {
+        setSelectedOption(obj)
     }
 
     return (
@@ -63,7 +103,7 @@ export default function BookingService() {
                             <h3>Address</h3>
                             {/* Create the input Address */}
                             <p>
-                                <input type = "text" className = {`form-control ${errors.name && "address"}`} {...register("address", {
+                                <input type = "text" className = {`form-control ${errors.address && "address"}`} {...register("address", {
                                     required: "Address is Required"
                                     })}
                                     onKeyUp={() => {
@@ -78,7 +118,7 @@ export default function BookingService() {
                             <h3>Phone</h3>
                             {/* Create the input Phone */}
                             <p>
-                                <input type = "text" className = {`form-control ${errors.name && "phoneNumber"}`} {...register("phoneNumber", {
+                                <input type = "text" className = {`form-control ${errors.phoneNumber && "phoneNumber"}`} {...register("phoneNumber", {
                                     required: "Phone Number is Required",
                                     pattern: {
                                         value: /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
@@ -91,6 +131,20 @@ export default function BookingService() {
                             </p>
                             {errors.phoneNumber && (<small className="text-danger">{errors.phoneNumber.message}</small>)}
                         </div>
+                        {/* <div className="form-group">
+                            <TextField></TextField>
+                        </div>  */}
+                        <br/>
+                        <div className="form-group">
+                            <h3>Mechanic</h3>
+                            {/* Create the input Phone */}
+                            <Select
+                                value = {selectedOption}    
+                                onChange={handleChange}
+                                options = {selectionMechanic}
+                                defaultValue={selectionMechanic[0]}
+                            />
+                        </div>  
                         <br/>
                         <button className = "btn" >Submit</button>
                         <br/>

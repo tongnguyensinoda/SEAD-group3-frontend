@@ -52,8 +52,8 @@ function HeaderComponent() {
                             </a>
                         </li>
                         <li className="nav-li">
-                            <a className="nav-a" href="/service">
-                                Service
+                            <a className="nav-a" href="/categoryService">
+                                Category Service
                             </a>
                         </li>
                         <li className="nav-li">
@@ -63,7 +63,7 @@ function HeaderComponent() {
                         </li>
                         <li id="login" className="nav-li">
                             <a className="nav-a" href="/signin">
-                                Sing in
+                                Sign in
                             </a>
                         </li>
                     </ul>

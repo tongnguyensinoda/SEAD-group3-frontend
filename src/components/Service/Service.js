@@ -6,12 +6,11 @@ import "./Service.css";
 
 export default function Service(){
     const [data, setData] = useState([])
+    const [service, setService] = useState([])
+    const [checkState, setCheckState] = useState(0);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [datasPerPage] = useState(6);
-
-    // Define the product link
-    const endPoint = "http://localhost:8080/service"
+    const [datasPerPage] = useState(3);
 
     const indexOfLastData = currentPage * datasPerPage;
     const indexOfFirstData = indexOfLastData - datasPerPage;
@@ -20,19 +19,40 @@ export default function Service(){
     // Set the current page of pagination
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
+    // Read the value by using the useParam function
+    let {id} = useParams()
+
     // Transfer the value by using the navigate function
     let navigate = useNavigate();
 
-    // Read the product table
+    // Read the product information by categoryId
     useEffect(() => {
-      fetch(endPoint)
-        .then(response => response.json())
-        .then(data => setData(data));
-    });
+      fetch("http://localhost:8080/category/" + id,{
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+          })
+          .then(response => response.json())
+          .then(data => setService(data));
+    }, []);
+
+    // Read the product information by productId
+    if ((service.type != null) && (checkState == 0)){
+      setCheckState(1);
+      fetch("http://localhost:8080/service/type?request=" + service.type,{
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+          })
+          .then(response => response.json())
+          .then(data => setData(data))
+  }
+
 
     const booking = (serviceId) =>{
       navigate(`/bookingService/${serviceId}`);
-      console.log(serviceId)
     }
 
     return (
@@ -42,9 +62,9 @@ export default function Service(){
           <div className="row">
             {/* Print out all products */}
             {currentDatas.map(el => (
-              <div className="column">
+              <div className="serviceColumn">
                 <div className="card" key={el.serviceId}>
-                  <p className="productName">{el.name}</p>
+                  <p className="name">{el.name}</p>
                   <p className="price">{el.cost} VND</p>
                   <p className="rating">{el.rating}*</p>
                   <button className = "normalBtn" onClick={()=> booking(el.serviceId)}>Booking</button>
