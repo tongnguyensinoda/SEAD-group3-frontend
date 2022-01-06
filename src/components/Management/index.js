@@ -16,7 +16,7 @@ const initialState = [];
 function Management() {
     const [currentUser, setCurrentUser] = useState({});
     const [users, setUsers] = useState(initialState);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [theme, setTheme] = useState("light");
     const changeTheme = (value) => {
         setTheme(value ? "dark" : "light");
@@ -278,12 +278,12 @@ function Management() {
             <SubNav content="Management"></SubNav>
 
             {isLoading === true ? (
-                <>
-                    style=
-                    {{
+                <div
+                    style={{
                         textAlign: "center",
                         padding: "200px 0px",
                     }}
+                >
                     <Spinner
                         animation="border"
                         role="status"
@@ -291,7 +291,7 @@ function Management() {
                     >
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
-                </>
+                </div>
             ) : (
                 <Wrapper
                     background={theme === "light" ? "white" : "#001529"}

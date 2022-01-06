@@ -7,8 +7,11 @@ export const Wrapper = styled.div`
     color: white;
     .dropdown-menu {
         inset: 12px auto auto 0px !important;
+        transform: translate(-50px, 40px) !important;
     }
     justify-content: center;
+    /* width:100%fit- */
+    /* flex-wrap: wrap; */
     /* min-width: 992px; */
     /* width: 100vw; */
 `;
@@ -48,13 +51,15 @@ export const RightNav = styled.ul`
         text-decoration: none;
         color: white;
     }
-
+    /* font-weight: bold; */
     .account {
         display: flex;
         align-items: center;
+        cursor: pointer;
         .btn {
-            background-color: #263394;
-            border-color: #263394;
+            /* background-color: #263394; */
+            background-color: darkgrey;
+            border-color: darkgrey;
         }
         li:hover {
             background-color: lightgray;
@@ -63,12 +68,19 @@ export const RightNav = styled.ul`
             margin: 0 5px;
         }
     }
+    svg {
+        vertical-align: unset;
+    }
     .image {
-        padding: 0px !important;
-        width: 35px;
+        /* padding: 0px !important;
+        width: 35px !important;
         background-color: white;
         border-radius: 50%;
         cursor: pointer;
+        @media (max-width: 1100px) {
+            width: 35px !important;
+            height: 35px;
+        } */
     }
 `;
 

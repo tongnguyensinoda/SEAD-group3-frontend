@@ -21,14 +21,7 @@ export const SignIn = () => {
     // var signinForm = document.getElementById("sign-up-info");
 
     // Open the Sign Up page
-    const [leftText, setleftText] = useState("sign-in");
-    const [overlay, setoverlay] = useState("overlay1");
-    const [rightText, setrightText] = useState("sign-up");
-    const [signinForm, setsigninForm] = useState("sign-up");
-    const [accountForm, setaccountForm] = useState("sign-in");
-    const [styleAccount, setStyleAccount] = useState("");
-    const [styleSignIn, setStyleSignIn] = useState("");
-    const [user, setUser] = useState({
+    const initialState = {
         id: "",
         name: "",
         password: "",
@@ -38,7 +31,16 @@ export const SignIn = () => {
         type: "",
         jobCount: "",
         role: "",
-    });
+    };
+    const [leftText, setleftText] = useState("sign-in");
+    const [overlay, setoverlay] = useState("overlay1");
+    const [rightText, setrightText] = useState("sign-up");
+    const [signinForm, setsigninForm] = useState("sign-up");
+    const [accountForm, setaccountForm] = useState("sign-in");
+    const [styleAccount, setStyleAccount] = useState("");
+    const [styleSignIn, setStyleSignIn] = useState("");
+    const [user, setUser] = useState(initialState);
+    const [userSingIn, setUserSignIn] = useState({ email: "", password: "" });
     const openSignUp = () => {
         // Remove classes so that animations can restart on the next 'switch'
         // leftText.classList.remove("overlay-text-left-animation-out");
@@ -152,28 +154,43 @@ export const SignIn = () => {
                 window.alert("Succesfully create user");
             })
             .catch((error) => window.alert(error));
+        setUser(initialState);
     };
-    const handleInputChange = (event) => {
+    const handleInputChangeSignUp = (event) => {
         const { name, value } = event.target;
         setUser({ ...user, [name]: value });
     };
-    // const onSignUp = async () => {
-    //     await axios
-    //         .post("http://localhost:8080/auth/login", user)
-    //         .then((res) => {})
-    //         .catch((error) => window.alert(error));
-    // };
+    const handleInputChangeSignIn = (event) => {
+        const { name, value } = event.target;
+        setUserSignIn({ ...userSingIn, [name]: value });
+        console.log(userSingIn);
+    };
+
+    const onSignIn = async () => {
+        await axios
+            .post("http://localhost:8080/auth/login", userSingIn)
+            .then((res) => {
+                localStorage.setItem("roles", "customer");
+                console.log("hello");
+            })
+            .catch((error) => window.alert(error));
+        setUser(initialState);
+    };
     return (
         <div>
             <SubNav content="Sign In"></SubNav>
-            <div class="container1">
+            <div className="container1">
                 <div className={overlay} id="overlay1">
-                    <div class={leftText} id="sign-in">
+                    <div className={leftText} id="sign-in">
                         <h1 className="h1-signin">Welcome Back!</h1>
                         <p className="p-signin">
                             To keep connected with us please login with your personal info
                         </p>
-                        <button class="switch-button" id="slide-right-button" onClick={openSignIn}>
+                        <button
+                            className="switch-button"
+                            id="slide-right-button"
+                            onClick={openSignIn}
+                        >
                             Sign In
                         </button>
                     </div>
@@ -182,16 +199,24 @@ export const SignIn = () => {
                         <p className="p-signin">
                             Enter your personal details and start a journey with us
                         </p>
-                        <button class="switch-button" id="slide-left-button" onClick={openSignUp}>
+                        <button
+                            className="switch-button"
+                            id="slide-left-button"
+                            onClick={openSignUp}
+                        >
                             Sign Up
                         </button>
                     </div>
                 </div>
-                <div class="form1">
-                    <div class={accountForm} style={{ display: styleAccount }} id="sign-in-info">
+                <div className="form1">
+                    <div
+                        className={accountForm}
+                        style={{ display: styleAccount }}
+                        id="sign-in-info"
+                    >
                         <h1 className="h1-signin">Sign In</h1>
-                        <div class="social-media-buttons">
-                            <div class="icon">
+                        <div className="social-media-buttons">
+                            <div className="icon">
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         fill="#000000"
@@ -199,7 +224,7 @@ export const SignIn = () => {
                                     />
                                 </svg>
                             </div>
-                            <div class="icon" onClick={signIn} style={{ cursor: "pointer" }}>
+                            <div className="icon" onClick={signIn} style={{ cursor: "pointer" }}>
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         fill="#000000"
@@ -207,7 +232,7 @@ export const SignIn = () => {
                                     />
                                 </svg>
                             </div>
-                            <div class="icon">
+                            <div className="icon">
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         fill="#000000"
@@ -216,23 +241,33 @@ export const SignIn = () => {
                                 </svg>
                             </div>
                         </div>
-                        <p class="small">or use your email account:</p>
+                        <p className="small">or use your email account:</p>
                         <form id="sign-in-form">
-                            <input className="input-signin" type="text" placeholder="Email" />
+                            <input
+                                className="input-signin"
+                                type="text"
+                                placeholder="Email"
+                                name="email"
+                                onChange={handleInputChangeSignIn}
+                            />
                             <input
                                 className="input-signin"
                                 type="password"
                                 placeholder="Password"
+                                name="password"
+                                onChange={handleInputChangeSignIn}
                             />
                             <br></br>
-                            <p class="forgot-password">Forgot your password?</p>
-                            <button class="control-button in">Sign In</button>
+                            <p className="forgot-password">Forgot your password?</p>
+                            <button className="control-button in" onClick={onSignIn} type="button">
+                                Sign In
+                            </button>
                         </form>
                     </div>
-                    <div class={signinForm} style={{ display: styleSignIn }} id="sign-up-info">
+                    <div className={signinForm} style={{ display: styleSignIn }} id="sign-up-info">
                         <h1 className="h1-signin">Create Account</h1>
-                        <div class="social-media-buttons">
-                            <div class="icon">
+                        <div className="social-media-buttons">
+                            <div className="icon">
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         fill="#000000"
@@ -240,7 +275,7 @@ export const SignIn = () => {
                                     />
                                 </svg>
                             </div>
-                            <div class="icon">
+                            <div className="icon">
                                 <svg
                                     viewBox="0 0 24 24"
                                     onClick={signIn}
@@ -252,7 +287,7 @@ export const SignIn = () => {
                                     />
                                 </svg>
                             </div>
-                            <div class="icon">
+                            <div className="icon">
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         fill="#000000"
@@ -261,14 +296,14 @@ export const SignIn = () => {
                                 </svg>
                             </div>
                         </div>
-                        <p class="small">or use your email for registration:</p>
+                        <p className="small">or use your email for registration:</p>
                         <form id="sign-up-form">
                             <input
                                 className="input-signin"
                                 type="text"
                                 placeholder="Name"
                                 name="name"
-                                onChange={handleInputChange}
+                                onChange={handleInputChangeSignUp}
                             />
                             <input
                                 className="input-signin"
@@ -276,7 +311,7 @@ export const SignIn = () => {
                                 placeholder="Email"
                                 name="email"
                                 autoComplete="username"
-                                onChange={handleInputChange}
+                                onChange={handleInputChangeSignUp}
                             />
                             <input
                                 className="input-signin"
@@ -284,7 +319,7 @@ export const SignIn = () => {
                                 placeholder="Password"
                                 name="password"
                                 autoComplete="new-password"
-                                onChange={handleInputChange}
+                                onChange={handleInputChangeSignUp}
                             />
                             <input
                                 className="input-signin"
@@ -298,7 +333,7 @@ export const SignIn = () => {
                                 className="select-singin"
                                 name="role"
                                 id="userType"
-                                onChange={handleInputChange}
+                                onChange={handleInputChangeSignUp}
                             >
                                 <option value="" disabled selected>
                                     Account Type2
@@ -307,7 +342,7 @@ export const SignIn = () => {
                                 <option value="customer">User</option>
                             </select>
 
-                            <button class="control-button up" onClick={onSignUp}>
+                            <button className="control-button up" onClick={onSignUp} type="button">
                                 Sign Up
                             </button>
                         </form>
