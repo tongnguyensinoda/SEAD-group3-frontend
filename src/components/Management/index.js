@@ -14,6 +14,8 @@ import SubNav from "../SubNav";
 import { useNavigate } from "react-router-dom";
 const initialState = [];
 function Management() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
     const [currentUser, setCurrentUser] = useState({});
     const [users, setUsers] = useState(initialState);
     const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +23,9 @@ function Management() {
     const changeTheme = (value) => {
         setTheme(value ? "dark" : "light");
     };
-    const [menuName, setMenuName] = useState("Mechanic Report");
+    const [menuName, setMenuName] = useState(
+        url.searchParams.get("role") == null ? "serviceTran" : url.searchParams.get("role")
+    );
     // const link = "https://my-app123sad.herokuapp.com/items/search?";
     // const link2 = "https://my-app123sad.herokuapp.com/items/";
     // const link4 = "https://my-app123sad.herokuapp.com/?";
@@ -41,87 +45,117 @@ function Management() {
     //     // brand: url.searchParams.get("brand"),
     // };
     // // console.log(c);
+
     const [filters, setFilters] = useState({
-        currentPage: 1,
-        keyword: "",
-        sortType: "",
-        order: "",
-        type: "",
-        brand: "",
+        currentPage:
+            url.searchParams.get("page") == null ? 1 : parseInt(url.searchParams.get("page")),
+        sort: url.searchParams.get("sort") == null ? "" : url.searchParams.get("sort"),
+        // role: url.searchParams.get("role") == null ? "serviceTran" : url.searchParams.get("role"),
     });
     const [pagination, setPagination] = useState({
         total: 4,
-        pageSize: 10,
+        pageSize: 5,
     });
+
     let navigate = useNavigate();
-    // let sort;
-    // const handleSortID = (key) => {
-    //     if (isEven(key)) {
-    //         sort = "acs";
-    //     } else {
-    //         sort = "des";
-    //     }
-    //     let obj = {
-    //         ...filters,
-    //         order: sort,
-    //         sortType: "id",
-    //     };
-    //     console.log(obj);
-    //     obj = queryString.stringify(obj);
-    //     console.log(obj);
-    //     window.location.href = link4 + obj;
-    // };
-    // const handleSortName = (key) => {
-    //     if (isEven(key)) {
-    //         sort = "acs";
-    //     } else {
-    //         sort = "des";
-    //     }
-    //     let obj = {
-    //         ...filters,
-    //         order: sort,
-    //         sortType: "name",
-    //         currentPage: 1,
-    //     };
-    //     console.log(obj);
-    //     obj = queryString.stringify(obj);
-    //     console.log(obj);
-    //     window.location.href = link4 + obj;
-    // };
-    // const handleSortAmount = (key) => {
-    //     if (isEven(key)) {
-    //         sort = "acs";
-    //     } else {
-    //         sort = "des";
-    //     }
-    //     let obj = {
-    //         ...filters,
-    //         order: sort,
-    //         sortType: "amount",
-    //         currentPage: 1,
-    //     };
-    //     console.log(obj);
-    //     obj = queryString.stringify(obj);
-    //     console.log(obj);
-    //     window.location.href = link4 + obj;
-    // };
-    // const handleSortPrice = (key) => {
-    //     if (isEven(key)) {
-    //         sort = "acs";
-    //     } else {
-    //         sort = "des";
-    //     }
-    //     let obj = {
-    //         ...filters,
-    //         order: sort,
-    //         sortType: "price",
-    //         currentPage: 1,
-    //     };
-    //     console.log(obj);
-    //     obj = queryString.stringify(obj);
-    //     console.log(obj);
-    //     window.location.href = link4 + obj;
-    // };
+    const handleSortID = (key) => {
+        if (isEven(key)) {
+            if (menuName == "serviceTran") {
+                setFilters({ ...filters, sort: "serviceTransId,asc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransId,asc`
+                );
+            } else {
+                setFilters({ ...filters, sort: "id,asc" });
+                navigate(`/management?role=${menuName}&page=${filters.currentPage}&sort=id,asc`);
+            }
+        } else {
+            if (menuName == "serviceTran") {
+                setFilters({ ...filters, sort: "serviceTransId,desc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransId,desc`
+                );
+            } else {
+                setFilters({ ...filters, sort: "id,desc" });
+                navigate(`/management?role=${menuName}&page=${filters.currentPage}&sort=id,desc`);
+            }
+        }
+    };
+    const handleSortName = (key) => {
+        if (isEven(key)) {
+            if (menuName == "serviceTran") {
+                setFilters({ ...filters, sort: "serviceTransName,asc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransName,asc`
+                );
+            } else {
+                setFilters({ ...filters, sort: "name,asc" });
+                navigate(`/management?role=${menuName}&page=${filters.currentPage}&sort=name,asc`);
+            }
+        } else {
+            if (menuName == "serviceTran") {
+                setFilters({ ...filters, sort: "serviceTransName,desc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransName,desc`
+                );
+            } else {
+                setFilters({ ...filters, sort: "name,desc" });
+                navigate(`/management?role=${menuName}&page=${filters.currentPage}&sort=name,desc`);
+            }
+        }
+    };
+    const handleSortEmail = (key) => {
+        if (isEven(key)) {
+            if (menuName == "serviceTran") {
+                setFilters({ ...filters, sort: "serviceTransEmail,asc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransEmail,asc`
+                );
+            } else {
+                setFilters({ ...filters, sort: "email,asc" });
+                navigate(`/management?role=${menuName}&page=${filters.currentPage}&sort=email,asc`);
+            }
+        } else {
+            if (menuName == "serviceTran") {
+                setFilters({ ...filters, sort: "serviceTransName,desc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransEmail,desc`
+                );
+            } else {
+                setFilters({ ...filters, sort: "email,desc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=email,desc`
+                );
+            }
+        }
+    };
+    const handleSortAddress = (key) => {
+        if (isEven(key)) {
+            if (menuName == "serviceTran") {
+                setFilters({ ...filters, sort: "serviceTransAddress,asc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransAddress,asc`
+                );
+            } else {
+                setFilters({ ...filters, sort: "address,asc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=address,asc`
+                );
+            }
+        } else {
+            if (menuName == "serviceTran") {
+                setFilters({ ...filters, sort: "serviceTransAddress,desc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransAddress,desc`
+                );
+            } else {
+                setFilters({ ...filters, sort: "address,desc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=address,desc`
+                );
+            }
+        }
+    };
     // const handleSortBrand = (key) => {
     //     if (isEven(key)) {
     //         sort = "acs";
@@ -160,9 +194,9 @@ function Management() {
     //         window.location.href = link4 + obj;
     //     }
     // };
-    // function isEven(n) {
-    //     return n % 2 === 0;
-    // }
+    function isEven(n) {
+        return n % 2 === 0;
+    }
     // const handleAddItem = (newItem) => {
     //     newItem.id = items.length + 1;
     //     setUsers([...items, newItem]);
@@ -176,14 +210,12 @@ function Management() {
     // };
     const deleteUser = async (id) => {
         setUsers(users.filter((user) => user.id !== id));
-        console.log(id);
-        // await axios
-        //     .delete(link2 + id)
-        //     .then((res) => {
-        //         fetchData();
-        //         window.alert("Delete item successfully");
-        //     })
-        //     .catch((error) => window.alert(error));
+        await axios
+            .delete(`http://localhost:8080/auth/${id}`)
+            .then((res) => {
+                window.alert("Delete succesfully");
+            })
+            .catch((error) => window.alert(error));
     };
     const editRow = (user) => {
         setCurrentUser(user);
@@ -209,7 +241,7 @@ function Management() {
         // obj = queryString.stringify(obj);
         // window.location.href = link4 + obj;
         // console.log(filters.currentPage);
-        navigate(`/management?role=${menuName}?page=${page}`);
+        navigate(`/management?role=${menuName}&page=${page}`);
     };
     // const handleSearchButton = async (name) => {
     //     let obj = {
@@ -229,42 +261,42 @@ function Management() {
     //         .catch((error) => window.alert(error));
     // };
     const deleteFilter = () => {
-        let temp = {
-            keyword: null,
-            currentPage: 1,
-            sortType: null,
-            order: null,
-            type: null,
-            brand: null,
-        };
-        setFilters(temp);
+        // window.location.href = "/management";
+        setFilters({ ...filters, currentPage: 1, sort: "" });
+        navigate(`/management?role=${menuName}`);
         // let obj = temp;
         // obj = queryString.stringify(obj);
         // window.location.href = link4 + obj;
     };
     async function fetchData(param) {
         let fetchURL =
-            menuName === "customer"
-                ? `http://localhost:8080/auth/getall?role=customer&page=${filters.currentPage - 1}`
-                : menuName === "Mechanic report"
-                ? `http://localhost:8080/servicetran/getrequestjob`
-                : menuName === "mechanic"
-                ? `http://localhost:8080/auth/getall?role=mechanic&page=${filters.currentPage - 1}`
-                : `http://localhost:8080/auth/getall?role=customer&page=${filters.currentPage - 1}`;
-
+            menuName === "serviceTran"
+                ? `http://localhost:8080/servicetran?page=${filters.currentPage - 1}&sort=${
+                      filters.sort
+                  }`
+                : `http://localhost:8080/auth/getall?role=${menuName}&page=${
+                      filters.currentPage - 1
+                  }&sort=${filters.sort}`;
         await axios
             .get(fetchURL)
             .then((res) => {
-                console.log(res.data);
-                setUsers(res.data.users);
+                menuName === "serviceTran"
+                    ? setUsers(res.data.serviceTrans)
+                    : setUsers(res.data.users);
                 setIsLoading(false);
-                setPagination({ ...pagination, total: res.data.totalUser });
+                setPagination({
+                    ...pagination,
+                    total:
+                        menuName === "serviceTran"
+                            ? res.data.totalServiceTrans
+                            : res.data.totalUser,
+                });
             })
             .catch((error) => window.alert(error));
     }
     useEffect(() => {
         fetchData();
-    }, [menuName, filters.currentPage]);
+    }, [menuName, filters]);
 
     // useEffect(() => {
     //     let paramString2 = queryString.stringify(filters);
@@ -319,10 +351,10 @@ function Management() {
                     <Container fluid>
                         <Filter
                             theme={theme}
-                            // handleSortID={handleSortID}
-                            // handleSortName={handleSortName}
-                            // handleSortAmount={handleSortAmount}
-                            // handleSortPrice={handleSortPrice}
+                            handleSortID={handleSortID}
+                            handleSortName={handleSortName}
+                            handleSortEmail={handleSortEmail}
+                            handleSortAddress={handleSortAddress}
                             // handleSortBrand={handleSortBrand}
                             // handleSortType={handleSortType}
                             deleteFilter={deleteFilter}

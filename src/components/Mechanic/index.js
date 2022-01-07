@@ -209,7 +209,6 @@ const MechanicForm = () => {
         await axios
             .get(fetchURL)
             .then((res) => {
-                console.log(res);
                 setData(res.data);
                 setIsLoading(false);
             })

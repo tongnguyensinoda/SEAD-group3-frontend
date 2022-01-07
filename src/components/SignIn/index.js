@@ -163,7 +163,6 @@ export const SignIn = () => {
     const handleInputChangeSignIn = (event) => {
         const { name, value } = event.target;
         setUserSignIn({ ...userSingIn, [name]: value });
-        console.log(userSingIn);
     };
 
     const onSignIn = async () => {

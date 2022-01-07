@@ -8,23 +8,23 @@ import styled from "styled-components";
 import Pending from "../../pending.png";
 import BlackPending from "../../black-pending.png";
 import Checked from "../../checked.png";
-const ProgressStatus = ({ theme, progress }) => {
-    return (
-        <img
-            alt=""
-            src={
-                theme === "light" && progress === false
-                    ? Pending
-                    : theme === "black" && progress === false
-                    ? BlackPending
-                    : progress === true
-                    ? Checked
-                    : Checked
-            }
-            style={{ width: "35px" }}
-        />
-    );
-};
+// const ProgressStatus = ({ theme, progress }) => {
+//     return (
+//         <img
+//             alt=""
+//             src={
+//                 theme === "light" && progress === false
+//                     ? Pending
+//                     : theme === "black" && progress === false
+//                     ? BlackPending
+//                     : progress === true
+//                     ? Checked
+//                     : Checked
+//             }
+//             style={{ width: "35px" }}
+//         />
+//     );
+// };
 
 const ManagementCRUD = ({
     users,
@@ -54,16 +54,17 @@ const ManagementCRUD = ({
     };
     let tableHead;
     let tableBody;
-    if (menuName === "Mechanic Report") {
+    if (menuName === "serviceTran") {
         tableHead = (
             <>
-                <th>ID</th>
-                <th>Name</th>
+                <th>Service Transaction ID</th>
+                <th>Customer</th>
+                <th>Mechanic</th>
                 <th>Address</th>
-                <th>Email</th>
                 <th>Phone</th>
-                <th>Type</th>
-                <th>Job Count</th>
+                <th>Service Name</th>
+                <th>Total Cost</th>
+                <th>Start date</th>
                 <th>Progress</th>
             </>
         );
@@ -79,7 +80,7 @@ const ManagementCRUD = ({
                                 editRow(user);
                             }}
                         >
-                            <>{user.id}</>
+                            <>{user.serviceTransId}</>
                         </td>
                         <td
                             style={{ width: "15%" }}
@@ -89,17 +90,7 @@ const ManagementCRUD = ({
                                 editRow(user);
                             }}
                         >
-                            <>{user.name}</>
-                        </td>
-                        <td
-                            style={{ width: "30%" }}
-                            onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
-                                editRow(user);
-                            }}
-                        >
-                            <>{user.address}</>
+                            <>{user.customer}</>
                         </td>
                         <td
                             style={{ width: "10%" }}
@@ -109,7 +100,17 @@ const ManagementCRUD = ({
                                 editRow(user);
                             }}
                         >
-                            <>{user.email}</>
+                            <>{user.mechanic}</>
+                        </td>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.address}</>
                         </td>
                         <td
                             style={{ width: "10%" }}
@@ -129,7 +130,7 @@ const ManagementCRUD = ({
                                 editRow(user);
                             }}
                         >
-                            <>{user.type}</>
+                            <>{user.serviceName}</>
                         </td>
                         <td
                             style={{ width: "10%" }}
@@ -139,19 +140,29 @@ const ManagementCRUD = ({
                                 editRow(user);
                             }}
                         >
-                            <>{user.jobCount}</>
+                            <>{user.totalCost}</>
+                        </td>
+                        <td
+                            style={{ width: "30%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.startDate}</>
                         </td>
                         <td style={{ width: "15%" }}>
                             <img
                                 alt=""
                                 src={
-                                    theme === "light" && user.progress === false
+                                    theme === "light" && user.endDate === null
                                         ? Pending
-                                        : theme === "dark" && user.progress === false
+                                        : theme === "dark" && user.endDate === null
                                         ? BlackPending
-                                        : user.progress === true
+                                        : user.endDate !== null
                                         ? Checked
-                                        : Checked
+                                        : Pending
                                 }
                                 style={{ width: "35px" }}
                             />
@@ -278,8 +289,8 @@ const ManagementCRUD = ({
                 <th>Address</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Job Count</th>
                 <th>Type</th>
+                <th>Job Count</th>
                 <th>Action</th>
             </>
         );

@@ -51,7 +51,7 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
 
                     <span>
                         {" "}
-                        {menuName == "Mechanic Report"
+                        {menuName == "serviceTran"
                             ? "Mechanic Report"
                             : menuName == "customer"
                             ? "Manage Customers"
@@ -68,7 +68,15 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
 
             <Menu
                 style={{ width: 256 }}
-                defaultSelectedKeys={["1"]}
+                defaultSelectedKeys={
+                    menuName == "Mechanic Report"
+                        ? ["1"]
+                        : menuName == "customer"
+                        ? ["2"]
+                        : menuName == "mechanic"
+                        ? ["3"]
+                        : ["1"]
+                }
                 defaultOpenKeys={["sub1"]}
                 mode={mode}
                 theme={theme}
@@ -76,8 +84,9 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
                 <Menu.Item
                     onClick={() => {
                         setLogo(1);
-                        setMenuName("Mechanic Report");
-                        navigate(`/management?role=mechanic`);
+                        setMenuName("serviceTran");
+                        setFilters({ ...filters, currentPage: 1, sort: "" });
+                        navigate(`/management?role=serviceTran`);
                     }}
                     key="1"
                     icon={<FileTextOutlined />}
@@ -89,7 +98,7 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
                         setLogo(2);
                         setMenuName("customer");
                         navigate(`/management?role=customer`);
-                        setFilters({ ...filters, currentPage: 1 });
+                        setFilters({ ...filters, currentPage: 1, sort: "" });
                     }}
                     key="2"
                     icon={<SolutionOutlined />}
@@ -101,7 +110,7 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
                         setLogo(3);
                         setMenuName("mechanic");
                         navigate(`/management?role=mechanic`);
-                        setFilters({ ...filters, currentPage: 1 });
+                        setFilters({ ...filters, currentPage: 1, sort: "" });
                     }}
                     key="3"
                     icon={<SolutionOutlined />}
