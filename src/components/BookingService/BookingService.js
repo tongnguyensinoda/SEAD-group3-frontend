@@ -54,6 +54,7 @@ export default function BookingService() {
             body: JSON.stringify({ 
                 customer: data.name,
                 mechanic: selectedOption.label,
+                mechanicId: selectedOption.value,
                 address: data.address,
                 phone: data.phoneNumber,
                 serviceName: pastedData.name,
@@ -65,7 +66,7 @@ export default function BookingService() {
 
     // Create the selection options for mechanic
     for (let i = 0; i < mechanic.length; i++){
-        selectionMechanic.push({value: i + 1, label: mechanic[i].name})
+        selectionMechanic.push({value: mechanic[i].id, label: mechanic[i].name})
     }
 
     const handleChange = obj => {
