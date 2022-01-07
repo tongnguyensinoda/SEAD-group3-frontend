@@ -77,7 +77,7 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
                     onClick={() => {
                         setLogo(1);
                         setMenuName("Mechanic Report");
-                        // navigate(`/management?role=`)
+                        navigate(`/management?role=mechanic`);
                     }}
                     key="1"
                     icon={<FileTextOutlined />}

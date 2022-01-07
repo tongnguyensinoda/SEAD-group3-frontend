@@ -21,7 +21,7 @@ function Management() {
     const changeTheme = (value) => {
         setTheme(value ? "dark" : "light");
     };
-    const [menuName, setMenuName] = useState("User Report");
+    const [menuName, setMenuName] = useState("Mechanic Report");
     // const link = "https://my-app123sad.herokuapp.com/items/search?";
     // const link2 = "https://my-app123sad.herokuapp.com/items/";
     // const link4 = "https://my-app123sad.herokuapp.com/?";
@@ -176,7 +176,7 @@ function Management() {
     // };
     const deleteUser = async (id) => {
         setUsers(users.filter((user) => user.id !== id));
-        // console.log(id);
+        console.log(id);
         // await axios
         //     .delete(link2 + id)
         //     .then((res) => {
@@ -246,7 +246,12 @@ function Management() {
         let fetchURL =
             menuName === "customer"
                 ? `http://localhost:8080/auth/getall?role=customer&page=${filters.currentPage - 1}`
-                : `http://localhost:8080/auth/getall?role=mechanic&page=${filters.currentPage - 1}`;
+                : menuName === "Mechanic report"
+                ? `http://localhost:8080/servicetran/getrequestjob`
+                : menuName === "mechanic"
+                ? `http://localhost:8080/auth/getall?role=mechanic&page=${filters.currentPage - 1}`
+                : `http://localhost:8080/auth/getall?role=customer&page=${filters.currentPage - 1}`;
+
         await axios
             .get(fetchURL)
             .then((res) => {
