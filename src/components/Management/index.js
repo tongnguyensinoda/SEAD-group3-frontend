@@ -11,53 +11,17 @@ import { Navbar } from "../Navbar";
 import ManagementCRUD from "../ManagementCRUD";
 import { Wrapper } from "./Management.style";
 import SubNav from "../SubNav";
-const initialState = [
-    {
-        id: 1,
-        name: "Chocopie",
-        description: "Bánh chocopie",
-        price: 20000,
-        brand: "orion",
-        amount: 10,
-        progress: false,
-    },
-    {
-        id: 2,
-        name: "Chocopie",
-        description: "Bánh chocopie",
-        price: 20000,
-        brand: "orion",
-        amount: 10,
-        progress: false,
-    },
-    {
-        id: 3,
-        name: "Chocopie",
-        description: "Bánh chocopie",
-        price: 20000,
-        brand: "orion",
-        amount: 10,
-        progress: false,
-    },
-    {
-        id: 4,
-        name: "Chocopie",
-        description: "Bánh chocopie",
-        price: 20000,
-        brand: "orion",
-        amount: 10,
-        progress: false,
-    },
-];
+import { useNavigate } from "react-router-dom";
+const initialState = [];
 function Management() {
     const [currentUser, setCurrentUser] = useState({});
     const [users, setUsers] = useState(initialState);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [theme, setTheme] = useState("light");
     const changeTheme = (value) => {
         setTheme(value ? "dark" : "light");
     };
-    const [menuName, setMenuName] = useState("User Report");
+    const [menuName, setMenuName] = useState("Mechanic Report");
     // const link = "https://my-app123sad.herokuapp.com/items/search?";
     // const link2 = "https://my-app123sad.herokuapp.com/items/";
     // const link4 = "https://my-app123sad.herokuapp.com/?";
@@ -89,6 +53,7 @@ function Management() {
         total: 4,
         pageSize: 10,
     });
+    let navigate = useNavigate();
     // let sort;
     // const handleSortID = (key) => {
     //     if (isEven(key)) {
@@ -211,7 +176,7 @@ function Management() {
     // };
     const deleteUser = async (id) => {
         setUsers(users.filter((user) => user.id !== id));
-        // console.log(id);
+        console.log(id);
         // await axios
         //     .delete(link2 + id)
         //     .then((res) => {
@@ -243,6 +208,8 @@ function Management() {
         setFilters({ ...filters, currentPage: page });
         // obj = queryString.stringify(obj);
         // window.location.href = link4 + obj;
+        // console.log(filters.currentPage);
+        navigate(`/management?role=${menuName}?page=${page}`);
     };
     // const handleSearchButton = async (name) => {
     //     let obj = {
@@ -278,20 +245,26 @@ function Management() {
     async function fetchData(param) {
         let fetchURL =
             menuName === "customer"
-                ? "http://localhost:8080/auth/customer/getall"
-                : "http://localhost:8080/auth/mechanic/getall";
+                ? `http://localhost:8080/auth/getall?role=customer&page=${filters.currentPage - 1}`
+                : menuName === "Mechanic report"
+                ? `http://localhost:8080/servicetran/getrequestjob`
+                : menuName === "mechanic"
+                ? `http://localhost:8080/auth/getall?role=mechanic&page=${filters.currentPage - 1}`
+                : `http://localhost:8080/auth/getall?role=customer&page=${filters.currentPage - 1}`;
+
         await axios
             .get(fetchURL)
             .then((res) => {
-                setUsers(res.data);
+                console.log(res.data);
+                setUsers(res.data.users);
                 setIsLoading(false);
-                setPagination({ ...pagination, total: res.data.length });
+                setPagination({ ...pagination, total: res.data.totalUser });
             })
             .catch((error) => window.alert(error));
     }
     useEffect(() => {
         fetchData();
-    }, [menuName]);
+    }, [menuName, filters.currentPage]);
 
     // useEffect(() => {
     //     let paramString2 = queryString.stringify(filters);
@@ -310,12 +283,12 @@ function Management() {
             <SubNav content="Management"></SubNav>
 
             {isLoading === true ? (
-                <>
-                    style=
-                    {{
+                <div
+                    style={{
                         textAlign: "center",
                         padding: "200px 0px",
                     }}
+                >
                     <Spinner
                         animation="border"
                         role="status"
@@ -323,7 +296,7 @@ function Management() {
                     >
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
-                </>
+                </div>
             ) : (
                 <Wrapper
                     background={theme === "light" ? "white" : "#001529"}
@@ -339,6 +312,8 @@ function Management() {
                             theme={theme}
                             menuName={menuName}
                             setMenuName={setMenuName}
+                            setFilters={setFilters}
+                            filters={filters}
                         ></Navbar>
                     </div>
                     <Container fluid>

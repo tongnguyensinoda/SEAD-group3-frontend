@@ -1,10 +1,15 @@
 import React from "react";
 import { Wrapper, LeftNavItem, RightNavItem, RightNav, Content } from "./Navbar.styles";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Dropdown, DropdownButton } from "react-bootstrap";
+import { useState } from "react";
+// import { Dropdown, DropdownButton } from "react-bootstrap";
 import RocketLogo from "../../rocket.png";
 import { MechanicForm } from "../Mechanic";
+import { Avatar, Menu, Dropdown, Button, Space, Descriptions } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+
 const Navbar = () => {
+    const [role, setRole] = useState(localStorage.getItem("roles"));
     let item;
 
     // const abc = () => {
@@ -12,29 +17,55 @@ const Navbar = () => {
     //     window.location.href = "http://cloud-env.eba-8hk2mpj3.us-west-2.elasticbeanstalk.com/home";
     // };
     // console.log(account);
-    let account = false;
-    let image = "https://static.thenounproject.com/png/3070444-200.png";
-    if (account) {
+    let image;
+    if (role === "customer" || role === "mechanic") {
+        image = <Avatar size={34} icon={<UserOutlined />} />;
+    } else {
+        image = "";
+    }
+    const handleSignOut = () => {
+        setRole("");
+    };
+    const menu = (
+        <Menu>
+            <Menu.Item>
+                <Link to="/profile">Profile</Link>
+            </Menu.Item>
+            {/* <Menu.Item>
+                <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+                    2nd menu item
+                </a>
+            </Menu.Item> */}
+            <Menu.Item>
+                <div onClick={handleSignOut}>Sign Out</div>
+            </Menu.Item>
+        </Menu>
+    );
+
+    if (role === "customer" || role === "mechanic") {
         item = (
             <>
                 <Link to="/home">
                     <RightNavItem>Home Page</RightNavItem>
                 </Link>
-
-                <Link to="/information">
-                    <RightNavItem>Infomation look-up</RightNavItem>
+                <Link to="/management">
+                    <RightNavItem>Management</RightNavItem>
                 </Link>
-                <Link to="/validationPage">
-                    <RightNavItem>Validation</RightNavItem>
+                <Link to="/categoryService">
+                    <RightNavItem>Category Service</RightNavItem>
                 </Link>
-                <div className="account">
-                    {image}
-                    <DropdownButton align="end" id="dropdown-menu-align-end" title="">
-                        <li>
-                            <RightNavItem>Sign-out</RightNavItem>
-                        </li>
-                    </DropdownButton>
-                </div>
+                <Link to="/about">
+                    <RightNavItem>About</RightNavItem>
+                </Link>
+                <Link to="/mechanicForm">
+                    <RightNavItem>Mechanic Form</RightNavItem>
+                </Link>
+                <Dropdown overlay={menu} placement="bottomCenter">
+                    <div className="account">
+                        {image}
+                        <span>{localStorage.getItem("email")}</span>
+                    </div>
+                </Dropdown>
             </>
         );
     } else {

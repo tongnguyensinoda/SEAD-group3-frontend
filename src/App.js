@@ -3,6 +3,7 @@ import "./App.css";
 import "./index.css";
 import { SignIn } from "./components/SignIn";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
 import HeaderComponent from "./components/HeaderComponent";
 import AboutUsComponent from "./components/About";
 import HomeComponent from "./components/HomeComponent";
@@ -11,10 +12,10 @@ import Management from "./components/Management";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar2";
 import MechanicForm from "./components/Mechanic";
-import CategoryService from './components/CategoryService/CategoryService';
-import Service from './components/Service/Service';
-import BookingService from './components/BookingService/BookingService';
-
+import CategoryService from "./components/CategoryService/CategoryService";
+import Service from "./components/Service/Service";
+import BookingService from "./components/BookingService/BookingService";
+import Profile from "./components/Profile";
 
 function App() {
     return (
@@ -29,10 +30,11 @@ function App() {
                     <Route path="/service/:id" element={<Service />} />
                     <Route path="/bookingService/:id" element={<BookingService />} />
                     <Route path="/mechanicForm" element={<MechanicForm></MechanicForm>} />
+                    <Route path="/profile" element={<Profile></Profile>} />
+
                     <Route path="/" element={<HomeComponent />} />
                 </Routes>
             </div>
-
             <FooterComponent />
         </BrowserRouter>
     );

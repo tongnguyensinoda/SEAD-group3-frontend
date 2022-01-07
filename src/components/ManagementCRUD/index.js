@@ -52,36 +52,24 @@ const ManagementCRUD = ({
         setdeleteModalShow(false);
         deleteUser(deleteId);
     };
-    console.log(menuName);
-
-    let usersArray = [];
-    for (let i = (currentPage - 1) * pageSize; i < (currentPage - 1) * pageSize + pageSize; i++) {
-        if (users[i] == null) {
-            break;
-        }
-        usersArray.push(users[i]);
-    }
-
-    return (
-        <Table
-            hover
-            style={{ color: theme === "light" ? "black" : "white" }}
-            variant={theme === "light" ? "black" : "dark"}
-            className="ManagementCrud"
-        >
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                {usersArray.map((user, index) => (
+    let tableHead;
+    let tableBody;
+    if (menuName === "Mechanic Report") {
+        tableHead = (
+            <>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Type</th>
+                <th>Job Count</th>
+                <th>Progress</th>
+            </>
+        );
+        tableBody = (
+            <>
+                {users.map((user, index) => (
                     <tr key={index}>
                         <td
                             style={{ width: "10%" }}
@@ -91,7 +79,7 @@ const ManagementCRUD = ({
                                 editRow(user);
                             }}
                         >
-                            <>{user.name}</>
+                            <>{user.id}</>
                         </td>
                         <td
                             style={{ width: "15%" }}
@@ -101,7 +89,7 @@ const ManagementCRUD = ({
                                 editRow(user);
                             }}
                         >
-                            <>{user.jobCount}</>
+                            <>{user.name}</>
                         </td>
                         <td
                             style={{ width: "30%" }}
@@ -143,6 +131,16 @@ const ManagementCRUD = ({
                         >
                             <>{user.type}</>
                         </td>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.jobCount}</>
+                        </td>
                         <td style={{ width: "15%" }}>
                             <img
                                 alt=""
@@ -159,18 +157,102 @@ const ManagementCRUD = ({
                             />
                             {/* <ProgressStatus theme={theme} progress={progress}></ProgressStatus> */}
                             {/* <div className="btn-container btn">
-                                <div
-                                    className="btn-edit center"
-                                    onClick={() => {
-                                        setEditModalShow(true);
-                                        editRow(user);
-                                        setEditItem(item);
-                                    }}
-                                    style={{ color: theme === "light" ? "black" : "white" }}
-                                >
-                                    Edit
-                                </div>
-                            </div>
+                        <div
+                            className="btn-edit center"
+                            onClick={() => {
+                                setEditModalShow(true);
+                                editRow(user);
+                                setEditItem(item);
+                            }}
+                            style={{ color: theme === "light" ? "black" : "white" }}
+                        >
+                            Edit
+                        </div>
+                    </div>
+                    <div className="btn-container btn">
+                        <div
+                            className="btn-delete center"
+                            onClick={() => {
+                                setdeleteModalShow(true);
+                                setDeleteId(user.id);
+                            }}
+                            style={{ color: theme === "light" ? "black" : "white" }}
+                        >
+                            Delete
+                        </div>
+                    </div> */}
+                        </td>
+                    </tr>
+                ))}
+            </>
+        );
+    } else if (menuName === "customer") {
+        tableHead = (
+            <>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </>
+        );
+        tableBody = (
+            <>
+                {users.map((user, index) => (
+                    <tr key={index}>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.id}</>
+                        </td>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.name}</>
+                        </td>
+                        <td
+                            style={{ width: "15%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.address}</>
+                        </td>
+                        <td
+                            style={{ width: "30%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.email}</>
+                        </td>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.phone}</>
+                        </td>
+                        <td>
+                            {/* <ProgressStatus theme={theme} progress={progress}></ProgressStatus> */}
                             <div className="btn-container btn">
                                 <div
                                     className="btn-delete center"
@@ -182,11 +264,131 @@ const ManagementCRUD = ({
                                 >
                                     Delete
                                 </div>
-                            </div> */}
+                            </div>
                         </td>
                     </tr>
                 ))}
-
+            </>
+        );
+    } else {
+        tableHead = (
+            <>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Job Count</th>
+                <th>Type</th>
+                <th>Action</th>
+            </>
+        );
+        tableBody = (
+            <>
+                {users.map((user, index) => (
+                    <tr key={index}>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.id}</>
+                        </td>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.name}</>
+                        </td>
+                        <td
+                            style={{ width: "15%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.address}</>
+                        </td>
+                        <td
+                            style={{ width: "30%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.email}</>
+                        </td>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.phone}</>
+                        </td>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.type}</>
+                        </td>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                setItemModalShow(true);
+                                setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.jobCount}</>
+                        </td>
+                        <td>
+                            {/* <ProgressStatus theme={theme} progress={progress}></ProgressStatus> */}
+                            <div className="btn-container btn">
+                                <div
+                                    className="btn-delete center"
+                                    onClick={() => {
+                                        setdeleteModalShow(true);
+                                        setDeleteId(user.id);
+                                    }}
+                                    style={{ color: theme === "light" ? "black" : "white" }}
+                                >
+                                    Delete
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                ))}
+            </>
+        );
+    }
+    return (
+        <Table
+            hover
+            style={{ color: theme === "light" ? "black" : "white" }}
+            variant={theme === "light" ? "black" : "dark"}
+            className="ManagementCrud"
+        >
+            <thead>
+                <tr>{tableHead}</tr>
+            </thead>
+            <tbody>
+                {tableBody}
                 {/* <EditModal
                     show={editModalShow}
                     onHide={() => setEditModalShow(false)}
