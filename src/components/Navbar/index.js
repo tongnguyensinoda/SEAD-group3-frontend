@@ -51,13 +51,13 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
 
                     <span>
                         {" "}
-                        {menuName == "User Report"
-                            ? "User Report"
+                        {menuName == "Mechanic Report"
+                            ? "Mechanic Report"
                             : menuName == "customer"
                             ? "Manage Customers"
                             : menuName == "mechanic"
                             ? "Manage Mechanics"
-                            : "User Report"}
+                            : "Mechanic Report"}
                     </span>
                 </Logo>
 
@@ -76,13 +76,13 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
                 <Menu.Item
                     onClick={() => {
                         setLogo(1);
-                        setMenuName("User Report");
+                        setMenuName("Mechanic Report");
                         // navigate(`/management?role=`)
                     }}
                     key="1"
                     icon={<FileTextOutlined />}
                 >
-                    User Report
+                    Mechanic Report
                 </Menu.Item>
                 <Menu.Item
                     onClick={() => {

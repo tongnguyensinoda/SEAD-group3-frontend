@@ -195,14 +195,12 @@ const MechanicForm = () => {
     async function fetchData(param) {
         let fetchURL =
             mode === "request"
-                ? `http://localhost:8080/servicetran/getrequestjob`
-                : `http://localhost:8080/servicetran/gettodojob`;
+                ? `http://localhost:8080/servicetran/getrequestjob?mechanic=65`
+                : `http://localhost:8080/servicetran/gettodojob?mechanic=65`;
         await axios
             .get(fetchURL)
             .then((res) => {
-                // setUsers(res.data.users);
-                // setIsLoading(false);
-                // setPagination({ ...pagination, total: res.data.totalUser });
+                console.log(res);
             })
             .catch((error) => window.alert(error));
     }

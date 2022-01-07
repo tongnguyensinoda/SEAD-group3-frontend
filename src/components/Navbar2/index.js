@@ -9,7 +9,7 @@ import { Avatar, Menu, Dropdown, Button, Space, Descriptions } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
-    const [role, setRole] = useState(true);
+    const [role, setRole] = useState(localStorage.getItem("roles"));
     let item;
 
     // const abc = () => {
@@ -17,14 +17,14 @@ const Navbar = () => {
     //     window.location.href = "http://cloud-env.eba-8hk2mpj3.us-west-2.elasticbeanstalk.com/home";
     // };
     // console.log(account);
-    let image = "https://static.thenounproject.com/png/3070444-200.png";
-    if (role) {
+    let image;
+    if (role === "customer" || role === "mechanic") {
         image = <Avatar size={34} icon={<UserOutlined />} />;
     } else {
-        // image = <img src={localStorage.getItem("avatar")} className="image" alt=""></img>;
+        image = "";
     }
     const handleSignOut = () => {
-        setRole(false);
+        setRole("");
     };
     const menu = (
         <Menu>
@@ -42,7 +42,7 @@ const Navbar = () => {
         </Menu>
     );
 
-    if (role) {
+    if (role === "customer" || role === "mechanic") {
         item = (
             <>
                 <Link to="/home">
@@ -63,7 +63,7 @@ const Navbar = () => {
                 <Dropdown overlay={menu} placement="bottomCenter">
                     <div className="account">
                         {image}
-                        <span>Hoang Viet</span>
+                        <span>{localStorage.getItem("email")}</span>
                     </div>
                 </Dropdown>
             </>

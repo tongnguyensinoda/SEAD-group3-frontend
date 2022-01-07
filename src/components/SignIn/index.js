@@ -171,10 +171,12 @@ export const SignIn = () => {
             .post("http://localhost:8080/auth/login", userSingIn)
             .then((res) => {
                 localStorage.setItem("roles", "customer");
-                console.log("hello");
+                localStorage.setItem("email", res.data);
+                window.location.href = "/";
             })
             .catch((error) => window.alert(error));
-        setUser(initialState);
+        setUserSignIn(initialState);
+        console.log(userSingIn);
     };
     return (
         <div>
