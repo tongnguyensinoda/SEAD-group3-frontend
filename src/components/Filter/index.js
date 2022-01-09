@@ -14,6 +14,7 @@ const Filter = (props) => {
         theme,
         deleteFilter,
         filters,
+        setSearchValue,
     } = props;
     let temp = Object.values(filters);
     let temp2 = [];
@@ -228,6 +229,7 @@ const Filter = (props) => {
                         type="text"
                         onClick={() => {
                             deleteFilter();
+                            setSearchValue("");
                         }}
                     >
                         Remove filter
@@ -263,6 +265,7 @@ const Filter = (props) => {
                     </div>
                 </Dropdown> */}
             </Wrapper>
+
             <Wrapper
                 style={{
                     padding: "0px 0px 10px 0px",
@@ -272,7 +275,9 @@ const Filter = (props) => {
                 }}
             >
                 {temp2.map((value, i) => (
-                    <Button type="primary">{value}</Button>
+                    <>
+                        <Button type="primary">{value}</Button>
+                    </>
                 ))}
             </Wrapper>
         </>

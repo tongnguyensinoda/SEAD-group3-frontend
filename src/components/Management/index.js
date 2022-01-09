@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "antd/dist/antd.css";
 // import "./index.css";
-import { Menu, Switch, Divider } from "antd";
+import { Menu, Switch, Divider, Input, Space } from "antd";
 import { Pagination } from "antd";
 import Filter from "../Filter";
 import { Container, Spinner } from "react-bootstrap";
@@ -16,6 +16,7 @@ const initialState = [];
 function Management() {
     var url_string = window.location.href;
     var url = new URL(url_string);
+    const { Search } = Input;
     const [currentUser, setCurrentUser] = useState({});
     const [users, setUsers] = useState(initialState);
     const [isLoading, setIsLoading] = useState(true);
@@ -23,40 +24,31 @@ function Management() {
     const changeTheme = (value) => {
         setTheme(value ? "dark" : "light");
     };
+    const [searchValue, setSearchValue] = useState();
     const [menuName, setMenuName] = useState(
         url.searchParams.get("role") == null ? "serviceTran" : url.searchParams.get("role")
     );
-    // const link = "https://my-app123sad.herokuapp.com/items/search?";
-    // const link2 = "https://my-app123sad.herokuapp.com/items/";
-    // const link4 = "https://my-app123sad.herokuapp.com/?";
-    // const link3 = "https://my-app123sad.herokuapp.com/setUpDatabase";
-    // let rawFilter;
-    // // var url_string = window.location.href;
-    // // var url = new URL(url_string);
-    // rawFilter = {
-    //     // keyword: url.searchParams.get("keyword"),
-    //     // currentPage:
-    //     //     url.searchParams.get("currentPage") == null
-    //     //         ? 1
-    //     //         : parseInt(url.searchParams.get("currentPage")),
-    //     // sortType: url.searchParams.get("sortType"),
-    //     // order: url.searchParams.get("order"),
-    //     // type: url.searchParams.get("type"),
-    //     // brand: url.searchParams.get("brand"),
-    // };
-    // // console.log(c);
-
     const [filters, setFilters] = useState({
         currentPage:
             url.searchParams.get("page") == null ? 1 : parseInt(url.searchParams.get("page")),
         sort: url.searchParams.get("sort") == null ? "" : url.searchParams.get("sort"),
+        search: url.searchParams.get("keyword") == null ? "" : url.searchParams.get("keyword"),
         // role: url.searchParams.get("role") == null ? "serviceTran" : url.searchParams.get("role"),
     });
+    const onSearch = async (value) => {
+        setFilters({ ...filters, currentPage: 1, sort: "", search: value });
+        navigate(`/management?role=${menuName}&page=0&keyword=${searchValue}&sort=${filters.sort}`);
+    };
     const [pagination, setPagination] = useState({
         total: 4,
         pageSize: 5,
     });
-
+    let searchPlaceHolder;
+    if (menuName == "serviceTran") {
+        searchPlaceHolder = "Search by id";
+    } else {
+        searchPlaceHolder = "Search by name";
+    }
     let navigate = useNavigate();
     const handleSortID = (key) => {
         if (isEven(key)) {
@@ -156,44 +148,6 @@ function Management() {
             }
         }
     };
-    // const handleSortBrand = (key) => {
-    //     if (isEven(key)) {
-    //         sort = "acs";
-    //     } else {
-    //         sort = "des";
-    //     }
-    //     let obj = {
-    //         ...filters,
-    //         order: sort,
-    //         sortType: "brand",
-    //         currentPage: 1,
-    //     };
-    //     console.log(obj);
-    //     obj = queryString.stringify(obj);
-    //     console.log(obj);
-    //     window.location.href = link4 + obj;
-    // };
-    // const handleSortType = (key) => {
-    //     let obj;
-    //     console.log(key);
-    //     if (key === "shoes" || key === "clothes" || key === "phone") {
-    //         obj = { ...filters, brand: "", type: key, currentPage: 1 };
-    //         obj = queryString.stringify(obj);
-    //         window.location.href = link4 + obj;
-    //     } else if (key === "adidas" || key === "nike" || key === "puma" || key === "new balance") {
-    //         obj = { ...filters, brand: key, type: "shoes", currentPage: 1 };
-    //         obj = queryString.stringify(obj);
-    //         window.location.href = link4 + obj;
-    //     } else if (key === "gucci" || key === "fendi") {
-    //         obj = { ...filters, brand: key, type: "clothes", currentPage: 1 };
-    //         obj = queryString.stringify(obj);
-    //         window.location.href = link4 + obj;
-    //     } else if (key === "iphone" || key === "samsung" || key === "xiaomi" || key === "huwei") {
-    //         obj = { ...filters, brand: key, type: "phone", currentPage: 1 };
-    //         obj = queryString.stringify(obj);
-    //         window.location.href = link4 + obj;
-    //     }
-    // };
     function isEven(n) {
         return n % 2 === 0;
     }
@@ -232,16 +186,10 @@ function Management() {
         //     .catch((error) => window.alert(error));
     };
     const pageOnChange = (page) => {
-        // let obj = {
-        //     ...filters,
-        //     currentPage: page,
-        // };
-        // console.log(page);
-        setFilters({ ...filters, currentPage: page });
-        // obj = queryString.stringify(obj);
-        // window.location.href = link4 + obj;
-        // console.log(filters.currentPage);
-        navigate(`/management?role=${menuName}&page=${page}`);
+        setFilters({ ...filters, currentPage: page, search: searchValue, sort: filters.sort });
+        navigate(
+            `/management?role=${menuName}&page=${page}&keyword=${searchValue}&sort=${filters.sort}`
+        );
     };
     // const handleSearchButton = async (name) => {
     //     let obj = {
@@ -261,25 +209,26 @@ function Management() {
     //         .catch((error) => window.alert(error));
     // };
     const deleteFilter = () => {
-        // window.location.href = "/management";
-        setFilters({ ...filters, currentPage: 1, sort: "" });
+        setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
         navigate(`/management?role=${menuName}`);
-        // let obj = temp;
-        // obj = queryString.stringify(obj);
-        // window.location.href = link4 + obj;
+    };
+    const handleSearch = (event) => {
+        setSearchValue(event.target.value);
     };
     async function fetchData(param) {
         let fetchURL =
             menuName === "serviceTran"
                 ? `http://localhost:8080/servicetran?page=${filters.currentPage - 1}&sort=${
                       filters.sort
-                  }`
+                  }&keyword=${filters.search}`
                 : `http://localhost:8080/auth/getall?role=${menuName}&page=${
                       filters.currentPage - 1
-                  }&sort=${filters.sort}`;
+                  }&sort=${filters.sort}&keyword=${filters.search}`;
         await axios
             .get(fetchURL)
             .then((res) => {
+                console.log(res.data);
+                console.log(filters);
                 menuName === "serviceTran"
                     ? setUsers(res.data.serviceTrans)
                     : setUsers(res.data.users);
@@ -297,19 +246,6 @@ function Management() {
     useEffect(() => {
         fetchData();
     }, [menuName, filters]);
-
-    // useEffect(() => {
-    //     let paramString2 = queryString.stringify(filters);
-    //     console.log("hello");
-    //     axios
-    //         .get(`http://localhost:8080/items/search?` + paramString2)
-    //         .then((res) => {
-
-    //             setIsLoading(false);
-    //         })
-    //         .catch((error) => window.alert(error));
-    // }, []);
-
     return (
         <>
             <SubNav content="Management"></SubNav>
@@ -346,20 +282,33 @@ function Management() {
                             setMenuName={setMenuName}
                             setFilters={setFilters}
                             filters={filters}
+                            setSearchValue={setSearchValue}
                         ></Navbar>
                     </div>
                     <Container fluid>
-                        <Filter
-                            theme={theme}
-                            handleSortID={handleSortID}
-                            handleSortName={handleSortName}
-                            handleSortEmail={handleSortEmail}
-                            handleSortAddress={handleSortAddress}
-                            // handleSortBrand={handleSortBrand}
-                            // handleSortType={handleSortType}
-                            deleteFilter={deleteFilter}
-                            filters={filters}
-                        />
+                        <div className="searchAndFilterWrapper">
+                            <Search
+                                style={{ width: "40%" }}
+                                placeholder={searchPlaceHolder}
+                                onSearch={onSearch}
+                                enterButton
+                                value={searchValue}
+                                onChange={handleSearch}
+                            />
+                            <Filter
+                                theme={theme}
+                                handleSortID={handleSortID}
+                                handleSortName={handleSortName}
+                                handleSortEmail={handleSortEmail}
+                                handleSortAddress={handleSortAddress}
+                                // handleSortBrand={handleSortBrand}
+                                // handleSortType={handleSortType}
+                                deleteFilter={deleteFilter}
+                                filters={filters}
+                                setSearchValue={setSearchValue}
+                            />
+                        </div>
+
                         <ManagementCRUD
                             users={users}
                             deleteUser={deleteUser}
@@ -379,6 +328,7 @@ function Management() {
                             pageSize={pagination.pageSize}
                             onChange={pageOnChange}
                             style={{ textAlign: "right" }}
+                            showSizeChanger={false}
                         />
                     </Container>
 

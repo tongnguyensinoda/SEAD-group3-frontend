@@ -18,7 +18,15 @@ import { useNavigate } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
-export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, filters }) => {
+export const Navbar = ({
+    changeTheme,
+    theme,
+    menuName,
+    setMenuName,
+    setFilters,
+    filters,
+    setSearchValue,
+}) => {
     const [mode, setMode] = React.useState("inline");
     let navigate = useNavigate();
     // const [theme, setTheme] = React.useState("light");
@@ -85,8 +93,9 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
                     onClick={() => {
                         setLogo(1);
                         setMenuName("serviceTran");
-                        setFilters({ ...filters, currentPage: 1, sort: "" });
+                        setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
                         navigate(`/management?role=serviceTran`);
+                        setSearchValue("");
                     }}
                     key="1"
                     icon={<FileTextOutlined />}
@@ -98,7 +107,8 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
                         setLogo(2);
                         setMenuName("customer");
                         navigate(`/management?role=customer`);
-                        setFilters({ ...filters, currentPage: 1, sort: "" });
+                        setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
+                        setSearchValue("");
                     }}
                     key="2"
                     icon={<SolutionOutlined />}
@@ -110,12 +120,26 @@ export const Navbar = ({ changeTheme, theme, menuName, setMenuName, setFilters, 
                         setLogo(3);
                         setMenuName("mechanic");
                         navigate(`/management?role=mechanic`);
-                        setFilters({ ...filters, currentPage: 1, sort: "" });
+                        setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
+                        setSearchValue("");
                     }}
                     key="3"
                     icon={<SolutionOutlined />}
                 >
                     Manage Mechanics
+                </Menu.Item>
+                <Menu.Item
+                    onClick={() => {
+                        setLogo(3);
+                        setMenuName("service");
+                        navigate(`/management?role=service`);
+                        setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
+                        setSearchValue("");
+                    }}
+                    key="4"
+                    icon={<SolutionOutlined />}
+                >
+                    Manage Services
                 </Menu.Item>
             </Menu>
         </>
