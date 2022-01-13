@@ -7,13 +7,22 @@ import { Menu, Switch, Divider, Input, Space } from "antd";
 import { Pagination, Button } from "antd";
 import Filter from "../Filter";
 import { Container, Spinner, Table, Modal, Col, Row, Form } from "react-bootstrap";
-
 import { Navbar } from "../Navbar";
 import ManagementCRUD from "../ManagementCRUD";
 import { Wrapper } from "./Management.style";
 import SubNav from "../SubNav";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { useFormik } from "formik";
 const initialState = [];
+const phoneRegex = "(84|0[3|5|7|8|9])+([0-9]{8})";
+const userSchema = yup.object().shape({
+    name: yup.string().required(),
+    address: yup.string().required(),
+    email: yup.string().email().required(),
+    phone: yup.string().matches(phoneRegex, "Phone number is invalid"),
+    type: yup.string().required(),
+});
 function Management() {
     var url_string = window.location.href;
     var url = new URL(url_string);
@@ -276,16 +285,47 @@ function Management() {
             .catch((error) => window.alert(error));
     }
     const addUser = async (item) => {
-        let fetchURL =
-            menuName === "mechanic"
-                ? "http://localhost:8080/auth/addmechanic"
-                : "http://localhost:8080/service";
-        await axios
-            .post(fetchURL, item)
-            .then((res) => {
-                window.alert("Added successfully");
-            })
-            .catch((error) => window.alert(error));
+        const valid = await userSchema.isValid(item);
+        if (valid) {
+            let fetchURL =
+                menuName === "mechanic"
+                    ? "http://localhost:8080/auth/addmechanic"
+                    : "http://localhost:8080/service";
+            await axios
+                .post(fetchURL, item)
+                .then((res) => {
+                    window.alert("Added successfully");
+                })
+                .catch((error) => window.alert(error));
+        } else {
+            if (menuName === "mechanic") {
+                if (item.name == null || item.name.length < 1) {
+                    window.alert("Name is required");
+                }
+                if (item.address == null || item.address.length < 1) {
+                    window.alert("Address is required");
+                }
+                if (item.email == null || item.email.length < 1) {
+                    window.alert("Email is required");
+                }
+                if (item.phone == null || item.phone.length < 1) {
+                    window.alert("Phone is required");
+                }
+                if (item.type == null || item.type.length < 1) {
+                    window.alert("Type is required");
+                }
+            } else {
+                if (item.name == null || item.name.length < 1) {
+                    window.alert("Name is required");
+                }
+                if (item.cost == null || !Number.isInteger(item.cost)) {
+                    window.alert("Cost is required and must be number");
+                }
+                if (item.type == null || item.type.length < 1) {
+                    window.alert("Type is required");
+                }
+            }
+        }
     };
     useEffect(() => {
         fetchData();
@@ -429,7 +469,6 @@ function EditModal(props) {
         const { name, value } = event.target;
         setItem({ ...item, [name]: value });
     };
-
     return (
         <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
