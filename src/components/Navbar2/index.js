@@ -23,8 +23,10 @@ const Navbar = () => {
     } else {
         image = "";
     }
+
     const handleSignOut = () => {
-        setRole("");
+        localStorage.removeItem("roles");
+        window.location.href = "/";
     };
     const menu = (
         <Menu>
@@ -42,17 +44,31 @@ const Navbar = () => {
         </Menu>
     );
 
-    if (role === "customer" || role === "mechanic") {
+    if (role === "customer") {
         item = (
             <>
                 <Link to="/home">
                     <RightNavItem>Home Page</RightNavItem>
                 </Link>
-                <Link to="/management">
-                    <RightNavItem>Management</RightNavItem>
-                </Link>
                 <Link to="/categoryService">
                     <RightNavItem>Category Service</RightNavItem>
+                </Link>
+                <Link to="/about">
+                    <RightNavItem>About</RightNavItem>
+                </Link>
+                <Dropdown overlay={menu} placement="bottomCenter">
+                    <div className="account">
+                        {image}
+                        <span>{localStorage.getItem("email")}</span>
+                    </div>
+                </Dropdown>
+            </>
+        );
+    } else if (role === "mechanic") {
+        item = (
+            <>
+                <Link to="/home">
+                    <RightNavItem>Home Page</RightNavItem>
                 </Link>
                 <Link to="/about">
                     <RightNavItem>About</RightNavItem>

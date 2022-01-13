@@ -138,7 +138,7 @@ export const Navbar = ({
                 </Menu.Item>
                 <Menu.Item
                     onClick={() => {
-                        setLogo(3);
+                        setLogo(4);
                         setMenuName("service");
                         navigate(`/management?role=service`);
                         setFilters({ ...filters, currentPage: 1, sort: "", search: "" });

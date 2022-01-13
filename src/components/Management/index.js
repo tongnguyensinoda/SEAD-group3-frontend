@@ -23,6 +23,12 @@ const userSchema = yup.object().shape({
     phone: yup.string().matches(phoneRegex, "Phone number is invalid"),
     type: yup.string().required(),
 });
+const serviceSchema = yup.object().shape({
+    name: yup.string().required(),
+    cost: yup.string().required(),
+    rating: yup.number().required(),
+    type: yup.string().required(),
+});
 function Management() {
     var url_string = window.location.href;
     var url = new URL(url_string);
@@ -32,6 +38,7 @@ function Management() {
     const [isLoading, setIsLoading] = useState(true);
     const [theme, setTheme] = useState("light");
     const [editModalShow, setEditModalShow] = useState(false);
+
     const changeTheme = (value) => {
         setTheme(value ? "dark" : "light");
     };
@@ -285,15 +292,23 @@ function Management() {
             .catch((error) => window.alert(error));
     }
     const addUser = async (item) => {
-        const valid = await userSchema.isValid(item);
+        const valid =
+            menuName === "mechanic"
+                ? await userSchema.isValid(item)
+                : await serviceSchema.isValid(item);
+
+        if (menuName === "service") {
+        }
         if (valid) {
             let fetchURL =
                 menuName === "mechanic"
                     ? "http://localhost:8080/auth/addmechanic"
                     : "http://localhost:8080/service";
+            console.log(fetchURL);
             await axios
                 .post(fetchURL, item)
                 .then((res) => {
+                    console.log("hello");
                     window.alert("Added successfully");
                 })
                 .catch((error) => window.alert(error));
@@ -314,11 +329,11 @@ function Management() {
                 if (item.type == null || item.type.length < 1) {
                     window.alert("Type is required");
                 }
-            } else {
+            } else if (menuName == "service") {
                 if (item.name == null || item.name.length < 1) {
                     window.alert("Name is required");
                 }
-                if (item.cost == null || !Number.isInteger(item.cost)) {
+                if (item.cost == null || !Number.isInteger(parseInt(item.cost))) {
                     window.alert("Cost is required and must be number");
                 }
                 if (item.type == null || item.type.length < 1) {
@@ -454,16 +469,30 @@ function Management() {
     );
 }
 function EditModal(props) {
+    const [category, setCategory] = useState([
+        {
+            type: "",
+        },
+    ]);
     const [item, setItem] = useState(
         props.menuName === "mechanic" ? { password: 123, jobCount: 0 } : { rating: 0 }
     );
-
-    useEffect(() => {}, [props]);
+    const fetch = async () => {
+        await axios
+            .get("http://localhost:8080/category")
+            .then((res) => {
+                setCategory(res.data);
+            })
+            .catch((error) => window.alert(error));
+    };
+    useEffect(() => {
+        fetch();
+    }, [props]);
     const handleUpdate = () => {
         console.log(item);
-        props.addUser(item);
-        setItem(props.menuName === "mechanic" ? { password: 123, jobCount: 0 } : { rating: 0 });
-        props.onHide();
+        // props.addUser(item);
+        // setItem(props.menuName === "mechanic" ? { password: 123, jobCount: 0 } : { rating: 0 });
+        // props.onHide();
     };
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -511,12 +540,27 @@ function EditModal(props) {
                             {props.menuName === "mechanic" ? "Email" : "Type"}
                         </Form.Label>
                         <Col sm={10}>
-                            <Form.Control
-                                type=""
-                                placeholder=""
-                                name={props.menuName === "mechanic" ? "email" : "type"}
-                                onChange={handleInputChange}
-                            />
+                            {props.menuName === "mechanic" ? (
+                                <>
+                                    <Form.Control
+                                        type=""
+                                        placeholder=""
+                                        name="email"
+                                        onChange={handleInputChange}
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    <select name="type" id="category" onChange={handleInputChange}>
+                                        <option value="default" disabled selected>
+                                            Choose Type
+                                        </option>
+                                        {category.map((item, index) => (
+                                            <option value={item.type}>{item.type}</option>
+                                        ))}
+                                    </select>
+                                </>
+                            )}
                         </Col>
                     </Form.Group>
                     {props.menuName === "mechanic" ? (

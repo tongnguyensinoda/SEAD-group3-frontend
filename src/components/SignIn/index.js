@@ -41,6 +41,7 @@ export const SignIn = () => {
     const [styleSignIn, setStyleSignIn] = useState("");
     const [user, setUser] = useState(initialState);
     const [userSingIn, setUserSignIn] = useState({ email: "", password: "" });
+    const [reTypePassword, setReTypePassword] = useState();
     const openSignUp = () => {
         // Remove classes so that animations can restart on the next 'switch'
         // leftText.classList.remove("overlay-text-left-animation-out");
@@ -148,13 +149,29 @@ export const SignIn = () => {
         clientId,
     });
     const onSignUp = async () => {
-        await axios
-            .post("http://localhost:8080/auth/signup", user)
-            .then((res) => {
-                window.alert("Succesfully create user");
-            })
-            .catch((error) => window.alert(error));
-        setUser(initialState);
+        if (validateEmail(user.email) && user.password == reTypePassword.reTypePassword) {
+            await axios
+                .post("http://localhost:8080/auth/signup", user)
+                .then((res) => {
+                    window.alert("Succesfully create user");
+                })
+                .catch((error) => window.alert(error));
+            setUser(initialState);
+        } else {
+            if (!validateEmail(user.email)) {
+                window.alert("Email is invalid");
+            }
+            if (user.password !== reTypePassword) {
+                console.log(reTypePassword.reTypePassword);
+                console.log(user.password);
+
+                window.alert("Retype password is not match");
+            }
+        }
+    };
+    const handleRetypePassword = (event) => {
+        const { name, value } = event.target;
+        setReTypePassword({ [name]: value });
     };
     const handleInputChangeSignUp = (event) => {
         const { name, value } = event.target;
@@ -169,6 +186,7 @@ export const SignIn = () => {
         await axios
             .post("http://localhost:8080/auth/login", userSingIn)
             .then((res) => {
+                console.log(res);
                 localStorage.setItem("roles", "customer");
                 localStorage.setItem("email", res.data);
                 window.location.href = "/";
@@ -176,6 +194,13 @@ export const SignIn = () => {
             .catch((error) => window.alert(error));
         setUserSignIn(initialState);
         console.log(userSingIn);
+    };
+    const validateEmail = (email) => {
+        return email
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
     };
     return (
         <div>
@@ -328,6 +353,7 @@ export const SignIn = () => {
                                 placeholder="Re-type password"
                                 name="reTypePassword"
                                 autoComplete="new-password"
+                                onChange={handleRetypePassword}
                             />
                             <br></br>
                             <select
