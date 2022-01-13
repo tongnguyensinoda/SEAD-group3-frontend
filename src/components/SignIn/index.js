@@ -355,18 +355,6 @@ export const SignIn = () => {
                                 onChange={handleRetypePassword}
                             />
                             <br></br>
-                            <select
-                                className="select-singin"
-                                name="role"
-                                id="userType"
-                                onChange={handleInputChangeSignUp}
-                            >
-                                <option value="" disabled selected>
-                                    Account Type2
-                                </option>
-                                <option value="mechanic">Shop/Mechanic</option>
-                                <option value="customer">User</option>
-                            </select>
 
                             <button className="control-button up" onClick={onSignUp} type="button">
                                 Sign Up

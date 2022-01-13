@@ -588,12 +588,14 @@ function EditModal(props) {
                                     Type
                                 </Form.Label>
                                 <Col sm={10}>
-                                    <Form.Control
-                                        type=""
-                                        placeholder=""
-                                        name="type"
-                                        onChange={handleInputChange}
-                                    />
+                                    <select name="type" id="category" onChange={handleInputChange}>
+                                        <option value="default" disabled selected>
+                                            Choose Type
+                                        </option>
+                                        {category.map((item, index) => (
+                                            <option value={item.type}>{item.type}</option>
+                                        ))}
+                                    </select>
                                 </Col>
                             </Form.Group>
                         </>
