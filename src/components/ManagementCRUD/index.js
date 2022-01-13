@@ -38,6 +38,7 @@ const ManagementCRUD = ({
     container,
     menuName,
     setMenuName,
+    addUser,
 }) => {
     // const { items, deleteItem, editRow, currentItem, updateItem, theme, currentPage, pageSize } =
     //     props;
@@ -45,7 +46,7 @@ const ManagementCRUD = ({
     const [deleteId, setDeleteId] = useState();
     const [editItem, setEditItem] = useState();
     const [deleteModalShow, setdeleteModalShow] = useState(false);
-    const [editModalShow, setEditModalShow] = useState(false);
+
     const [ItemModalShow, setItemModalShow] = useState(false);
     const [itemShow, setItemShow] = useState({});
     const handleDeleteUser = () => {
@@ -75,8 +76,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -85,8 +86,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "15%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -95,8 +96,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -105,8 +106,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -115,8 +116,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -125,8 +126,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -135,8 +136,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -145,8 +146,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "30%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -215,8 +216,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -225,8 +226,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -235,8 +236,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "15%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -245,8 +246,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "30%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -255,8 +256,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -281,7 +282,7 @@ const ManagementCRUD = ({
                 ))}
             </>
         );
-    } else {
+    } else if (menuName === "mechanic") {
         tableHead = (
             <>
                 <th>ID</th>
@@ -301,8 +302,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -311,8 +312,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -321,8 +322,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "15%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -331,8 +332,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "30%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -341,8 +342,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -351,8 +352,8 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
@@ -361,12 +362,96 @@ const ManagementCRUD = ({
                         <td
                             style={{ width: "10%" }}
                             onClick={() => {
-                                setItemModalShow(true);
-                                setItemShow(user);
+                                // setItemModalShow(true);
+                                // setItemShow(user);
                                 editRow(user);
                             }}
                         >
                             <>{user.jobCount}</>
+                        </td>
+                        <td>
+                            {/* <ProgressStatus theme={theme} progress={progress}></ProgressStatus> */}
+                            <div className="btn-container btn">
+                                <div
+                                    className="btn-delete center"
+                                    onClick={() => {
+                                        setdeleteModalShow(true);
+                                        setDeleteId(user.id);
+                                    }}
+                                    style={{ color: theme === "light" ? "black" : "white" }}
+                                >
+                                    Delete
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                ))}
+            </>
+        );
+    } else {
+        tableHead = (
+            <>
+                <th>Service ID</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Rating</th>
+                <th>Type</th>
+                <th>Action</th>
+            </>
+        );
+        tableBody = (
+            <>
+                {users.map((user, index) => (
+                    <tr key={index}>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                // setItemModalShow(true);
+                                // setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.serviceId}</>
+                        </td>
+                        <td
+                            style={{ width: "30%" }}
+                            onClick={() => {
+                                // setItemModalShow(true);
+                                // setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.name}</>
+                        </td>
+                        <td
+                            style={{ width: "15%" }}
+                            onClick={() => {
+                                // setItemModalShow(true);
+                                // setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.cost}</>
+                        </td>
+                        <td
+                            style={{ width: "10%" }}
+                            onClick={() => {
+                                // setItemModalShow(true);
+                                // setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.rating}</>
+                        </td>
+                        <td
+                            style={{ width: "20%" }}
+                            onClick={() => {
+                                // setItemModalShow(true);
+                                // setItemShow(user);
+                                editRow(user);
+                            }}
+                        >
+                            <>{user.type}</>
                         </td>
                         <td>
                             {/* <ProgressStatus theme={theme} progress={progress}></ProgressStatus> */}
@@ -400,15 +485,6 @@ const ManagementCRUD = ({
             </thead>
             <tbody>
                 {tableBody}
-                {/* <EditModal
-                    show={editModalShow}
-                    onHide={() => setEditModalShow(false)}
-                    item={editItem}
-                    // handleInputChange={handleInputChange}
-                    // setItem={setItem}
-                    currentUser={currentUser}
-                    updateUser={updateUser}
-                /> */}
                 <DeleteConfirmModal
                     show={deleteModalShow}
                     onHide={() => setdeleteModalShow(false)}
@@ -443,125 +519,6 @@ function DeleteConfirmModal(props) {
     );
 }
 
-// function EditModal(props) {
-//     const [item, setItem] = useState(props.currentItem);
-
-//     useEffect(() => {
-//         setItem(props.currentItem);
-//     }, [props]);
-//     // You can tell React to skip applying an effect if certain values haven’t changed between re-renders. [ props ]
-//     const handleUpdate = () => {
-//         props.onHide();
-//         props.updateItem(item.id, item);
-//     };
-//     const handleInputChange = (event) => {
-//         const { name, value } = event.target;
-//         setItem({ ...item, [name]: value });
-//     };
-
-//     return (
-//         <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-//             <Modal.Header closeButton>
-//                 <Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
-//             </Modal.Header>
-//             <Form>
-//                 <Modal.Body>
-//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-//                         <Form.Label column sm={2}>
-//                             Name
-//                         </Form.Label>
-//                         <Col sm={10}>
-//                             <Form.Control
-//                                 type=""
-//                                 placeholder=""
-//                                 name="name"
-//                                 value={item.name}
-//                                 onChange={handleInputChange}
-//                             />
-//                         </Col>
-//                     </Form.Group>
-
-//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-//                         <Form.Label column sm={2}>
-//                             Description
-//                         </Form.Label>
-//                         <Col sm={10}>
-//                             <Form.Control
-//                                 type=""
-//                                 placeholder=""
-//                                 name="description"
-//                                 value={item.description}
-//                                 onChange={handleInputChange}
-//                             />
-//                         </Col>
-//                     </Form.Group>
-//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-//                         <Form.Label column sm={2}>
-//                             Price
-//                         </Form.Label>
-//                         <Col sm={10}>
-//                             <Form.Control
-//                                 type=""
-//                                 placeholder=""
-//                                 value={item.price}
-//                                 name="price"
-//                                 onChange={handleInputChange}
-//                             />
-//                         </Col>
-//                     </Form.Group>
-//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-//                         <Form.Label column sm={2}>
-//                             Brand
-//                         </Form.Label>
-//                         <Col sm={10}>
-//                             <Form.Control
-//                                 type=""
-//                                 placeholder=""
-//                                 name="brand"
-//                                 value={item.brand}
-//                                 onChange={handleInputChange}
-//                             />
-//                         </Col>
-//                     </Form.Group>
-//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-//                         <Form.Label column sm={2}>
-//                             Amount
-//                         </Form.Label>
-//                         <Col sm={10}>
-//                             <Form.Control
-//                                 type=""
-//                                 placeholder=""
-//                                 name="amount"
-//                                 value={item.amount}
-//                                 onChange={handleInputChange}
-//                             />
-//                         </Col>
-//                     </Form.Group>
-//                     <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-//                         <Form.Label column sm={2}>
-//                             Image Url
-//                         </Form.Label>
-//                         <Col sm={10}>
-//                             <Form.Control
-//                                 type=""
-//                                 placeholder=""
-//                                 name="imgUrl"
-//                                 value={item.imgUrl}
-//                                 onChange={handleInputChange}
-//                             />
-//                         </Col>
-//                     </Form.Group>
-//                 </Modal.Body>
-
-//                 <Modal.Footer>
-//                     <Button onClick={handleUpdate}>Update</Button>
-
-//                     <Button onClick={props.onHide}>Close</Button>
-//                 </Modal.Footer>
-//             </Form>
-//         </Modal>
-//     );
-// }
 function ItemDetailModal(props) {
     const handleUpdate = () => {
         props.onHide();

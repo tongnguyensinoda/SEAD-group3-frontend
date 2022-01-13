@@ -15,14 +15,14 @@ import axios from "axios";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 const { confirm } = Modal;
-function showConfirm(confirmMessage) {
+function showConfirm(confirmMessage, mode, acceptJob, finishJob, serviceTransId) {
     confirm({
         title: confirmMessage,
         icon: <ExclamationCircleOutlined />,
         content: "Some descriptions",
         okText: "Yes",
         onOk() {
-            console.log("Yes");
+            mode === "request" ? acceptJob(serviceTransId) : finishJob(serviceTransId);
         },
         onCancel() {
             console.log("Cancel");
@@ -113,6 +113,10 @@ const MechanicForm = () => {
     const [mode, setMode] = useState("request");
     // const [searchInput, setSerchInput] = useState();
     const [data, setData] = useState(initialData);
+    const [user, setUser] = useState({
+        id: localStorage.getItem("id") ? localStorage.getItem("id") : 0,
+    });
+    const [currentTrans, setCurrentTrans] = useState();
     let searchInput;
     let confirmMessage;
     mode == "request"
@@ -204,20 +208,29 @@ const MechanicForm = () => {
     async function fetchData(param) {
         let fetchURL =
             mode === "request"
-                ? `http://localhost:8080/servicetran/getrequestjob?mechanic=66`
-                : `http://localhost:8080/servicetran/gettodojob?mechanic=66`;
+                ? `http://localhost:8080/servicetran/getrequestjob?mechanic=${user.id}`
+                : `http://localhost:8080/servicetran/gettodojob?mechanic=${user.id}`;
         await axios
             .get(fetchURL)
             .then((res) => {
                 setData(res.data);
+                console.log(res.data);
                 setIsLoading(false);
             })
             .catch((error) => window.alert(error));
     }
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [mode, data]);
     const columns = [
+        {
+            title: "Transaction ID",
+            dataIndex: "serviceTransId",
+            key: "serviceTranId",
+            width: "10%",
+            // sorter: (a, b) => a.name.localeCompare(b.name),
+            // ...getColumnSearchProps("customer"),
+        },
         {
             title: "Customer",
             dataIndex: "customer",
@@ -265,6 +278,26 @@ const MechanicForm = () => {
             // ...getColumnSearchProps("totalCost"),
         },
     ];
+    const acceptJob = async (serviceTransId) => {
+        let fetchURL = `http://localhost:8080/servicetran/acceptjob/${serviceTransId}`;
+        await axios
+            .post(fetchURL, serviceTransId)
+            .then((res) => {
+                console.log(res);
+                window.alert("Added successfully");
+            })
+            .catch((error) => window.alert(error));
+    };
+    const finishJob = async (serviceTransId) => {
+        let fetchURL = `http://localhost:8080/servicetran/finishjob/${serviceTransId}`;
+        await axios
+            .post(fetchURL, serviceTransId)
+            .then((res) => {
+                console.log(res);
+                window.alert("Job Finished");
+            })
+            .catch((error) => window.alert(error));
+    };
     return (
         <>
             <SubNav content="Mechanic Form"></SubNav>
@@ -305,7 +338,13 @@ const MechanicForm = () => {
                         onRow={(record, rowIndex) => {
                             return {
                                 onClick: (event) => {
-                                    showConfirm(confirmMessage);
+                                    showConfirm(
+                                        confirmMessage,
+                                        mode,
+                                        acceptJob,
+                                        finishJob,
+                                        record.serviceTransId
+                                    );
                                 }, // click row
                             };
                         }}

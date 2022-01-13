@@ -44,4 +44,7 @@ export const Wrapper = styled.div`
             padding: 0px !important;
         }
     }
+    .add-button {
+        color: white !important;
+    }
 `;

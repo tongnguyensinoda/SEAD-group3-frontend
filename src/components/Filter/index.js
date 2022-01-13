@@ -9,12 +9,11 @@ const Filter = (props) => {
         handleSortName,
         handleSortAddress,
         handleSortEmail,
-        // handleSortBrand,
-        // handleSortType,
         theme,
         deleteFilter,
         filters,
         setSearchValue,
+        menuName,
     } = props;
     let temp = Object.values(filters);
     let temp2 = [];
@@ -27,191 +26,112 @@ const Filter = (props) => {
     if (temp2.length < 1) {
         notFilter = false;
     }
-    // const filter = (
-    //     <Menu>
-    //         <SubMenu
-    //             title="Shoes"
-    //             key="shoes"
-    //             onTitleClick={(e) => {
-    //                 // handleSortType(e.key);
-    //             }}
-    //         >
-    //             <Menu.Item
-    //                 key="adidas"
-    //                 onClick={(e) => {
-    //                     // handleSortType(e.key);
-    //                 }}
-    //             >
-    //                 Adidas
-    //             </Menu.Item>
-    //             <Menu.Item
-    //                 key="nike"
-    //                 onClick={(e) => {
-    //                     // handleSortType(e.key);
-    //                 }}
-    //             >
-    //                 Nike
-    //             </Menu.Item>
-    //             <Menu.Item
-    //                 key="puma"
-    //                 onClick={(e) => {
-    //                     // handleSortType(e.key);
-    //                 }}
-    //             >
-    //                 Puma
-    //             </Menu.Item>
-    //             <Menu.Item
-    //                 key="new balance"
-    //                 onClick={(e) => {
-    //                     // handleSortType(e.key);
-    //                 }}
-    //             >
-    //                 New Balance
-    //             </Menu.Item>
-    //         </SubMenu>
-    //         <SubMenu
-    //             title="Clothes"
-    //             key="clothes"
-    //             onTitleClick={(e) => {
-    //                 // handleSortType(e.key);
-    //             }}
-    //         >
-    //             <Menu.Item
-    //                 key="gucci"
-    //                 onClick={(e) => {
-    //                     // handleSortType(e.key);
-    //                 }}
-    //             >
-    //                 Gucci
-    //             </Menu.Item>
-    //             <Menu.Item
-    //                 key="fendi"
-    //                 onClick={(e) => {
-    //                     // handleSortType(e.key);
-    //                 }}
-    //             >
-    //                 Fendi
-    //             </Menu.Item>
-    //         </SubMenu>
-
-    //         <SubMenu
-    //             title="Phone"
-    //             key="phone"
-    //             onTitleClick={(e) => {
-    //                 // handleSortType(e.key);
-    //             }}
-    //         >
-    //             <Menu.Item
-    //                 key="iphone"
-    //                 onClick={(e) => {
-    //                     // handleSortType(e.key);
-    //                 }}
-    //             >
-    //                 Iphone
-    //             </Menu.Item>
-    //             <Menu.Item
-    //                 key="samsung"
-    //                 onClick={(e) => {
-    //                     // handleSortType(e.key);
-    //                 }}
-    //             >
-    //                 Samsung
-    //             </Menu.Item>
-    //             <Menu.Item
-    //                 key="xiaomi"
-    //                 onClick={(e) => {
-    //                     // handleSortType(e.key);
-    //                 }}
-    //             >
-    //                 Xiaomi
-    //             </Menu.Item>
-    //             <Menu.Item
-    //                 key="huwei"
-    //                 onClick={(e) => {
-    //                     // handleSortType(e.key);
-    //                 }}
-    //             >
-    //                 Huwei
-    //             </Menu.Item>
-    //         </SubMenu>
-    //     </Menu>
-    // );
-    const sortMenu = (
-        <Menu>
-            <SubMenu title="ID" key="id">
-                <Menu.Item
-                    key="20"
-                    onClick={(e) => {
-                        handleSortID(e.key);
-                    }}
-                >
-                    Asc
-                </Menu.Item>
-                <Menu.Item
-                    key="21"
-                    onClick={(e) => {
-                        handleSortID(e.key);
-                    }}
-                >
-                    Des
-                </Menu.Item>
-            </SubMenu>
-            <SubMenu title="Name" key="name">
-                <Menu.Item
-                    key="22"
-                    onClick={(e) => {
-                        handleSortName(e.key);
-                    }}
-                >
-                    Asc
-                </Menu.Item>
-                <Menu.Item
-                    key="23"
-                    onClick={(e) => {
-                        handleSortName(e.key);
-                    }}
-                >
-                    Des
-                </Menu.Item>
-            </SubMenu>
-            <SubMenu title="Address" key="address">
-                <Menu.Item
-                    key="24"
-                    onClick={(e) => {
-                        handleSortAddress(e.key);
-                    }}
-                >
-                    Asc
-                </Menu.Item>
-                <Menu.Item
-                    key="25"
-                    onClick={(e) => {
-                        handleSortAddress(e.key);
-                    }}
-                >
-                    Des
-                </Menu.Item>
-            </SubMenu>
-            <SubMenu title="Email" key="email">
-                <Menu.Item
-                    key="26"
-                    onClick={(e) => {
-                        handleSortEmail(e.key);
-                    }}
-                >
-                    Asc
-                </Menu.Item>
-                <Menu.Item
-                    key="27"
-                    onClick={(e) => {
-                        handleSortEmail(e.key);
-                    }}
-                >
-                    Des
-                </Menu.Item>
-            </SubMenu>
-        </Menu>
-    );
+    const sortMenu =
+        menuName == "service" ? (
+            <>
+                <Menu>
+                    <SubMenu title="Name" key="name">
+                        <Menu.Item
+                            key="22"
+                            onClick={(e) => {
+                                handleSortName(e.key);
+                            }}
+                        >
+                            Asc
+                        </Menu.Item>
+                        <Menu.Item
+                            key="23"
+                            onClick={(e) => {
+                                handleSortName(e.key);
+                            }}
+                        >
+                            Des
+                        </Menu.Item>
+                    </SubMenu>
+                </Menu>
+            </>
+        ) : (
+            <Menu>
+                <SubMenu title="ID" key="id">
+                    <Menu.Item
+                        key="20"
+                        onClick={(e) => {
+                            handleSortID(e.key);
+                        }}
+                    >
+                        Asc
+                    </Menu.Item>
+                    <Menu.Item
+                        key="21"
+                        onClick={(e) => {
+                            handleSortID(e.key);
+                        }}
+                    >
+                        Des
+                    </Menu.Item>
+                </SubMenu>
+                {menuName == "serviceTran" ? (
+                    ""
+                ) : (
+                    <>
+                        <SubMenu title="Name" key="name">
+                            <Menu.Item
+                                key="22"
+                                onClick={(e) => {
+                                    handleSortName(e.key);
+                                }}
+                            >
+                                Asc
+                            </Menu.Item>
+                            <Menu.Item
+                                key="23"
+                                onClick={(e) => {
+                                    handleSortName(e.key);
+                                }}
+                            >
+                                Des
+                            </Menu.Item>
+                        </SubMenu>
+                        <SubMenu title="Address" key="address">
+                            <Menu.Item
+                                key="24"
+                                onClick={(e) => {
+                                    handleSortAddress(e.key);
+                                }}
+                            >
+                                Asc
+                            </Menu.Item>
+                            <Menu.Item
+                                key="25"
+                                onClick={(e) => {
+                                    handleSortAddress(e.key);
+                                }}
+                            >
+                                Des
+                            </Menu.Item>
+                        </SubMenu>
+                        <SubMenu title="Email" key="email">
+                            <Menu.Item
+                                key="26"
+                                onClick={(e) => {
+                                    handleSortEmail(e.key);
+                                }}
+                            >
+                                Asc
+                            </Menu.Item>
+                            <Menu.Item
+                                key="27"
+                                onClick={(e) => {
+                                    handleSortEmail(e.key);
+                                }}
+                            >
+                                Des
+                            </Menu.Item>
+                        </SubMenu>
+                    </>
+                )}
+            </Menu>
+        );
     return (
         <>
             <Wrapper

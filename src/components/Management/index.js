@@ -4,9 +4,10 @@ import axios from "axios";
 import "antd/dist/antd.css";
 // import "./index.css";
 import { Menu, Switch, Divider, Input, Space } from "antd";
-import { Pagination } from "antd";
+import { Pagination, Button } from "antd";
 import Filter from "../Filter";
-import { Container, Spinner } from "react-bootstrap";
+import { Container, Spinner, Table, Modal, Col, Row, Form } from "react-bootstrap";
+
 import { Navbar } from "../Navbar";
 import ManagementCRUD from "../ManagementCRUD";
 import { Wrapper } from "./Management.style";
@@ -21,10 +22,13 @@ function Management() {
     const [users, setUsers] = useState(initialState);
     const [isLoading, setIsLoading] = useState(true);
     const [theme, setTheme] = useState("light");
+    const [editModalShow, setEditModalShow] = useState(false);
     const changeTheme = (value) => {
         setTheme(value ? "dark" : "light");
     };
-    const [searchValue, setSearchValue] = useState();
+    const [searchValue, setSearchValue] = useState(
+        url.searchParams.get("keyword") == null ? "" : url.searchParams.get("keyword")
+    );
     const [menuName, setMenuName] = useState(
         url.searchParams.get("role") == null ? "serviceTran" : url.searchParams.get("role")
     );
@@ -57,9 +61,14 @@ function Management() {
                 navigate(
                     `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransId,asc`
                 );
-            } else {
+            } else if (menuName == "customer" || menuName == "mechanic") {
                 setFilters({ ...filters, sort: "id,asc" });
                 navigate(`/management?role=${menuName}&page=${filters.currentPage}&sort=id,asc`);
+            } else {
+                setFilters({ ...filters, sort: "serviceId,asc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceId,asc`
+                );
             }
         } else {
             if (menuName == "serviceTran") {
@@ -67,9 +76,14 @@ function Management() {
                 navigate(
                     `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransId,desc`
                 );
-            } else {
+            } else if (menuName == "customer" || menuName == "mechanic") {
                 setFilters({ ...filters, sort: "id,desc" });
                 navigate(`/management?role=${menuName}&page=${filters.currentPage}&sort=id,desc`);
+            } else {
+                setFilters({ ...filters, sort: "serviceId,desc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=service,asc`
+                );
             }
         }
     };
@@ -80,9 +94,14 @@ function Management() {
                 navigate(
                     `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransName,asc`
                 );
-            } else {
+            } else if (menuName == "customer" || menuName == "mechanic") {
                 setFilters({ ...filters, sort: "name,asc" });
                 navigate(`/management?role=${menuName}&page=${filters.currentPage}&sort=name,asc`);
+            } else {
+                setFilters({ ...filters, sort: "serviceId,asc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceId,asc`
+                );
             }
         } else {
             if (menuName == "serviceTran") {
@@ -90,9 +109,14 @@ function Management() {
                 navigate(
                     `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceTransName,desc`
                 );
-            } else {
+            } else if (menuName == "customer" || menuName == "mechanic") {
                 setFilters({ ...filters, sort: "name,desc" });
                 navigate(`/management?role=${menuName}&page=${filters.currentPage}&sort=name,desc`);
+            } else {
+                setFilters({ ...filters, sort: "serviceId,desc" });
+                navigate(
+                    `/management?role=${menuName}&page=${filters.currentPage}&sort=serviceId,desc`
+                );
             }
         }
     };
@@ -221,6 +245,10 @@ function Management() {
                 ? `http://localhost:8080/servicetran?page=${filters.currentPage - 1}&sort=${
                       filters.sort
                   }&keyword=${filters.search}`
+                : menuName === "service"
+                ? `http://localhost:8080/service?page=${filters.currentPage - 1}&sort=${
+                      filters.sort
+                  }&keyword=${filters.search}`
                 : `http://localhost:8080/auth/getall?role=${menuName}&page=${
                       filters.currentPage - 1
                   }&sort=${filters.sort}&keyword=${filters.search}`;
@@ -231,6 +259,8 @@ function Management() {
                 console.log(filters);
                 menuName === "serviceTran"
                     ? setUsers(res.data.serviceTrans)
+                    : menuName === "service"
+                    ? setUsers(res.data.services)
                     : setUsers(res.data.users);
                 setIsLoading(false);
                 setPagination({
@@ -238,11 +268,25 @@ function Management() {
                     total:
                         menuName === "serviceTran"
                             ? res.data.totalServiceTrans
+                            : menuName == "service"
+                            ? res.data.totalServices
                             : res.data.totalUser,
                 });
             })
             .catch((error) => window.alert(error));
     }
+    const addUser = async (item) => {
+        let fetchURL =
+            menuName === "mechanic"
+                ? "http://localhost:8080/auth/addmechanic"
+                : "http://localhost:8080/service";
+        await axios
+            .post(fetchURL, item)
+            .then((res) => {
+                window.alert("Added successfully");
+            })
+            .catch((error) => window.alert(error));
+    };
     useEffect(() => {
         fetchData();
     }, [menuName, filters]);
@@ -250,43 +294,61 @@ function Management() {
         <>
             <SubNav content="Management"></SubNav>
 
-            {isLoading === true ? (
-                <div
-                    style={{
-                        textAlign: "center",
-                        padding: "200px 0px",
-                    }}
-                >
-                    <Spinner
-                        animation="border"
-                        role="status"
-                        style={{ width: "200px", height: "200px" }}
-                    >
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+            <Wrapper
+                background={theme === "light" ? "white" : "#001529"}
+                color={theme === "light" ? "#001529" : "white"}
+                backgroundPage={theme === "light" ? "white" : "#9e81f5"}
+                textPage={theme === "light" ? "black" : "white"}
+                activePage={theme === "light" ? "white" : "#6638f1"}
+                borderPage={theme === "light" ? "1px solid blue" : "none"}
+            >
+                <div>
+                    <Navbar
+                        changeTheme={changeTheme}
+                        theme={theme}
+                        menuName={menuName}
+                        setMenuName={setMenuName}
+                        setFilters={setFilters}
+                        filters={filters}
+                        setSearchValue={setSearchValue}
+                        setIsLoading={setIsLoading}
+                    ></Navbar>
                 </div>
-            ) : (
-                <Wrapper
-                    background={theme === "light" ? "white" : "#001529"}
-                    color={theme === "light" ? "#001529" : "white"}
-                    backgroundPage={theme === "light" ? "white" : "#9e81f5"}
-                    textPage={theme === "light" ? "black" : "white"}
-                    activePage={theme === "light" ? "white" : "#6638f1"}
-                    borderPage={theme === "light" ? "1px solid blue" : "none"}
-                >
-                    <div>
-                        <Navbar
-                            changeTheme={changeTheme}
-                            theme={theme}
-                            menuName={menuName}
-                            setMenuName={setMenuName}
-                            setFilters={setFilters}
-                            filters={filters}
-                            setSearchValue={setSearchValue}
-                        ></Navbar>
+                {isLoading === true ? (
+                    <div
+                        style={{
+                            textAlign: "center",
+                            padding: "200px 0px",
+                            zIndex: "999",
+                            width: "100%",
+                        }}
+                    >
+                        <Spinner
+                            animation="border"
+                            role="status"
+                            style={{ width: "200px", height: "200px", color: "black" }}
+                        >
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
                     </div>
+                ) : (
                     <Container fluid>
                         <div className="searchAndFilterWrapper">
+                            {menuName === "service" || menuName === "mechanic" ? (
+                                <Button
+                                    type="primary"
+                                    onClick={() => {
+                                        setEditModalShow(true);
+                                    }}
+                                    style={{ color: theme === "light" ? "black" : "white" }}
+                                    className="add-button"
+                                >
+                                    Add
+                                </Button>
+                            ) : (
+                                ""
+                            )}
+
                             <Search
                                 style={{ width: "40%" }}
                                 placeholder={searchPlaceHolder}
@@ -305,6 +367,7 @@ function Management() {
                                 // handleSortType={handleSortType}
                                 deleteFilter={deleteFilter}
                                 filters={filters}
+                                menuName={menuName}
                                 setSearchValue={setSearchValue}
                             />
                         </div>
@@ -321,6 +384,7 @@ function Management() {
                             pageSize={pagination.pageSize}
                             menuName={menuName}
                             setMenuName={setMenuName}
+                            addUser={addUser}
                         ></ManagementCRUD>
                         <Pagination
                             current={filters.currentPage}
@@ -331,14 +395,139 @@ function Management() {
                             showSizeChanger={false}
                         />
                     </Container>
-
-                    {/* <Wrapper style={{ padding: "15px 0px", textAlign: "right" }}>
+                )}
+                {/* <Wrapper style={{ padding: "15px 0px", textAlign: "right" }}>
                        
                     </Wrapper> */}
-                </Wrapper>
-            )}
+                <EditModal
+                    show={editModalShow}
+                    onHide={() => setEditModalShow(false)}
+                    // handleInputChange={handleInputChange}
+                    // setItem={setItem}
+                    currentUser={currentUser}
+                    updatedUser={updatedUser}
+                    menuName={menuName}
+                    addUser={addUser}
+                />
+            </Wrapper>
         </>
     );
 }
+function EditModal(props) {
+    const [item, setItem] = useState(
+        props.menuName === "mechanic" ? { password: 123, jobCount: 0 } : { rating: 0 }
+    );
 
+    useEffect(() => {}, [props]);
+    const handleUpdate = () => {
+        console.log(item);
+        props.addUser(item);
+        setItem(props.menuName === "mechanic" ? { password: 123, jobCount: 0 } : { rating: 0 });
+        props.onHide();
+    };
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setItem({ ...item, [name]: value });
+    };
+
+    return (
+        <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    {" "}
+                    {props.menuName === "mechanic" ? "Add Mechanic" : "Add Service"}
+                </Modal.Title>
+            </Modal.Header>
+            <Form>
+                <Modal.Body>
+                    <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
+                        <Form.Label column sm={2}>
+                            {props.menuName === "mechanic" ? "Mechanic Name" : "Service Name"}
+                        </Form.Label>
+                        <Col sm={10}>
+                            <Form.Control
+                                type=""
+                                placeholder=""
+                                name="name"
+                                onChange={handleInputChange}
+                            />
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
+                        <Form.Label column sm={2}>
+                            {props.menuName === "mechanic" ? "Address" : "Cost"}
+                        </Form.Label>
+                        <Col sm={10}>
+                            <Form.Control
+                                type=""
+                                placeholder=""
+                                name={props.menuName === "mechanic" ? "address" : "cost"}
+                                onChange={handleInputChange}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
+                        <Form.Label column sm={2}>
+                            {props.menuName === "mechanic" ? "Email" : "Type"}
+                        </Form.Label>
+                        <Col sm={10}>
+                            <Form.Control
+                                type=""
+                                placeholder=""
+                                name={props.menuName === "mechanic" ? "email" : "type"}
+                                onChange={handleInputChange}
+                            />
+                        </Col>
+                    </Form.Group>
+                    {props.menuName === "mechanic" ? (
+                        <>
+                            <Form.Group
+                                as={Row}
+                                className="mb-3"
+                                controlId="formHorizontalPassword"
+                            >
+                                <Form.Label column sm={2}>
+                                    Phone
+                                </Form.Label>
+                                <Col sm={10}>
+                                    <Form.Control
+                                        type=""
+                                        placeholder=""
+                                        name="phone"
+                                        onChange={handleInputChange}
+                                    />
+                                </Col>
+                            </Form.Group>
+                            <Form.Group
+                                as={Row}
+                                className="mb-3"
+                                controlId="formHorizontalPassword"
+                            >
+                                <Form.Label column sm={2}>
+                                    Type
+                                </Form.Label>
+                                <Col sm={10}>
+                                    <Form.Control
+                                        type=""
+                                        placeholder=""
+                                        name="type"
+                                        onChange={handleInputChange}
+                                    />
+                                </Col>
+                            </Form.Group>
+                        </>
+                    ) : (
+                        ""
+                    )}
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button onClick={handleUpdate}>Add</Button>
+                    <Button onClick={props.onHide}>Close</Button>
+                </Modal.Footer>
+            </Form>
+        </Modal>
+    );
+}
 export default Management;

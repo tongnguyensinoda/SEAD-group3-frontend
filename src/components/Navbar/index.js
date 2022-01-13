@@ -26,6 +26,7 @@ export const Navbar = ({
     setFilters,
     filters,
     setSearchValue,
+    setIsLoading,
 }) => {
     const [mode, setMode] = React.useState("inline");
     let navigate = useNavigate();
@@ -65,6 +66,8 @@ export const Navbar = ({
                             ? "Manage Customers"
                             : menuName == "mechanic"
                             ? "Manage Mechanics"
+                            : menuName == "service"
+                            ? "Services"
                             : "Mechanic Report"}
                     </span>
                 </Logo>
@@ -77,12 +80,14 @@ export const Navbar = ({
             <Menu
                 style={{ width: 256 }}
                 defaultSelectedKeys={
-                    menuName == "Mechanic Report"
+                    menuName === "Mechanic Report"
                         ? ["1"]
-                        : menuName == "customer"
+                        : menuName === "customer"
                         ? ["2"]
-                        : menuName == "mechanic"
+                        : menuName === "mechanic"
                         ? ["3"]
+                        : menuName === "service"
+                        ? ["4"]
                         : ["1"]
                 }
                 defaultOpenKeys={["sub1"]}
@@ -96,6 +101,7 @@ export const Navbar = ({
                         setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
                         navigate(`/management?role=serviceTran`);
                         setSearchValue("");
+                        setIsLoading(true);
                     }}
                     key="1"
                     icon={<FileTextOutlined />}
@@ -109,6 +115,7 @@ export const Navbar = ({
                         navigate(`/management?role=customer`);
                         setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
                         setSearchValue("");
+                        setIsLoading(true);
                     }}
                     key="2"
                     icon={<SolutionOutlined />}
@@ -122,6 +129,7 @@ export const Navbar = ({
                         navigate(`/management?role=mechanic`);
                         setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
                         setSearchValue("");
+                        setIsLoading(true);
                     }}
                     key="3"
                     icon={<SolutionOutlined />}
@@ -135,6 +143,7 @@ export const Navbar = ({
                         navigate(`/management?role=service`);
                         setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
                         setSearchValue("");
+                        setIsLoading(true);
                     }}
                     key="4"
                     icon={<SolutionOutlined />}
