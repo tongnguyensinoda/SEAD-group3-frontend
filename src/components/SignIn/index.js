@@ -187,8 +187,7 @@ export const SignIn = () => {
             .post("http://localhost:8080/auth/login", userSingIn)
             .then((res) => {
                 console.log(res);
-                localStorage.setItem("roles", "customer");
-                localStorage.setItem("email", res.data);
+                localStorage.setItem("information", JSON.stringify(res.data));
                 window.location.href = "/";
             })
             .catch((error) => window.alert(error));

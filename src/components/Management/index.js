@@ -296,9 +296,6 @@ function Management() {
             menuName === "mechanic"
                 ? await userSchema.isValid(item)
                 : await serviceSchema.isValid(item);
-
-        if (menuName === "service") {
-        }
         if (valid) {
             let fetchURL =
                 menuName === "mechanic"
@@ -490,9 +487,9 @@ function EditModal(props) {
     }, [props]);
     const handleUpdate = () => {
         console.log(item);
-        // props.addUser(item);
-        // setItem(props.menuName === "mechanic" ? { password: 123, jobCount: 0 } : { rating: 0 });
-        // props.onHide();
+        props.addUser(item);
+        setItem(props.menuName === "mechanic" ? { password: 123, jobCount: 0 } : { rating: 0 });
+        props.onHide();
     };
     const handleInputChange = (event) => {
         const { name, value } = event.target;

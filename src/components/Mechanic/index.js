@@ -23,6 +23,7 @@ function showConfirm(confirmMessage, mode, acceptJob, finishJob, serviceTransId)
         okText: "Yes",
         onOk() {
             mode === "request" ? acceptJob(serviceTransId) : finishJob(serviceTransId);
+            window.location.href = "/mechanicForm";
         },
         onCancel() {
             console.log("Cancel");
@@ -221,7 +222,7 @@ const MechanicForm = () => {
     }
     useEffect(() => {
         fetchData();
-    }, [mode, data]);
+    }, [mode]);
     const columns = [
         {
             title: "Transaction ID",

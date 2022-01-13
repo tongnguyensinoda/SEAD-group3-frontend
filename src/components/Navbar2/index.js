@@ -8,8 +8,7 @@ import { MechanicForm } from "../Mechanic";
 import { Avatar, Menu, Dropdown, Button, Space, Descriptions } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
-const Navbar = () => {
-    const [role, setRole] = useState(localStorage.getItem("roles"));
+const Navbar = ({ information }) => {
     let item;
 
     // const abc = () => {
@@ -18,14 +17,14 @@ const Navbar = () => {
     // };
     // console.log(account);
     let image;
-    if (role === "customer" || role === "mechanic") {
+    if (information.role === "customer" || information.role === "mechanic") {
         image = <Avatar size={34} icon={<UserOutlined />} />;
     } else {
         image = "";
     }
 
     const handleSignOut = () => {
-        localStorage.removeItem("roles");
+        localStorage.removeItem("information");
         window.location.href = "/";
     };
     const menu = (
@@ -44,7 +43,7 @@ const Navbar = () => {
         </Menu>
     );
 
-    if (role === "customer") {
+    if (information.role === "customer") {
         item = (
             <>
                 <Link to="/home">
@@ -59,12 +58,12 @@ const Navbar = () => {
                 <Dropdown overlay={menu} placement="bottomCenter">
                     <div className="account">
                         {image}
-                        <span>{localStorage.getItem("email")}</span>
+                        <span>{information.name}</span>
                     </div>
                 </Dropdown>
             </>
         );
-    } else if (role === "mechanic") {
+    } else if (information.role === "mechanic") {
         item = (
             <>
                 <Link to="/home">
@@ -79,7 +78,7 @@ const Navbar = () => {
                 <Dropdown overlay={menu} placement="bottomCenter">
                     <div className="account">
                         {image}
-                        <span>{localStorage.getItem("email")}</span>
+                        <span>{information.name}</span>
                     </div>
                 </Dropdown>
             </>

@@ -18,9 +18,14 @@ import BookingService from "./components/BookingService/BookingService";
 import Profile from "./components/Profile";
 
 function App() {
+    const [information, setInformation] = useState(
+        JSON.parse(localStorage.getItem("information"))
+            ? JSON.parse(localStorage.getItem("information"))
+            : ""
+    );
     return (
         <BrowserRouter>
-            <Navbar />
+            <Navbar information={information} />
             <div style={{ minHeight: "69vh" }}>
                 <Routes>
                     <Route path="/signin" element={<SignIn />} />
@@ -30,7 +35,10 @@ function App() {
                     <Route path="/service/:id" element={<Service />} />
                     <Route path="/bookingService/:id" element={<BookingService />} />
                     <Route path="/mechanicForm" element={<MechanicForm></MechanicForm>} />
-                    <Route path="/profile" element={<Profile></Profile>} />
+                    <Route
+                        path="/profile"
+                        element={<Profile information={information}></Profile>}
+                    />
 
                     <Route path="/" element={<HomeComponent />} />
                 </Routes>
