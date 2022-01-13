@@ -104,7 +104,7 @@ const initialData = [
     //     address: "London No. 2 Lake Park",
     // },
 ];
-const MechanicForm = () => {
+const MechanicForm = ({ information }) => {
     const [state, setState] = useState({
         searchText: "",
         searchedColumn: "",
@@ -209,8 +209,8 @@ const MechanicForm = () => {
     async function fetchData(param) {
         let fetchURL =
             mode === "request"
-                ? `http://localhost:8080/servicetran/getrequestjob?mechanic=${user.id}`
-                : `http://localhost:8080/servicetran/gettodojob?mechanic=${user.id}`;
+                ? `http://localhost:8080/servicetran/getrequestjob?mechanic=${information.id}`
+                : `http://localhost:8080/servicetran/gettodojob?mechanic=${information.id}`;
         await axios
             .get(fetchURL)
             .then((res) => {
