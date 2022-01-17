@@ -34,7 +34,10 @@ function App() {
                     <Route path="/categoryService" element={<CategoryService />} />
                     <Route path="/service/:id" element={<Service />} />
                     <Route path="/bookingService/:id" element={<BookingService />} />
-                    <Route path="/mechanicForm" element={<MechanicForm></MechanicForm>} />
+                    <Route
+                        path="/mechanicForm"
+                        element={<MechanicForm information={information}></MechanicForm>}
+                    />
                     <Route
                         path="/profile"
                         element={<Profile information={information}></Profile>}
