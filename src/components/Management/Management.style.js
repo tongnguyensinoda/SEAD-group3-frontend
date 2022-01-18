@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-    max-width: 1366px;
+    max-width: 85%;
     margin: 35px auto;
-    padding: 5px;
+    padding: 20px 5px;
     display: flex;
     border: 1px solid rgba(38, 56, 150, 0.1411764705882353);
     box-shadow: 0 4px 12px 0 rgb(34 41 47 / 12%);
@@ -32,5 +32,19 @@ export const Wrapper = styled.div`
     .ant-pagination-next:hover .ant-pagination-item-link {
         color: ${(props) => props.textPage};
         /* border-color: rgb(158, 129, 245); */
+    }
+    .searchAndFilterWrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        align-items: center;
+        vertical-align: center;
+        gap: 10px;
+        div {
+            padding: 0px !important;
+        }
+    }
+    .add-button {
+        color: white !important;
     }
 `;

@@ -1,25 +1,22 @@
 import React from "react";
 import "./SignIn.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SubNav from "../SubNav";
 import GoogleLogin from "react-google-login";
 import { useGoogleLogin } from "react-google-login";
+import axios from "axios";
 export const SignIn = () => {
-    // var overlay = document.getElementById("overlay");
-
-    // // Buttons to 'switch' the page
-    // var openSignUpButton = document.getElementById("slide-left-button");
-    // var openSignInButton = document.getElementById("slide-right-button");
-
-    // // The sidebars
-    // var leftText = document.getElementById("sign-in");
-    // var rightText = document.getElementById("sign-up");
-
-    // // The forms
-    // var accountForm = document.getElementById("sign-in-info");
-    // var signinForm = document.getElementById("sign-up-info");
-
-    // Open the Sign Up page
+    const initialState = {
+        id: "",
+        name: "",
+        password: "",
+        address: "",
+        email: "",
+        phone: "",
+        type: "",
+        jobCount: "",
+        role: "",
+    };
     const [leftText, setleftText] = useState("sign-in");
     const [overlay, setoverlay] = useState("overlay1");
     const [rightText, setrightText] = useState("sign-up");
@@ -27,6 +24,13 @@ export const SignIn = () => {
     const [accountForm, setaccountForm] = useState("sign-in");
     const [styleAccount, setStyleAccount] = useState("");
     const [styleSignIn, setStyleSignIn] = useState("");
+    const [user, setUser] = useState(initialState);
+    const [userSingIn, setUserSignIn] = useState({ email: "", password: "" });
+    const [reTypePassword, setReTypePassword] = useState();
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const openSignUp = () => {
         // Remove classes so that animations can restart on the next 'switch'
@@ -112,31 +116,106 @@ export const SignIn = () => {
         // Setup first refresh timer
         setTimeout(refreshToken, refreshTiming);
     };
-    const onSuccess = (res) => {
+    const onSuccess = async (res) => {
         console.log("Login Success: currentUser:", res);
+        localStorage.setItem(
+            "information",
+            JSON.stringify({
+                ...user,
+                name: res.profileObj.name,
+                email: res.profileObj.email,
+                role: "customer",
+            })
+        );
+        window.location.href = "/";
         refreshTokenSetup(res);
     };
     const onFailure = (res) => {
         console.log("Login failed: res:", res);
     };
-
     const { signIn } = useGoogleLogin({
         onSuccess,
         onFailure,
         clientId,
     });
+    const onSignUp = async () => {
+        if (validateEmail(user.email) && user.password == reTypePassword.reTypePassword) {
+            await axios
+                .post("https://user-sead-group3.herokuapp.com/auth/signup", user)
+                .then((res) => {
+                    window.alert("Succesfully create user");
+                })
+                .catch((error) => window.alert(error));
+            setUser(initialState);
+        } else {
+            if (!validateEmail(user.email)) {
+                window.alert("Email is invalid");
+            }
+            if (user.password !== reTypePassword) {
+                console.log(reTypePassword.reTypePassword);
+                console.log(user.password);
 
+                window.alert("Retype password is not match");
+            }
+        }
+    };
+    const handleRetypePassword = (event) => {
+        const { name, value } = event.target;
+        setReTypePassword({ [name]: value });
+    };
+    const handleInputChangeSignUp = (event) => {
+        const { name, value } = event.target;
+        setUser({ ...user, [name]: value });
+    };
+    const handleInputChangeSignIn = (event) => {
+        const { name, value } = event.target;
+        setUserSignIn({ ...userSingIn, [name]: value });
+    };
+
+    const onSignIn = async () => {
+        await axios
+            .post("https://user-sead-group3.herokuapp.com/auth/login", userSingIn)
+            .then((res) => {
+                console.log(res);
+                localStorage.setItem("information", JSON.stringify(res.data));
+                window.location.href = "/";
+            })
+            .catch((error) => window.alert("Wrong username or password"));
+        setUserSignIn(initialState);
+        console.log(userSingIn);
+    };
+    const validateEmail = (email) => {
+        return email
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+    const signInGitHub = async () => {
+        window.open("https://user-sead-group3.herokuapp.com/oauth2/authorization/github", "_blank").focus();
+
+        await axios
+            .get("https://user-sead-group3.herokuapp.com/auth/currentuser")
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => window.alert("Wrong username or password"));
+    };
     return (
         <div>
             <SubNav content="Sign In"></SubNav>
-            <div class="container1">
+            <div className="container1">
                 <div className={overlay} id="overlay1">
-                    <div class={leftText} id="sign-in">
+                    <div className={leftText} id="sign-in">
                         <h1 className="h1-signin">Welcome Back!</h1>
                         <p className="p-signin">
                             To keep connected with us please login with your personal info
                         </p>
-                        <button class="switch-button" id="slide-right-button" onClick={openSignIn}>
+                        <button
+                            className="switch-button"
+                            id="slide-right-button"
+                            onClick={openSignIn}
+                        >
                             Sign In
                         </button>
                     </div>
@@ -145,24 +224,32 @@ export const SignIn = () => {
                         <p className="p-signin">
                             Enter your personal details and start a journey with us
                         </p>
-                        <button class="switch-button" id="slide-left-button" onClick={openSignUp}>
+                        <button
+                            className="switch-button"
+                            id="slide-left-button"
+                            onClick={openSignUp}
+                        >
                             Sign Up
                         </button>
                     </div>
                 </div>
-                <div class="form1">
-                    <div class={accountForm} style={{ display: styleAccount }} id="sign-in-info">
+                <div className="form1">
+                    <div
+                        className={accountForm}
+                        style={{ display: styleAccount }}
+                        id="sign-in-info"
+                    >
                         <h1 className="h1-signin">Sign In</h1>
-                        <div class="social-media-buttons">
-                            <div class="icon">
+                        <div className="social-media-buttons">
+                            {/* <div className="icon">
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         fill="#000000"
                                         d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z"
                                     />
                                 </svg>
-                            </div>
-                            <div class="icon" onClick={signIn} style={{ cursor: "pointer" }}>
+                            </div> */}
+                            <div className="icon" onClick={signIn} style={{ cursor: "pointer" }}>
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         fill="#000000"
@@ -170,40 +257,34 @@ export const SignIn = () => {
                                     />
                                 </svg>
                             </div>
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path
-                                        fill="#000000"
-                                        d="M21,21H17V14.25C17,13.19 15.81,12.31 14.75,12.31C13.69,12.31 13,13.19 13,14.25V21H9V9H13V11C13.66,9.93 15.36,9.24 16.5,9.24C19,9.24 21,11.28 21,13.75V21M7,21H3V9H7V21M5,3A2,2 0 0,1 7,5A2,2 0 0,1 5,7A2,2 0 0,1 3,5A2,2 0 0,1 5,3Z"
-                                    />
-                                </svg>
-                            </div>
                         </div>
-                        <p class="small">or use your email account:</p>
+                        <p className="small">or use your email account:</p>
                         <form id="sign-in-form">
-                            <input className="input-signin" type="text" placeholder="Email" />
+                            <input
+                                className="input-signin"
+                                type="text"
+                                placeholder="Email"
+                                name="email"
+                                onChange={handleInputChangeSignIn}
+                            />
                             <input
                                 className="input-signin"
                                 type="password"
                                 placeholder="Password"
+                                name="password"
+                                onChange={handleInputChangeSignIn}
                             />
                             <br></br>
-                            <p class="forgot-password">Forgot your password?</p>
-                            <button class="control-button in">Sign In</button>
+                            <p className="forgot-password">Forgot your password?</p>
+                            <button className="control-button in" onClick={onSignIn} type="button">
+                                Sign In
+                            </button>
                         </form>
                     </div>
-                    <div class={signinForm} style={{ display: styleSignIn }} id="sign-up-info">
+                    <div className={signinForm} style={{ display: styleSignIn }} id="sign-up-info">
                         <h1 className="h1-signin">Create Account</h1>
-                        <div class="social-media-buttons">
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path
-                                        fill="#000000"
-                                        d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z"
-                                    />
-                                </svg>
-                            </div>
-                            <div class="icon">
+                        <div className="social-media-buttons">
+                            <div className="icon">
                                 <svg
                                     viewBox="0 0 24 24"
                                     onClick={signIn}
@@ -215,46 +296,45 @@ export const SignIn = () => {
                                     />
                                 </svg>
                             </div>
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path
-                                        fill="#000000"
-                                        d="M21,21H17V14.25C17,13.19 15.81,12.31 14.75,12.31C13.69,12.31 13,13.19 13,14.25V21H9V9H13V11C13.66,9.93 15.36,9.24 16.5,9.24C19,9.24 21,11.28 21,13.75V21M7,21H3V9H7V21M5,3A2,2 0 0,1 7,5A2,2 0 0,1 5,7A2,2 0 0,1 3,5A2,2 0 0,1 5,3Z"
-                                    />
-                                </svg>
-                            </div>
                         </div>
-                        <p class="small">or use your email for registration:</p>
+                        <p className="small">or use your email for registration:</p>
                         <form id="sign-up-form">
-                            <input className="input-signin" type="text" placeholder="Name" />
+                            <input
+                                className="input-signin"
+                                type="text"
+                                placeholder="Name"
+                                name="name"
+                                onChange={handleInputChangeSignUp}
+                            />
                             <input
                                 className="input-signin"
                                 type="email"
                                 placeholder="Email"
+                                name="email"
                                 autoComplete="username"
+                                onChange={handleInputChangeSignUp}
                             />
                             <input
                                 className="input-signin"
                                 type="password"
                                 placeholder="Password"
+                                name="password"
                                 autoComplete="new-password"
+                                onChange={handleInputChangeSignUp}
                             />
                             <input
                                 className="input-signin"
                                 type="password"
                                 placeholder="Re-type password"
+                                name="reTypePassword"
                                 autoComplete="new-password"
+                                onChange={handleRetypePassword}
                             />
                             <br></br>
-                            <select className="select-singin" name="userType" id="userType">
-                                <option value="" disabled selected>
-                                    Account Type2
-                                </option>
-                                <option value="Shop/Mechanic">Shop/Mechanic</option>
-                                <option value="User">User</option>
-                            </select>
 
-                            <button class="control-button up">Sign Up</button>
+                            <button className="control-button up" onClick={onSignUp} type="button">
+                                Sign Up
+                            </button>
                         </form>
                     </div>
                 </div>

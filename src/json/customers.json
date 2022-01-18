@@ -1,47 +1,47 @@
 [
-  {
-    "uUsername": "customer1",
-    "uPassword": "pass1",
-    "uName": "Rebecca Omar",
-    "uAddress": "Rebecca's home",
-    "uEmail": "rebecca1@m.com",
-    "uPhone": "001651091",
-    "uRole": "customer"
-  },
-  {
-    "uUsername": "customer2",
-    "uPassword": "pass2",
-    "uName": "Brandy Brain",
-    "uAddress": "Brandy's home",
-    "uEmail": "brandy2@m.com",
-    "uPhone": "072426228",
-    "uRole": "customer"
-  },
-  {
-    "uUsername": "customer3",
-    "uPassword": "pass3",
-    "uName": "Meagan Omar",
-    "uAddress": "Meagan's home",
-    "uEmail": "meagan3@m.com",
-    "uPhone": "054285014",
-    "uRole": "customer"
-  },
-  {
-    "uUsername": "customer4",
-    "uPassword": "pass4",
-    "uName": "Luz Tod",
-    "uAddress": "Luz's home",
-    "uEmail": "luz4@m.com",
-    "uPhone": "077550307",
-    "uRole": "customer"
-  },
-  {
-    "uUsername": "customer5",
-    "uPassword": "pass5",
-    "uName": "Emerson Joanna",
-    "uAddress": "Emerson's home",
-    "uEmail": "emerson5@m.com",
-    "uPhone": "036142080",
-    "uRole": "customer"
-  }
+    {
+        "username": "customer1",
+        "uPassword": "pass1",
+        "uName": "Rebecca Omar",
+        "uAddress": "Rebecca's home",
+        "uEmail": "rebecca1@m.com",
+        "uPhone": "001651091",
+        "uRole": "customer"
+    },
+    {
+        "username": "customer2",
+        "uPassword": "pass2",
+        "uName": "Brandy Brain",
+        "uAddress": "Brandy's home",
+        "uEmail": "brandy2@m.com",
+        "uPhone": "072426228",
+        "uRole": "customer"
+    },
+    {
+        "username": "customer3",
+        "uPassword": "pass3",
+        "uName": "Meagan Omar",
+        "uAddress": "Meagan's home",
+        "uEmail": "meagan3@m.com",
+        "uPhone": "054285014",
+        "uRole": "customer"
+    },
+    {
+        "username": "customer4",
+        "uPassword": "pass4",
+        "uName": "Luz Tod",
+        "uAddress": "Luz's home",
+        "uEmail": "luz4@m.com",
+        "uPhone": "077550307",
+        "uRole": "customer"
+    },
+    {
+        "username": "customer5",
+        "uPassword": "pass5",
+        "uName": "Emerson Joanna",
+        "uAddress": "Emerson's home",
+        "uEmail": "emerson5@m.com",
+        "uPhone": "036142080",
+        "uRole": "customer"
+    }
 ]

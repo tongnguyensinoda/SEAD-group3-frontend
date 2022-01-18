@@ -14,11 +14,22 @@ import {
 } from "@ant-design/icons";
 import { Logo, Head } from "./Navbar.style";
 import "./custom.css";
+import { useNavigate } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
-export const Navbar = ({ changeTheme, theme }) => {
+export const Navbar = ({
+    changeTheme,
+    theme,
+    menuName,
+    setMenuName,
+    setFilters,
+    filters,
+    setSearchValue,
+    setIsLoading,
+}) => {
     const [mode, setMode] = React.useState("inline");
+    let navigate = useNavigate();
     // const [theme, setTheme] = React.useState("light");
     // const changeMode = (value) => {
     //     setMode(value ? "vertical" : "inline");
@@ -27,7 +38,7 @@ export const Navbar = ({ changeTheme, theme }) => {
     // const changeTheme = (value) => {
     //     setTheme(value ? "dark" : "light");
     // };
-    const [menuName, setMenuName] = React.useState("User Report");
+
     const [logo, setLogo] = React.useState(1);
     return (
         <>
@@ -49,13 +60,15 @@ export const Navbar = ({ changeTheme, theme }) => {
 
                     <span>
                         {" "}
-                        {menuName == "User Report"
-                            ? "User Report"
-                            : menuName == "Manage Users"
-                            ? "Manage Users"
-                            : menuName == "Manage Mechanics"
+                        {menuName == "serviceTran"
+                            ? "Mechanic Report"
+                            : menuName == "customer"
+                            ? "Manage Customers"
+                            : menuName == "mechanic"
                             ? "Manage Mechanics"
-                            : "User Report"}
+                            : menuName == "service"
+                            ? "Services"
+                            : "Mechanic Report"}
                     </span>
                 </Logo>
 
@@ -66,7 +79,17 @@ export const Navbar = ({ changeTheme, theme }) => {
 
             <Menu
                 style={{ width: 256 }}
-                defaultSelectedKeys={["1"]}
+                defaultSelectedKeys={
+                    menuName === "Mechanic Report"
+                        ? ["1"]
+                        : menuName === "customer"
+                        ? ["2"]
+                        : menuName === "mechanic"
+                        ? ["3"]
+                        : menuName === "service"
+                        ? ["4"]
+                        : ["1"]
+                }
                 defaultOpenKeys={["sub1"]}
                 mode={mode}
                 theme={theme}
@@ -74,32 +97,58 @@ export const Navbar = ({ changeTheme, theme }) => {
                 <Menu.Item
                     onClick={() => {
                         setLogo(1);
-                        setMenuName("User Report");
+                        setMenuName("serviceTran");
+                        setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
+                        navigate(`/management?role=serviceTran`);
+                        setSearchValue("");
+                        setIsLoading(true);
                     }}
                     key="1"
                     icon={<FileTextOutlined />}
                 >
-                    User Report
+                    Mechanic Report
                 </Menu.Item>
                 <Menu.Item
                     onClick={() => {
                         setLogo(2);
-                        setMenuName("Manage Users");
+                        setMenuName("customer");
+                        navigate(`/management?role=customer`);
+                        setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
+                        setSearchValue("");
+                        setIsLoading(true);
                     }}
                     key="2"
                     icon={<SolutionOutlined />}
                 >
-                    Manage Users
+                    Manage Customers
                 </Menu.Item>
                 <Menu.Item
                     onClick={() => {
                         setLogo(3);
-                        setMenuName("Manage Mechanics");
+                        setMenuName("mechanic");
+                        navigate(`/management?role=mechanic`);
+                        setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
+                        setSearchValue("");
+                        setIsLoading(true);
                     }}
                     key="3"
                     icon={<SolutionOutlined />}
                 >
                     Manage Mechanics
+                </Menu.Item>
+                <Menu.Item
+                    onClick={() => {
+                        setLogo(4);
+                        setMenuName("service");
+                        navigate(`/management?role=service`);
+                        setFilters({ ...filters, currentPage: 1, sort: "", search: "" });
+                        setSearchValue("");
+                        setIsLoading(true);
+                    }}
+                    key="4"
+                    icon={<SolutionOutlined />}
+                >
+                    Manage Services
                 </Menu.Item>
             </Menu>
         </>

@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./About.css";
 import AboutUs from "../../about-us.jpg";
 import SubNav from "../SubNav";
 
 function AboutUsComponent() {
+    
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     return (
         <>
             <SubNav content="About"></SubNav>
@@ -14,10 +19,15 @@ function AboutUsComponent() {
                     <span></span>
 
                     <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis aspernatur
-                        voluptas inventore ab voluptates nostrum minus illo laborum harum laudantium
-                        earum ut, temporibus fugiat sequi explicabo facilis unde quos corporis!
+                    Established in 1977, Refrigeration Mechanical and Electrical Joint Stock Company (REE) is currently a listed company with multi-industry activities in significant fields such as mechanical and electrical engineering services (M&E); manufacturing, assembling, and trading Reetech brand air conditioning systems; real estate development and management; and electricity & water infrastructure.
                     </p>
+                    <p>The REE group of companies includes:
+                        REE M&E Company is the leading M&E contractor in Vietnam;
+                        REE Electronics Company specializes in trading in air conditioning systems under the brand Reetech;
+                        REE Property Company is the manager of office buildings for lease developed by REE;
+                        REE Land, VIID, and SaigonRes operate in the field of real estate project development; and
+                        Electricity and water infrastructure with investments in power plants and water supply plants.</p>
+
 
                     <ul class="links-about">
                         <li>
@@ -55,21 +65,20 @@ function AboutUsComponent() {
                         <div class="address details">
                             <i class="fas fa-map-marker-alt"></i>
                             <div class="topic">Address</div>
-                            <div class="text-one">Surkhet, NP12</div>
-                            <div class="text-two">Birendranagar 06</div>
+                            <div class="text-one">3rd Floor - e.town Building 5 - No. 364 Cong Hoa,</div>
+                            <div class="text-two">Ward 13, Tan Binh District, City. Ho Chi Minh, Vietnam</div>
                         </div>
                         <div class="phone details">
                             <i class="fas fa-phone-alt"></i>
                             <div class="topic">Phone</div>
-                            <div class="text-one">+0098 9893 5647</div>
-                            <div class="text-two">+0096 3434 5678</div>
+                            <div class="text-one">84-28-3810 0017</div>
                         </div>
-                        <div class="email details">
+                        {/* <div class="email details">
                             <i class="fas fa-envelope"></i>
                             <div class="topic">Email</div>
                             <div class="text-one">codinglab@gmail.com</div>
                             <div class="text-two">info.codinglab@gmail.com</div>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div class="right-side">

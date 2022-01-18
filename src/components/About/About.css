@@ -266,7 +266,9 @@ html {
     margin: 30px 0;
 }
 .content3 p {
-    padding-bottom: 15px;
+    /* padding-bottom: 15px;
+    padding-left: 50px; */
+    /* padding: 0px 40px 0px 50px; */
     font-weight: 300;
     opacity: 0.7;
     width: 60%;

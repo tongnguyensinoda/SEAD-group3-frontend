@@ -8,11 +8,6 @@ function FooterComponent() {
                 <div class="box">
                     <div class="content about">
                         <h2>About us</h2>
-                        <p>
-                            {" "}
-                            paragraphe wfdwsfsdfsdfdsf dsfs dsf sdf sdf sdf sd sf sdfsdfsdfsdfsfsd
-                            sf s
-                        </p>
                         <ul class="social-icon">
                             <li>
                                 <a href="">
@@ -41,17 +36,11 @@ function FooterComponent() {
                         <h2>Links</h2>
                         <ul>
                             <li>
-                                <a href="#">Home</a>
+                                <a href="/home">Home</a>
                             </li>
                             <li>
-                                <a href="#">About us</a>
-                            </li>
-                            <li>
-                                <a href="#">Contact</a>
-                            </li>
-                            <li>
-                                <a href="#">Service</a>
-                            </li>
+                                <a href="/about">About us</a>
+                            </li>   
                         </ul>
                     </div>
 
@@ -63,8 +52,8 @@ function FooterComponent() {
                                     <i class="fa fa-map-marker"></i>
                                 </span>
                                 <span>
-                                    Street 1<br />
-                                    District 1, Ho Chi Minh city
+                                    3rd Floor - e.town Building 5 - No. 364 Cong Hoa<br />
+                                    Ward 13, Tan Binh District, City. Ho Chi Minh
                                     <br />
                                     Vietnam
                                 </span>
@@ -74,11 +63,11 @@ function FooterComponent() {
                                     <i class="fa fa-phone"></i>
                                 </span>
                                 <span>
-                                    <a href="#">0909932489</a>
+                                    84-28-3810 0017
                                 </span>
                             </li>
 
-                            <li>
+                            {/* <li>
                                 <span>
                                     <i class="fa fa-envelope"></i>
                                 </span>
@@ -102,7 +91,7 @@ function FooterComponent() {
                                         Send
                                     </button>
                                 </form>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>
