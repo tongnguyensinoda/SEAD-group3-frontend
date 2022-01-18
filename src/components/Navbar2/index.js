@@ -10,14 +10,12 @@ import { UserOutlined } from "@ant-design/icons";
 
 const Navbar = ({ information }) => {
     let item;
-
-    // const abc = () => {
-    //     handleSignOut();
-    //     window.location.href = "http://cloud-env.eba-8hk2mpj3.us-west-2.elasticbeanstalk.com/home";
-    // };
-    // console.log(account);
     let image;
-    if (information.role === "customer" || information.role === "mechanic") {
+    if (
+        information.role === "customer" ||
+        information.role === "mechanic" ||
+        information.role === "admin"
+    ) {
         image = <Avatar size={34} icon={<UserOutlined />} />;
     } else {
         image = "";
@@ -83,7 +81,7 @@ const Navbar = ({ information }) => {
                 </Dropdown>
             </>
         );
-    } else {
+    } else if (information.role === "admin") {
         item = (
             <>
                 <Link to="/home">
@@ -92,17 +90,25 @@ const Navbar = ({ information }) => {
                 <Link to="/management">
                     <RightNavItem>Management</RightNavItem>
                 </Link>
-                <Link to="/categoryService">
-                    <RightNavItem>Category Service</RightNavItem>
+                <Dropdown overlay={menu} placement="bottomCenter">
+                    <div className="account">
+                        {image}
+                        <span>{information.name}</span>
+                    </div>
+                </Dropdown>
+            </>
+        );
+    } else {
+        item = (
+            <>
+                <Link to="/home">
+                    <RightNavItem>Home Page</RightNavItem>
                 </Link>
                 <Link to="/about">
                     <RightNavItem>About</RightNavItem>
                 </Link>
                 <Link to="/signin">
                     <RightNavItem>Sign in</RightNavItem>
-                </Link>
-                <Link to="/mechanicForm">
-                    <RightNavItem>Mechanic Form</RightNavItem>
                 </Link>
             </>
         );

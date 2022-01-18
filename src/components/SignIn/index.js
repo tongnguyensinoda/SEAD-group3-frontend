@@ -6,21 +6,6 @@ import GoogleLogin from "react-google-login";
 import { useGoogleLogin } from "react-google-login";
 import axios from "axios";
 export const SignIn = () => {
-    // var overlay = document.getElementById("overlay");
-
-    // // Buttons to 'switch' the page
-    // var openSignUpButton = document.getElementById("slide-left-button");
-    // var openSignInButton = document.getElementById("slide-right-button");
-
-    // // The sidebars
-    // var leftText = document.getElementById("sign-in");
-    // var rightText = document.getElementById("sign-up");
-
-    // // The forms
-    // var accountForm = document.getElementById("sign-in-info");
-    // var signinForm = document.getElementById("sign-up-info");
-
-    // Open the Sign Up page
     const initialState = {
         id: "",
         name: "",
@@ -128,16 +113,16 @@ export const SignIn = () => {
     };
     const onSuccess = async (res) => {
         console.log("Login Success: currentUser:", res);
-        await axios
-            .post("http://localhost:8080/auth/signup", {
+        localStorage.setItem(
+            "information",
+            JSON.stringify({
                 ...user,
                 name: res.profileObj.name,
                 email: res.profileObj.email,
+                role: "customer",
             })
-            .then((res) => {
-                window.alert("Succesfully create user");
-            })
-            .catch((error) => window.alert(error));
+        );
+        window.location.href = "/";
         refreshTokenSetup(res);
     };
     const onFailure = (res) => {
@@ -190,7 +175,7 @@ export const SignIn = () => {
                 localStorage.setItem("information", JSON.stringify(res.data));
                 window.location.href = "/";
             })
-            .catch((error) => window.alert(error));
+            .catch((error) => window.alert("Wrong username or password"));
         setUserSignIn(initialState);
         console.log(userSingIn);
     };
@@ -200,6 +185,16 @@ export const SignIn = () => {
             .match(
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
+    };
+    const signInGitHub = async () => {
+        window.open("http://localhost:8080/oauth2/authorization/github", "_blank").focus();
+
+        await axios
+            .get("http://localhost:8080/auth/currentuser")
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => window.alert("Wrong username or password"));
     };
     return (
         <div>
@@ -241,27 +236,19 @@ export const SignIn = () => {
                     >
                         <h1 className="h1-signin">Sign In</h1>
                         <div className="social-media-buttons">
-                            <div className="icon">
+                            {/* <div className="icon">
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         fill="#000000"
                                         d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z"
                                     />
                                 </svg>
-                            </div>
+                            </div> */}
                             <div className="icon" onClick={signIn} style={{ cursor: "pointer" }}>
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         fill="#000000"
                                         d="M23,11H21V9H19V11H17V13H19V15H21V13H23M8,11V13.4H12C11.8,14.4 10.8,16.4 8,16.4C5.6,16.4 3.7,14.4 3.7,12C3.7,9.6 5.6,7.6 8,7.6C9.4,7.6 10.3,8.2 10.8,8.7L12.7,6.9C11.5,5.7 9.9,5 8,5C4.1,5 1,8.1 1,12C1,15.9 4.1,19 8,19C12,19 14.7,16.2 14.7,12.2C14.7,11.7 14.7,11.4 14.6,11H8Z"
-                                    />
-                                </svg>
-                            </div>
-                            <div className="icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path
-                                        fill="#000000"
-                                        d="M21,21H17V14.25C17,13.19 15.81,12.31 14.75,12.31C13.69,12.31 13,13.19 13,14.25V21H9V9H13V11C13.66,9.93 15.36,9.24 16.5,9.24C19,9.24 21,11.28 21,13.75V21M7,21H3V9H7V21M5,3A2,2 0 0,1 7,5A2,2 0 0,1 5,7A2,2 0 0,1 3,5A2,2 0 0,1 5,3Z"
                                     />
                                 </svg>
                             </div>
@@ -293,14 +280,6 @@ export const SignIn = () => {
                         <h1 className="h1-signin">Create Account</h1>
                         <div className="social-media-buttons">
                             <div className="icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path
-                                        fill="#000000"
-                                        d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z"
-                                    />
-                                </svg>
-                            </div>
-                            <div className="icon">
                                 <svg
                                     viewBox="0 0 24 24"
                                     onClick={signIn}
@@ -309,14 +288,6 @@ export const SignIn = () => {
                                     <path
                                         fill="#000000"
                                         d="M23,11H21V9H19V11H17V13H19V15H21V13H23M8,11V13.4H12C11.8,14.4 10.8,16.4 8,16.4C5.6,16.4 3.7,14.4 3.7,12C3.7,9.6 5.6,7.6 8,7.6C9.4,7.6 10.3,8.2 10.8,8.7L12.7,6.9C11.5,5.7 9.9,5 8,5C4.1,5 1,8.1 1,12C1,15.9 4.1,19 8,19C12,19 14.7,16.2 14.7,12.2C14.7,11.7 14.7,11.4 14.6,11H8Z"
-                                    />
-                                </svg>
-                            </div>
-                            <div className="icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path
-                                        fill="#000000"
-                                        d="M21,21H17V14.25C17,13.19 15.81,12.31 14.75,12.31C13.69,12.31 13,13.19 13,14.25V21H9V9H13V11C13.66,9.93 15.36,9.24 16.5,9.24C19,9.24 21,11.28 21,13.75V21M7,21H3V9H7V21M5,3A2,2 0 0,1 7,5A2,2 0 0,1 5,7A2,2 0 0,1 3,5A2,2 0 0,1 5,3Z"
                                     />
                                 </svg>
                             </div>
