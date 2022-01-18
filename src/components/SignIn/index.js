@@ -141,7 +141,7 @@ export const SignIn = () => {
     const onSignUp = async () => {
         if (validateEmail(user.email) && user.password == reTypePassword.reTypePassword) {
             await axios
-                .post("http://localhost:8080/auth/signup", user)
+                .post("https://user-sead-group3.herokuapp.com/auth/signup", user)
                 .then((res) => {
                     window.alert("Succesfully create user");
                 })
@@ -174,7 +174,7 @@ export const SignIn = () => {
 
     const onSignIn = async () => {
         await axios
-            .post("http://localhost:8080/auth/login", userSingIn)
+            .post("https://user-sead-group3.herokuapp.com/auth/login", userSingIn)
             .then((res) => {
                 console.log(res);
                 localStorage.setItem("information", JSON.stringify(res.data));
@@ -192,10 +192,10 @@ export const SignIn = () => {
             );
     };
     const signInGitHub = async () => {
-        window.open("http://localhost:8080/oauth2/authorization/github", "_blank").focus();
+        window.open("https://user-sead-group3.herokuapp.com/oauth2/authorization/github", "_blank").focus();
 
         await axios
-            .get("http://localhost:8080/auth/currentuser")
+            .get("https://user-sead-group3.herokuapp.com/auth/currentuser")
             .then((res) => {
                 console.log(res);
             })

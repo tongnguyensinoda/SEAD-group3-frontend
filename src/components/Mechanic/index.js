@@ -209,8 +209,8 @@ const MechanicForm = ({ information }) => {
     async function fetchData(param) {
         let fetchURL =
             mode === "request"
-                ? `http://localhost:8080/servicetran/getrequestjob?mechanic=${information.id}`
-                : `http://localhost:8080/servicetran/gettodojob?mechanic=${information.id}`;
+                ? `https://service-trans-sead-group3.herokuapp.com/servicetran/getrequestjob?mechanic=${information.id}`
+                : `https://service-trans-sead-group3.herokuapp.com/servicetran/gettodojob?mechanic=${information.id}`;
         await axios
             .get(fetchURL)
             .then((res) => {
@@ -280,7 +280,7 @@ const MechanicForm = ({ information }) => {
         },
     ];
     const acceptJob = async (serviceTransId) => {
-        let fetchURL = `http://localhost:8080/servicetran/acceptjob/${serviceTransId}`;
+        let fetchURL = `https://service-trans-sead-group3.herokuapp.com/servicetran/acceptjob/${serviceTransId}`;
         await axios
             .post(fetchURL, serviceTransId)
             .then((res) => {
@@ -290,7 +290,7 @@ const MechanicForm = ({ information }) => {
             .catch((error) => window.alert(error));
     };
     const finishJob = async (serviceTransId) => {
-        let fetchURL = `http://localhost:8080/servicetran/finishjob/${serviceTransId}`;
+        let fetchURL = `https://service-trans-sead-group3.herokuapp.com/servicetran/finishjob/${serviceTransId}`;
         await axios
             .post(fetchURL, serviceTransId)
             .then((res) => {

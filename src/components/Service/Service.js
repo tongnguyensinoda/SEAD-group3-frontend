@@ -34,7 +34,7 @@ export default function Service() {
 
     // Read the product information by categoryId
     useEffect(() => {
-        fetch("http://localhost:8080/category/" + id, {
+        fetch("https://service-sead-group3.herokuapp.com/category/" + id, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -43,14 +43,13 @@ export default function Service() {
             .then((response) => response.json())
             .then((data) => {
                 setService(data);
-                console.log("Hello");
             });
     }, [currentPage, id]);
 
     // Read the product information by productId
     if (service.type != null && checkState == 0) {
         setCheckState(1);
-        fetch(`http://localhost:8080/service/type?request=${service.type}&page=${currentPage}`, {
+        fetch(`https://service-sead-group3.herokuapp.com/service?type=${service.type}&page=${currentPage - 1}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -58,7 +57,8 @@ export default function Service() {
         })
             .then((response) => response.json())
             .then((data) => {
-                setData(data);
+                setData(data.services);
+                console.log(currentPage);
             });
     }
 
@@ -77,7 +77,6 @@ export default function Service() {
                             <div className="card" key={el.serviceId}>
                                 <p className="name">{el.name}</p>
                                 <p className="price">{el.cost} VND</p>
-                                <p className="rating">{el.rating}*</p>
                                 <button className="normalBtn" onClick={() => booking(el.serviceId)}>
                                     Booking
                                 </button>

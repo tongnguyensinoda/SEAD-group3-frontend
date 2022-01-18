@@ -22,7 +22,7 @@ export default function BookingService() {
 
     // Read the product information by serviceId
     useEffect(() => {
-        fetch("http://localhost:8080/service/" + id,{
+        fetch("https://service-sead-group3.herokuapp.com/service/" + id,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ export default function BookingService() {
 
     if ((pastedData.type != null) && (checkState == 0)){
         setCheckState(1);
-        fetch("http://localhost:8080/auth/mechanic/getall/type?request=" + pastedData.type,{
+        fetch("https://user-sead-group3.herokuapp.com/auth/mechanic/getall/type?request=" + pastedData.type,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ export default function BookingService() {
 
     // Submit the input product
     const onSubmit = (data) => {
-        fetch("http://localhost:8080/servicetran", {
+        fetch("https://service-trans-sead-group3.herokuapp.com/servicetran", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ export default function BookingService() {
                 totalCost: pastedData.cost
              })
         }).then(res => {alert("BOOKING SUCCESSFULLY!!!");})
-        fetch("http://localhost:8080/auth/mechanic/" + selectedOption.value + "?request=increase", {
+        fetch("https://user-sead-group3.herokuapp.com/auth/mechanic/" + selectedOption.value + "?request=increase", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -87,7 +87,6 @@ export default function BookingService() {
                     <h2>{pastedData.name}</h2>
                     <span></span>
                     <p>Price: {pastedData.cost}</p>
-                    <p>Rating: {pastedData.rating}</p>
                 </div>
                 <div className = "content3">
                     <form onSubmit = {handleSubmit(onSubmit)}>

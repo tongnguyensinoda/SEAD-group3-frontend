@@ -191,21 +191,11 @@ function Management() {
     function isEven(n) {
         return n % 2 === 0;
     }
-    // const handleAddItem = (newItem) => {
-    //     newItem.id = items.length + 1;
-    //     setUsers([...items, newItem]);
-    //     axios
-    //         .post(link2, newItem)
-    //         .then((res) => {
-    //             fetchData();
-    //             window.alert("Add item successfully");
-    //         })
-    //         .catch((error) => window.alert("All value should not be null"));
-    // };
     const deleteUser = async (id) => {
         setUsers(users.filter((user) => user.id !== id));
+        let fetchUrl = menuName ==="customer"? `https://user-sead-group3.herokuapp.com/auth/${id}`:menuName ==="service"? `https://service-sead-group3.herokuapp.com/service/${id}`:""
         await axios
-            .delete(`http://localhost:8080/auth/${id}`)
+            .delete(fetchUrl)
             .then((res) => {
                 window.alert("Delete succesfully");
             })
@@ -258,14 +248,14 @@ function Management() {
     async function fetchData(param) {
         let fetchURL =
             menuName === "serviceTran"
-                ? `http://localhost:8080/servicetran?page=${filters.currentPage - 1}&sort=${
+                ? `https://service-trans-sead-group3.herokuapp.com/servicetran?page=${filters.currentPage - 1}&sort=${
                       filters.sort
                   }&keyword=${filters.search}`
                 : menuName === "service"
-                ? `http://localhost:8080/service?page=${filters.currentPage - 1}&sort=${
+                ? `https://service-sead-group3.herokuapp.com/service?page=${filters.currentPage - 1}&sort=${
                       filters.sort
                   }&keyword=${filters.search}`
-                : `http://localhost:8080/auth/getall?role=${menuName}&page=${
+                : `https://user-sead-group3.herokuapp.com/auth/getall?role=${menuName}&page=${
                       filters.currentPage - 1
                   }&sort=${filters.sort}&keyword=${filters.search}`;
         await axios
@@ -299,14 +289,14 @@ function Management() {
         if (valid) {
             let fetchURL =
                 menuName === "mechanic"
-                    ? "http://localhost:8080/auth/addmechanic"
-                    : "http://localhost:8080/service";
+                    ? "https://user-sead-group3.herokuapp.com/auth/addmechanic"
+                    : "https://service-sead-group3.herokuapp.com/service";
             console.log(fetchURL);
             await axios
-                .post(fetchURL, item)
+                .post(fetchURL, item,{headers:{"Access-Control-Allow-Origin": "*","Content-Type":"application/json"}})
                 .then((res) => {
-                    console.log("hello");
                     window.alert("Added successfully");
+                    window.location.reload();
                 })
                 .catch((error) => window.alert(error));
         } else {
@@ -472,11 +462,11 @@ function EditModal(props) {
         },
     ]);
     const [item, setItem] = useState(
-        props.menuName === "mechanic" ? { password: 123, jobCount: 0 } : { rating: 0 }
+        props.menuName === "mechanic" ? { password: "123", jobCount: 0 } : { rating: 0 }
     );
     const fetch = async () => {
         await axios
-            .get("http://localhost:8080/category")
+            .get("https://service-sead-group3.herokuapp.com/category")
             .then((res) => {
                 setCategory(res.data);
             })
@@ -486,9 +476,8 @@ function EditModal(props) {
         fetch();
     }, [props]);
     const handleUpdate = () => {
-        console.log(item);
-        props.addUser(item);
-        setItem(props.menuName === "mechanic" ? { password: 123, jobCount: 0 } : { rating: 0 });
+        setItem(props.menuName === "mechanic" ? {...item, password: "123", jobCount: 0 } : { ...item,rating: 0 });
+        props.addUser(props.menuName === "mechanic" ? {...item, password: "123", jobCount: 0 } : { ...item,rating: 0 });
         props.onHide();
     };
     const handleInputChange = (event) => {

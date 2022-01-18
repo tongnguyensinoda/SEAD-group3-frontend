@@ -54,6 +54,7 @@ const ManagementCRUD = ({
         deleteUser(deleteId);
     };
     let tableHead;
+    console.log(users)
     let tableBody;
     if (menuName === "serviceTran") {
         tableHead = (
@@ -271,6 +272,7 @@ const ManagementCRUD = ({
                                     onClick={() => {
                                         setdeleteModalShow(true);
                                         setDeleteId(user.id);
+                                        
                                     }}
                                     style={{ color: theme === "light" ? "black" : "white" }}
                                 >
@@ -394,7 +396,7 @@ const ManagementCRUD = ({
                 <th>Service ID</th>
                 <th>Name</th>
                 <th>Cost</th>
-                <th>Rating</th>
+                {/* <th>Rating</th> */}
                 <th>Type</th>
                 <th>Action</th>
             </>
@@ -433,7 +435,7 @@ const ManagementCRUD = ({
                         >
                             <>{user.cost}</>
                         </td>
-                        <td
+                        {/* <td
                             style={{ width: "10%" }}
                             onClick={() => {
                                 // setItemModalShow(true);
@@ -442,7 +444,7 @@ const ManagementCRUD = ({
                             }}
                         >
                             <>{user.rating}</>
-                        </td>
+                        </td> */}
                         <td
                             style={{ width: "20%" }}
                             onClick={() => {
@@ -460,7 +462,7 @@ const ManagementCRUD = ({
                                     className="btn-delete center"
                                     onClick={() => {
                                         setdeleteModalShow(true);
-                                        setDeleteId(user.id);
+                                        setDeleteId(user.serviceId);
                                     }}
                                     style={{ color: theme === "light" ? "black" : "white" }}
                                 >

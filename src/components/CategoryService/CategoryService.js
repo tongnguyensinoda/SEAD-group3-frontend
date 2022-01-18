@@ -15,7 +15,7 @@ export default function CategoryService() {
     const [datasPerPage] = useState(4);
     const [totalData, setTotalData] = useState();
     // Define the product link
-    const endPoint = `http://localhost:8080/category/pagination?page=${currentPage - 1}`;
+    const endPoint = `https://service-sead-group3.herokuapp.com/category/pagination?page=${currentPage - 1}`;
 
     const indexOfLastData = currentPage * datasPerPage;
     const indexOfFirstData = indexOfLastData - datasPerPage;
