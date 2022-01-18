@@ -21,8 +21,8 @@ const Profile = ({ information }) => {
                             icon={<UserOutlined />}
                             style={{ marginBottom: "10px" }}
                         />
-                        <h4>Hoang Viet</h4>
-                        <p>Engineering</p>
+                        <h4>{information.name}</h4>
+                        {/* <p>Engineering</p> */}
                     </div>
                     <div class="right">
                         <div class="info">
