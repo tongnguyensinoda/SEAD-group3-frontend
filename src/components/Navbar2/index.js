@@ -117,7 +117,7 @@ const Navbar = ({ information }) => {
     return (
         <Wrapper>
             <Content>
-                <LeftNavItem content="SEAD" to="/home">
+                <LeftNavItem content="REE CORPORATION" to="/home">
                     <Link to="/home">
                         <img src={RocketLogo}></img>
                     </Link>

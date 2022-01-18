@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { useState } from "react";
 import HeaderComponent from "./components/HeaderComponent";
 import AboutUsComponent from "./components/About";
-import HomeComponent from "./components/HomeComponent";
+import HomeComponent from "./components/HomeComponent/HomeComponent";
 import FooterComponent from "./components/FooterComponent";
 import Management from "./components/Management";
 import Footer from "./components/Footer";
@@ -34,6 +34,7 @@ function App() {
                     <Route path="/categoryService" element={<CategoryService />} />
                     <Route path="/service/:id" element={<Service />} />
                     <Route path="/bookingService/:id" element={<BookingService />} />
+                    <Route path="/home" element={<HomeComponent />} />
                     <Route
                         path="/mechanicForm"
                         element={<MechanicForm information={information}></MechanicForm>}

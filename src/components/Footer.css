@@ -155,6 +155,7 @@ footer .box .content.about p {
 .contact .info li {
     display: flex;
     margin-bottom: 16px;
+    align-items: center;
 }
 .contact .info li span:nth-child(1) {
     color: #fff;

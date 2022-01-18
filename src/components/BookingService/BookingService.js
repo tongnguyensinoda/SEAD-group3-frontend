@@ -60,7 +60,7 @@ export default function BookingService() {
                 serviceName: pastedData.name,
                 totalCost: pastedData.cost
              })
-        }).then(res => {alert("POST SUCCESSFULLY!!!");})
+        }).then(res => {alert("BOOKING SUCCESSFULLY!!!");})
         fetch("http://localhost:8080/auth/mechanic/" + selectedOption.value + "?request=increase", {
             method: 'POST',
             headers: {

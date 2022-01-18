@@ -1,6 +1,6 @@
 import React from "react";
 import "./SignIn.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SubNav from "../SubNav";
 import GoogleLogin from "react-google-login";
 import { useGoogleLogin } from "react-google-login";
@@ -27,6 +27,11 @@ export const SignIn = () => {
     const [user, setUser] = useState(initialState);
     const [userSingIn, setUserSignIn] = useState({ email: "", password: "" });
     const [reTypePassword, setReTypePassword] = useState();
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     const openSignUp = () => {
         // Remove classes so that animations can restart on the next 'switch'
         // leftText.classList.remove("overlay-text-left-animation-out");
